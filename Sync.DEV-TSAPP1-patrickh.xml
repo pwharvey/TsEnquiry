@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><logs><log type="Controllers">
+<?xml version="1.0" encoding="utf-8"?><logs><log type="Controllers">
   <c y="NodeSet" t="2016-04-06T13:34:07">
     <controller name="StockCurrent" />
     <view id="grid1" />
@@ -12760,5 +12760,8 @@ from "wa"."qStockCurrent" "qStockCurrent"
     <update>
       <Roles>Enquiry</Roles>
     </update>
-  </c>
-</log></logs>
+  </c><c y="NodeSet" t="2016-11-02T16:02:16"><page name="StockCurrent" />
+<update>
+  <Title>Current Stock</Title>
+  <Description>View Current Stock</Description>
+</update></c></log></logs>
