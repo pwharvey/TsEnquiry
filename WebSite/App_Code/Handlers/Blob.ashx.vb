@@ -1067,6 +1067,15 @@ Namespace RedStag.Handlers
             End If
             Try 
                 Dim storageSystem As String = arguments("storage-system").ToLower()
+                If (storageSystem = "file") Then
+                    Return New FileSystemBlobAdapter(controller, arguments)
+                End If
+                If (storageSystem = "azure") Then
+                    Return New AzureBlobAdapter(controller, arguments)
+                End If
+                If (storageSystem = "s3") Then
+                    Return New S3BlobAdapter(controller, arguments)
+                End If
             Catch __exception As Exception
             End Try
             Return Nothing

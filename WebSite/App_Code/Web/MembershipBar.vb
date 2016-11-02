@@ -215,6 +215,12 @@ Namespace RedStag.Web
             bar.Properties.Add("EnableHistory", EnableHistory)
             bar.Properties.Add("User", Page.User.Identity.Name)
             bar.Properties.Add("Welcome", m_Welcome)
+            Dim sb As StringBuilder = New StringBuilder()
+            For Each c As String in CultureManager.SupportedCultures
+                Dim ci As CultureInfo = New CultureInfo(c.Split(Global.Microsoft.VisualBasic.ChrW(44))(1))
+                sb.AppendFormat("{0}|{1}|{2};", c, ci.NativeName, ci.Equals(System.Threading.Thread.CurrentThread.CurrentUICulture))
+            Next
+            bar.Properties.Add("Cultures", sb.ToString())
             If (IdleUserTimeout > 0) Then
                 bar.Properties.Add("IdleUserTimeout", (IdleUserTimeout * 60000))
             End If
