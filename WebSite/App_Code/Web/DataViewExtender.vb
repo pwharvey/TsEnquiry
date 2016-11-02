@@ -142,6 +142,10 @@ Namespace RedStag.Web
         <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
         Private m_ShowActionButtons As ActionButtonLocation
         
+        Private m_ShowSearchBar As Boolean
+        
+        Private m_ShowModalForms As Boolean
+        
         Private m_FilterSource As String
         
         Private m_FilterFields As String
@@ -220,6 +224,7 @@ Namespace RedStag.Web
             Me.m_ShowDetailsInListMode = true
             Me.m_ShowPager = PagerLocation.Bottom
             Me.m_ShowPageSize = true
+            Me.m_ShowSearchBar = true
             m_ShowDescription = true
             m_ShowViewSelector = true
             m_SummaryFieldCount = 5
@@ -292,6 +297,29 @@ Namespace RedStag.Web
             End Get
             Set
                 Me.m_ShowActionButtons = value
+            End Set
+        End Property
+        
+        <System.ComponentModel.Description("Specifies if the search bar is enabled in the views of the data controller."),  _
+         System.ComponentModel.DefaultValue(true)>  _
+        Public Property ShowSearchBar() As Boolean
+            Get
+                Return m_ShowSearchBar
+            End Get
+            Set
+                m_ShowSearchBar = value
+            End Set
+        End Property
+        
+        <System.ComponentModel.Description("Specifies that form views are displayed as modal popups. The default form renderi"& _ 
+            "ng mode is in-place."),  _
+         System.ComponentModel.DefaultValue(true)>  _
+        Public Property ShowModalForms() As Boolean
+            Get
+                Return m_ShowModalForms
+            End Get
+            Set
+                m_ShowModalForms = value
             End Set
         End Property
         
@@ -650,6 +678,12 @@ Namespace RedStag.Web
             If Not (ShowDetailsInListMode) Then
                 descriptor.AddProperty("showDetailsInListMode", false)
             End If
+            If ShowSearchBar Then
+                descriptor.AddProperty("showSearchBar", true)
+            End If
+            If ShowModalForms Then
+                descriptor.AddProperty("showModalForms", true)
+            End If
             If SearchOnStart Then
                 descriptor.AddProperty("searchOnStart", true)
             End If
@@ -711,6 +745,15 @@ Namespace RedStag.Web
             End If
             If SearchByFirstLetter Then
                 descriptor.AddProperty("showFirstLetters", true)
+            End If
+            If AutoSelectFirstRow Then
+                descriptor.AddProperty("autoSelectFirstRow", true)
+            End If
+            If AutoHighlightFirstRow Then
+                descriptor.AddProperty("autoHighlightFirstRow", true)
+            End If
+            If (RefreshInterval > 0) Then
+                descriptor.AddProperty("refreshInterval", RefreshInterval)
             End If
             If Not (ShowQuickFind) Then
                 descriptor.AddProperty("showQuickFind", false)

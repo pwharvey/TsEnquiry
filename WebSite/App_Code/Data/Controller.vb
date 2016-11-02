@@ -293,6 +293,9 @@ Namespace RedStag.Data
             If requiresLocalization Then
                 config = config.Localize(controller)
             End If
+            If config.RequiresVirtualization(controller) Then
+                config = config.Virtualize(controller)
+            End If
             config.Complete()
             HttpContext.Current.Items(configKey) = config
             Return config
@@ -394,9 +397,93 @@ Namespace RedStag.Data
             If String.IsNullOrEmpty(command.CommandText) Then
                 command.CommandText = commandNav.InnerXml
             End If
-            If ((command.CommandType = CommandType.StoredProcedure) OrElse commandNav.Select("c:parameters/c:parameter", Resolver).MoveNext()) Then
-                Throw New Exception("Commands of type Stored Procedure and command parameters are available in Premium"& _ 
-                        " edition only.")
+            Dim handler As IActionHandler = m_Config.CreateActionHandler()
+            Dim parameterIterator As XPathNodeIterator = commandNav.Select("c:parameters/c:parameter", Resolver)
+            Dim missingFields As SortedDictionary(Of String, String) = Nothing
+            Do While parameterIterator.MoveNext()
+                Dim parameter As DbParameter = command.CreateParameter()
+                parameter.ParameterName = parameterIterator.Current.GetAttribute("name", String.Empty)
+                Dim s As String = parameterIterator.Current.GetAttribute("type", String.Empty)
+                If Not (String.IsNullOrEmpty(s)) Then
+                    parameter.DbType = CType(TypeDescriptor.GetConverter(GetType(DbType)).ConvertFromString(s),DbType)
+                End If
+                s = parameterIterator.Current.GetAttribute("direction", String.Empty)
+                If Not (String.IsNullOrEmpty(s)) Then
+                    parameter.Direction = CType(TypeDescriptor.GetConverter(GetType(ParameterDirection)).ConvertFromString(s),ParameterDirection)
+                End If
+                command.Parameters.Add(parameter)
+                s = parameterIterator.Current.GetAttribute("defaultValue", String.Empty)
+                If Not (String.IsNullOrEmpty(s)) Then
+                    parameter.Value = s
+                End If
+                s = parameterIterator.Current.GetAttribute("fieldName", String.Empty)
+                If ((Not (args) Is Nothing) AndAlso Not (String.IsNullOrEmpty(s))) Then
+                    Dim v As FieldValue = args.SelectFieldValueObject(s)
+                    If (Not (v) Is Nothing) Then
+                        s = parameterIterator.Current.GetAttribute("fieldValue", String.Empty)
+                        If (s = "Old") Then
+                            parameter.Value = v.OldValue
+                        Else
+                            If (s = "New") Then
+                                parameter.Value = v.NewValue
+                            Else
+                                parameter.Value = v.Value
+                            End If
+                        End If
+                    Else
+                        If (missingFields Is Nothing) Then
+                            missingFields = New SortedDictionary(Of String, String)()
+                        End If
+                        missingFields.Add(parameter.ParameterName, s)
+                    End If
+                End If
+                s = parameterIterator.Current.GetAttribute("propertyName", String.Empty)
+                If (Not (String.IsNullOrEmpty(s)) AndAlso (Not (handler) Is Nothing)) Then
+                    Dim result As Object = handler.GetType().InvokeMember(s, (System.Reflection.BindingFlags.GetProperty Or System.Reflection.BindingFlags.GetField), Nothing, handler, New Object(-1) {})
+                    parameter.Value = result
+                End If
+                If (parameter.Value Is Nothing) Then
+                    parameter.Value = DBNull.Value
+                End If
+            Loop
+            If (Not (missingFields) Is Nothing) Then
+                Dim retrieveMissingValues As Boolean = true
+                Dim filter As List(Of String) = New List(Of String)()
+                Dim page As ViewPage = CreateViewPage()
+                For Each field As DataField in page.Fields
+                    If field.IsPrimaryKey Then
+                        Dim v As FieldValue = args.SelectFieldValueObject(field.Name)
+                        If (v Is Nothing) Then
+                            retrieveMissingValues = false
+                            Exit For
+                        Else
+                            filter.Add(String.Format("{0}:={1}", v.Name, v.Value))
+                        End If
+                    End If
+                Next
+                If retrieveMissingValues Then
+                    Dim editView As String = CType(m_Config.Evaluate("string(//c:view[@type='Form']/@id)"),String)
+                    If Not (String.IsNullOrEmpty(editView)) Then
+                        Dim request As PageRequest = New PageRequest(0, 1, Nothing, filter.ToArray())
+                        request.RequiresMetaData = true
+                        page = ControllerFactory.CreateDataController().GetPage(args.Controller, editView, request)
+                        If (page.Rows.Count > 0) Then
+                            For Each parameterName As String in missingFields.Keys
+                                Dim index As Integer = 0
+                                Dim fieldName As String = missingFields(parameterName)
+                                For Each field As DataField in page.Fields
+                                    If field.Name.Equals(fieldName) Then
+                                        Dim v As Object = page.Rows(0)(index)
+                                        If (Not (v) Is Nothing) Then
+                                            command.Parameters(parameterName).Value = v
+                                        End If
+                                    End If
+                                    index = (index + 1)
+                                Next
+                            Next
+                        End If
+                    End If
+                End If
             End If
             Return command
         End Function
@@ -703,6 +790,7 @@ Namespace RedStag.Data
                 sb.AppendLine(" and ")
             End If
             AppendSystemFilter(command, page, expressions)
+            AppendAccessControlRules(command, page, expressions)
             If (((Not (page.Filter) Is Nothing) AndAlso (page.Filter.Length > 0)) OrElse Not (String.IsNullOrEmpty(m_ViewFilter))) Then
                 AppendFilterExpressionsToWhere(sb, page, command, expressions, whereClause)
             Else
@@ -805,7 +893,132 @@ Namespace RedStag.Data
         End Sub
         
         Protected Overridable Function ConfigureCTE(ByVal sb As StringBuilder, ByVal page As ViewPage, ByVal command As DbCommand, ByVal expressions As SelectClauseDictionary, ByVal performCount As Boolean) As Boolean
-            Return false
+            If Not (RequiresHierarchy(page)) Then
+                Return false
+            End If
+            'detect hierarchy
+            Dim primaryKeyField As DataField = Nothing
+            Dim parentField As DataField = Nothing
+            Dim sortField As DataField = Nothing
+            Dim sortOrder As String = "asc"
+            Dim hierarchyOrganization As String = HierarchyOrganizationFieldName
+            For Each field As DataField in page.Fields
+                If field.IsPrimaryKey Then
+                    primaryKeyField = field
+                End If
+                If field.IsTagged("hierarchy-parent") Then
+                    parentField = field
+                Else
+                    If field.IsTagged("hierarchy-organization") Then
+                        hierarchyOrganization = field.Name
+                    End If
+                End If
+            Next
+            If (parentField Is Nothing) Then
+                Return false
+            End If
+            'select a hierarchy sort field
+            If (sortField Is Nothing) Then
+                If Not (String.IsNullOrEmpty(page.SortExpression)) Then
+                    Dim sortExpression As Match = Regex.Match(page.SortExpression, "(?'FieldName'\w+)(\s+(?'SortOrder'asc|desc)?)", RegexOptions.IgnoreCase)
+                    If sortExpression.Success Then
+                        For Each field As DataField in page.Fields
+                            If (field.Name = sortExpression.Groups("FieldName").Value) Then
+                                sortField = field
+                                sortOrder = sortExpression.Groups("SortOrder").Value
+                                Exit For
+                            End If
+                        Next
+                    End If
+                End If
+                If (sortField Is Nothing) Then
+                    For Each field As DataField in page.Fields
+                        If Not (field.Hidden) Then
+                            sortField = field
+                            Exit For
+                        End If
+                    Next
+                End If
+            End If
+            If (sortField Is Nothing) Then
+                sortField = page.Fields(0)
+            End If
+            'append a hierarchical CTE
+            Dim isOracle As Boolean = DatabaseEngineIs(command, "Oracle")
+            sb.AppendLine("),")
+            sb.AppendLine("h__(")
+            Dim first As Boolean = true
+            For Each field As DataField in page.Fields
+                If first Then
+                    first = false
+                Else
+                    sb.Append(",")
+                End If
+                sb.AppendFormat("{0}{1}{2}", m_LeftQuote, field.Name, m_RightQuote)
+                sb.AppendLine()
+            Next
+            sb.AppendFormat(",{0}{1}{2}", m_LeftQuote, hierarchyOrganization, m_RightQuote)
+            sb.AppendLine(")as(")
+            'top-level of self-referring CTE
+            sb.AppendLine("select")
+            first = true
+            For Each field As DataField in page.Fields
+                If first Then
+                    first = false
+                Else
+                    sb.Append(",")
+                End If
+                sb.AppendFormat("h1__.{0}{1}{2}", m_LeftQuote, field.Name, m_RightQuote)
+                sb.AppendLine()
+            Next
+            'add top-level hierarchy organization field
+            If isOracle Then
+                sb.AppendFormat(",lpad(cast(row_number() over (partition by h1__.{0}{1}{2} order by h1__.{0}{3}{2}"& _ 
+                        " {4}) as varchar(5)), 5, '0') as {0}{5}{2}", m_LeftQuote, parentField.Name, m_RightQuote, sortField.Name, sortOrder, hierarchyOrganization)
+            Else
+                sb.AppendFormat(",cast(right('0000' + cast(row_number() over (partition by h1__.{0}{1}{2} order by"& _ 
+                        " h1__.{0}{3}{2} {4}) as varchar), 4) as varchar) as {0}{5}{2}", m_LeftQuote, parentField.Name, m_RightQuote, sortField.Name, sortOrder, hierarchyOrganization)
+            End If
+            'add top-level "from" clause
+            sb.AppendLine()
+            sb.AppendFormat("from page_cte__ h1__ where h1__.{0}{1}{2} is null ", m_LeftQuote, parentField.Name, m_RightQuote)
+            sb.AppendLine()
+            sb.AppendLine("union all")
+            'sublevel of self-referring CTE
+            sb.AppendLine("select")
+            first = true
+            For Each field As DataField in page.Fields
+                If first Then
+                    first = false
+                Else
+                    sb.Append(",")
+                End If
+                sb.AppendFormat("h2__.{0}{1}{2}", m_LeftQuote, field.Name, m_RightQuote)
+                sb.AppendLine()
+            Next
+            'add sublevel hierarchy organization field
+            If isOracle Then
+                sb.AppendFormat(",h__.{0}{5}{2} || '/' || lpad(cast(row_number() over (partition by h2__.{0}{1}{2}"& _ 
+                        " order by h2__.{0}{3}{2} {4}) as varchar(5)), 5, '0') as {0}{5}{2}", m_LeftQuote, parentField.Name, m_RightQuote, sortField.Name, sortOrder, hierarchyOrganization)
+            Else
+                sb.AppendFormat(",convert(varchar, h__.{0}{5}{2} + '/' + cast(right('0000' + cast(row_number() ove"& _ 
+                        "r (partition by h2__.{0}{1}{2} order by h2__.{0}{3}{2} {4}) as varchar), 4) as v"& _ 
+                        "archar)) as {0}{5}{2}", m_LeftQuote, parentField.Name, m_RightQuote, sortField.Name, sortOrder, hierarchyOrganization)
+            End If
+            sb.AppendLine()
+            'add sublevel "from" clause
+            sb.AppendFormat("from page_cte__ h2__ inner join h__ on h2__.{0}{1}{2} = h__.{0}{3}{2}", m_LeftQuote, parentField.Name, m_RightQuote, primaryKeyField.Name)
+            sb.AppendLine()
+            sb.AppendLine("),")
+            sb.AppendFormat("ho__ as (select row_number() over (order by ({0}{1}{2})) as row_number__, h__.* f"& _ 
+                    "rom h__)", m_LeftQuote, hierarchyOrganization, m_RightQuote)
+            If performCount Then
+                sb.AppendLine("select count(*) from ho__")
+            Else
+                sb.AppendLine("select * from ho__")
+            End If
+            sb.AppendLine()
+            Return true
         End Function
         
         Private Sub AppendFirstLetterExpressions(ByVal sb As StringBuilder, ByVal page As ViewPage, ByVal expressions As SelectClauseDictionary, ByVal substringFunction As String)

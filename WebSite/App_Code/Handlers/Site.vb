@@ -28,6 +28,8 @@ Namespace RedStag.Handlers
         Inherits SiteBase
         
         Shared Sub New()
+            AquariumExtenderBase.EnableCombinedScript = true
+            ApplicationServices.EnableMinifiedCss = true
         End Sub
     End Class
     
@@ -415,6 +417,16 @@ Namespace RedStag.Handlers
         
         Protected Sub sm_ResolveScriptReference(ByVal sender As Object, ByVal e As ScriptReferenceEventArgs)
             If (System.Array.IndexOf(MicrosoftJavaScript, e.Script.Name) >= 0) Then
+                If AquariumExtenderBase.EnableCombinedScript Then
+                    Dim lang As String = CultureInfo.CurrentUICulture.IetfLanguageTag.ToLower()
+                    Dim scriptPath As String = ResolveUrl(String.Format("~/appservices/combined-{0}.{1}.js", ApplicationServices.Version, lang))
+                    If ApplicationServices.IsTouchClient Then
+                        scriptPath = String.Format("{0}?_spa", scriptPath)
+                    End If
+                    e.Script.Path = scriptPath
+                    e.Script.ResourceUICultures = Nothing
+                    Return
+                End If
                 e.Script.Path = String.Format("~/Scripts/{0}?{1}", e.Script.Name, ApplicationServices.Version)
             End If
         End Sub
