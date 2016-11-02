@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?><logs><log type="Controllers"></log><log type="Application"><c y="NodeSet" t="2016-11-02T15:53:05"><page name="StockCurrent" />
+<update>
+  <Description>View Stock</Description>
+</update></c><c y="NodeSet" t="2016-11-02T15:56:50"><page name="StockCurrent" />
+<update>
+  <Title>Current TS Stock</Title>
+</update></c></log></logs>

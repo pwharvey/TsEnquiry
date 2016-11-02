@@ -29,6 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Code On Time Items", "Code 
 		DataAquarium.Project.xml = DataAquarium.Project.xml
 		DataAquarium.Version.xml = DataAquarium.Version.xml
 		Sync.DEV-TSAPP1-patrickh.xml = Sync.DEV-TSAPP1-patrickh.xml
+		Sync.HSSSURFACEBOOK-patri.xml = Sync.HSSSURFACEBOOK-patri.xml
 	EndProjectSection
 EndProject
 Global
