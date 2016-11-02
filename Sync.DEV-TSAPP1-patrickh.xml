@@ -12764,4 +12764,7 @@ from "wa"."qStockCurrent" "qStockCurrent"
 <update>
   <Title>Current Stock</Title>
   <Description>View Current Stock</Description>
+</update></c><c y="NodeSet" t="2016-11-03T07:43:31"><page name="StockCurrent" />
+<update>
+  <Title>Current Stock</Title>
 </update></c></log></logs>

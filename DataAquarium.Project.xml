@@ -2,7 +2,7 @@
   This file is provided to store the settings for your Data Aquarium project. 
   You can safely delete this file if no further code generation is planned.
 -->
-<project compatibility="20111118" dataModel="required" subscriptionLevel="Free" name="TsEnquiry" prettyName="Ts Enquiry" type="Web Site Factory" codeDomProvider="VisualBasic" targetFramework="4.6" userInterface="TouchUI" pageImplementation="html" sourceControl="git" xmlns="urn:schemas-codeontime-com:data-aquarium-project">
+<project compatibility="20111118" dataModel="required" subscriptionLevel="Unlimited" name="TsEnquiry" prettyName="Ts Enquiry" type="Web Site Factory" codeDomProvider="VisualBasic" targetFramework="4.6" userInterface="TouchUI" pageImplementation="html" sourceControl="git" xmlns="urn:schemas-codeontime-com:data-aquarium-project">
   <connectionString hostDatabaseSharing="false" sessionStateMode="None">Data Source=tsdb;Initial Catalog=Timbersmart;Persist Security Info=True;User ID=TsEnquiryApp;Password=t1mber;</connectionString>
   <providerName>System.Data.SqlClient</providerName>
   <namespace>RedStag</namespace>
