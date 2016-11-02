@@ -666,6 +666,241 @@ Namespace RedStag.Data
         End Property
     End Class
     
+    Public Class AccessControlRule
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_AccessControl As AccessControlAttribute
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_Method As MethodInfo
+        
+        Public Sub New(ByVal accessControl As AccessControlAttribute, ByVal method As MethodInfo)
+            MyBase.New
+            Me.m_AccessControl = accessControl
+            Me.m_Method = method
+        End Sub
+        
+        Public Property AccessControl() As AccessControlAttribute
+            Get
+                Return Me.m_AccessControl
+            End Get
+            Set
+                Me.m_AccessControl = value
+            End Set
+        End Property
+        
+        Public Property Method() As MethodInfo
+            Get
+                Return Me.m_Method
+            End Get
+            Set
+                Me.m_Method = value
+            End Set
+        End Property
+    End Class
+    
+    Public Class AccessControlRuleDictionary
+        Inherits SortedDictionary(Of String, List(Of AccessControlRule))
+    End Class
+    
+    Public Class DynamicAccessControlList
+        Inherits List(Of DynamicAccessControlRule)
+        
+        Public Shared RuleRegex As Regex = New Regex("(?'ParamList'^(\s*([\w\-]+)\s*(\:|\=)\s*(.+?)\n)+)", RegexOptions.Multiline)
+        
+        Public Shared ParamRegex As Regex = New Regex("^(?'Name'[\w\-]+)\s*(\:|\=)\s*(?'Value'.+)$", RegexOptions.Multiline)
+        
+        Public Overridable Sub Parse(ByVal fileName As String, ByVal rules As String)
+            Dim parameters As SortedDictionary(Of String, String) = New SortedDictionary(Of String, String)()
+            Dim ruleMatch As Match = RuleRegex.Match(rules)
+            Do While ruleMatch.Success
+                parameters.Clear()
+                Dim paramMatch As Match = ParamRegex.Match(ruleMatch.Groups("ParamList").Value)
+                Do While paramMatch.Success
+                    parameters(paramMatch.Groups("Name").Value.ToLower().Replace("-", String.Empty)) = paramMatch.Groups("Value").Value.Trim()
+                    paramMatch = paramMatch.NextMatch()
+                Loop
+                Dim v As String = Nothing
+                If parameters.TryGetValue("field", v) Then
+                    Dim r As DynamicAccessControlRule = New DynamicAccessControlRule()
+                    r.Field = v
+                    If parameters.TryGetValue("controller", v) Then
+                        r.Controller = v
+                    End If
+                    If parameters.TryGetValue("tags", v) Then
+                        r.Tags = BusinessRules.ListRegex.Split(v)
+                    End If
+                    If parameters.TryGetValue("roles", v) Then
+                        r.Roles = BusinessRules.ListRegex.Split(v)
+                    End If
+                    If parameters.TryGetValue("roleexceptions", v) Then
+                        r.RoleExceptions = BusinessRules.ListRegex.Split(v)
+                    End If
+                    If parameters.TryGetValue("users", v) Then
+                        r.Users = BusinessRules.ListRegex.Split(v)
+                    End If
+                    If parameters.TryGetValue("userexceptions", v) Then
+                        r.UserExceptions = BusinessRules.ListRegex.Split(v)
+                    End If
+                    parameters.TryGetValue("type", v)
+                    Dim index As Integer = (ruleMatch.Index + ruleMatch.Length)
+                    Dim nextIndex As Integer = rules.Length
+                    ruleMatch = ruleMatch.NextMatch()
+                    If ruleMatch.Success Then
+                        nextIndex = ruleMatch.Index
+                    End If
+                    Dim sql As String = rules.Substring(index, (nextIndex - index)).Trim()
+                    If "deny".Equals(v, StringComparison.OrdinalIgnoreCase) Then
+                        r.DenySql = sql
+                    Else
+                        r.AllowSql = sql
+                    End If
+                    Add(r)
+                Else
+                    ruleMatch = ruleMatch.NextMatch()
+                End If
+            Loop
+        End Sub
+    End Class
+    
+    Public Class DynamicAccessControlRule
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_Field As String
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_Controller As String
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_Tags() As String
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_Roles() As String
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_RoleExceptions() As String
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_Users() As String
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_UserExceptions() As String
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_AllowSql As String
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_DenySql As String
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_FileName As String
+        
+        Public Overridable Property Field() As String
+            Get
+                Return Me.m_Field
+            End Get
+            Set
+                Me.m_Field = value
+            End Set
+        End Property
+        
+        Public Overridable Property Controller() As String
+            Get
+                Return Me.m_Controller
+            End Get
+            Set
+                Me.m_Controller = value
+            End Set
+        End Property
+        
+        Public Overridable Property Tags() As String()
+            Get
+                Return Me.m_Tags
+            End Get
+            Set
+                Me.m_Tags = value
+            End Set
+        End Property
+        
+        Public Overridable Property Roles() As String()
+            Get
+                Return Me.m_Roles
+            End Get
+            Set
+                Me.m_Roles = value
+            End Set
+        End Property
+        
+        Public Overridable Property RoleExceptions() As String()
+            Get
+                Return Me.m_RoleExceptions
+            End Get
+            Set
+                Me.m_RoleExceptions = value
+            End Set
+        End Property
+        
+        Public Overridable Property Users() As String()
+            Get
+                Return Me.m_Users
+            End Get
+            Set
+                Me.m_Users = value
+            End Set
+        End Property
+        
+        Public Overridable Property UserExceptions() As String()
+            Get
+                Return Me.m_UserExceptions
+            End Get
+            Set
+                Me.m_UserExceptions = value
+            End Set
+        End Property
+        
+        Public Overridable Property AllowSql() As String
+            Get
+                Return Me.m_AllowSql
+            End Get
+            Set
+                Me.m_AllowSql = value
+            End Set
+        End Property
+        
+        Public Overridable Property DenySql() As String
+            Get
+                Return Me.m_DenySql
+            End Get
+            Set
+                Me.m_DenySql = value
+            End Set
+        End Property
+        
+        Public Overridable Property FileName() As String
+            Get
+                Return Me.m_FileName
+            End Get
+            Set
+                Me.m_FileName = value
+            End Set
+        End Property
+        
+        Public Overrides Function ToString() As String
+            Dim mode As String = "allow"
+            Dim sql As String = AllowSql
+            If String.IsNullOrEmpty(AllowSql) Then
+                sql = DenySql
+                mode = "deny"
+            End If
+            Dim trigger As String = Controller
+            If Not (String.IsNullOrEmpty(trigger)) Then
+                trigger = (trigger + ".")
+            End If
+            trigger = (trigger + Field)
+            Return String.Format("{0} ({1}) -> {2}", trigger, mode, sql.Trim())
+        End Function
+    End Class
+    
     Partial Public Class BusinessRules
         Inherits BusinessRulesBase
         
@@ -693,6 +928,8 @@ Namespace RedStag.Data
         <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
         Private m_EnableEmailMessages As Boolean
         
+        Private m_EmailMessages As DataTable
+        
         <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
         Private m_Config As ControllerConfiguration
         
@@ -706,6 +943,28 @@ Namespace RedStag.Data
         Private m_Page As ViewPage
         
         Private m_RowFilter As RowFilterContext
+        
+        Private m_ApplyAccessControlRule As Boolean = false
+        
+        Private m_AccessControlRestrictions As List(Of Object)
+        
+        Private m_AccessControlCommand As DbCommand
+        
+        Private m_DynamicAccessControlRules As AccessControlRuleDictionary
+        
+        Private m_Expressions As SelectClauseDictionary
+        
+        Public Shared FieldNameRegex As Regex = New Regex("\[(\w+)\]")
+        
+        Private m_SqlIsValid As Boolean
+        
+        Public Shared SelectDetectionRegex As Regex = New Regex("^\s*select\s+", RegexOptions.IgnoreCase)
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_Navigator As XPathNavigator
+        
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_Resolver As XmlNamespaceManager
         
         <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
         Private m_EnableDccTest As Boolean
@@ -782,6 +1041,22 @@ Namespace RedStag.Data
             End Get
             Set
                 Me.m_EnableEmailMessages = value
+            End Set
+        End Property
+        
+        Public Property EmailMessages() As DataTable
+            Get
+                Return m_EmailMessages
+            End Get
+            Set
+                EnableEmailMessages = true
+                m_EmailMessages = value
+                If (Not (value) Is Nothing) Then
+                    For Each message As DataRow in value.Rows
+                        Email(message)
+                    Next
+                End If
+                EnableEmailMessages = false
             End Set
         End Property
         
@@ -870,6 +1145,24 @@ Namespace RedStag.Data
                 End If
                 Return Nothing
             End Get
+        End Property
+        
+        Protected Property Navigator() As XPathNavigator
+            Get
+                Return Me.m_Navigator
+            End Get
+            Set
+                Me.m_Navigator = value
+            End Set
+        End Property
+        
+        Protected Property Resolver() As XmlNamespaceManager
+            Get
+                Return Me.m_Resolver
+            End Get
+            Set
+                Me.m_Resolver = value
+            End Set
         End Property
         
         Public Property EnableDccTest() As Boolean
@@ -1419,16 +1712,575 @@ Namespace RedStag.Data
             Return Nothing
         End Function
         
+        ''' <summary>
+        ''' Creates a controller node set to manipulate the XML definition of data controller.
+        ''' </summary>
+        ''' <returns>Returns an empty node set.</returns>
+        Public Overloads Function NodeSet() As ControllerNodeSet
+            If (Navigator Is Nothing) Then
+                Return New ControllerNodeSet(Config.Navigator, CType(Config.Resolver,XmlNamespaceManager))
+            End If
+            Return New ControllerNodeSet(Navigator, Resolver)
+        End Function
+        
+        ''' <summary>
+        ''' Creates a controller node set matched to XPath selector. Controller node set allows manipulating the XML definition of data controller.
+        ''' </summary>
+        ''' <param name="selector">XPath expression evaluated against the definition of the data controller. May contain variables.</param>
+        ''' <param name="args">Optional values of variables. If variables are specified then the expression is evaluated for each variable or group of variables specified in the selector.</param>
+        ''' <example>field[@name=$name]</example>
+        ''' <returns>A node set containing selected data controller nodes.</returns>
+        Protected Overloads Function NodeSet(ByVal selector As String, ByVal ParamArray args() as System.[String]) As ControllerNodeSet
+            Return New ControllerNodeSet(Navigator, Resolver).Select(selector, args)
+        End Function
+        
+        Protected Sub UnrestrictedAccess()
+            m_ApplyAccessControlRule = false
+        End Sub
+        
+        Protected Overridable Function UserIsInRole(ByVal ParamArray rules() as System.[String]) As Boolean
+            Return DataControllerBase.UserIsInRole(rules)
+        End Function
+        
+        Protected Overloads Sub RestrictAccess()
+            m_ApplyAccessControlRule = true
+        End Sub
+        
+        Protected Overloads Sub RestrictAccess(ByVal value As Object)
+            m_AccessControlRestrictions.Add(value)
+            m_ApplyAccessControlRule = true
+        End Sub
+        
+        Protected Overloads Sub RestrictAccess(ByVal parameterName As String, ByVal value As Object)
+            Dim parameter As DbParameter = Nothing
+            For Each p As DbParameter in m_AccessControlCommand.Parameters
+                If (p.ParameterName = parameterName) Then
+                    parameter = p
+                    Exit For
+                End If
+            Next
+            If (parameter Is Nothing) Then
+                parameter = m_AccessControlCommand.CreateParameter()
+                parameter.ParameterName = parameterName
+                m_AccessControlCommand.Parameters.Add(parameter)
+            End If
+            parameter.Value = value
+            m_ApplyAccessControlRule = true
+        End Sub
+        
+        Private Function CreateDynamicAccessControlAttribute(ByVal fieldName As String) As AccessControlAttribute
+            If (m_DynamicAccessControlRules Is Nothing) Then
+                m_DynamicAccessControlRules = New AccessControlRuleDictionary()
+            End If
+            Dim a As AccessControlAttribute = New AccessControlAttribute(fieldName)
+            Dim attributes As List(Of AccessControlRule) = Nothing
+            If Not (m_DynamicAccessControlRules.TryGetValue(fieldName, attributes)) Then
+                attributes = New List(Of AccessControlRule)()
+                m_DynamicAccessControlRules.Add(fieldName, attributes)
+            End If
+            attributes.Add(New AccessControlRule(a, Nothing))
+            Return a
+        End Function
+        
+        ''' <summary>
+        ''' Registers the access control rule that will be active only while processing the current request.
+        ''' </summary>
+        ''' <param name="fieldName">The name of the data field that must be present in the data view for the rule to be activated.</param>
+        ''' <param name="sql">The arbitrary SQL expression that will filter data. Names of the data fields can be referenced if enclosed in square brackets.</param>
+        ''' <param name="permission">The permission to allow or deny access to data. Access control rules are combined according to this formula: (List of  “Allow” restrictions) and Not (List of “Deny” restrictions).</param>
+        ''' <param name="parameters">Values of parameters references in SQL expression.</param>
+        Protected Overloads Sub RegisterAccessControlRule(ByVal fieldName As String, ByVal sql As String, ByVal permission As AccessPermission, ByVal ParamArray parameters() as SqlParam)
+            If Not (m_Page.ContainsField(fieldName)) Then
+                Return
+            End If
+            Dim a As AccessControlAttribute = CreateDynamicAccessControlAttribute(fieldName)
+            a.Sql = sql
+            a.Permission = permission
+            a.Parameters = New List(Of SqlParam)()
+            If (parameters.Length = 0) Then
+                Using query As SqlText = New SqlText(sql)
+                    Dim m As Match = New Regex((Regex.Escape(query.ParameterMarker) + "([\w_]+)")).Match(sql)
+                    Do While m.Success
+                        If Not (query.Parameters.Contains(m.Value)) Then
+                            IsSystemSqlParameter(query, m.Value)
+                        End If
+                        m = m.NextMatch()
+                    Loop
+                    For Each p As DbParameter in query.Parameters
+                        a.Parameters.Add(New SqlParam(p.ParameterName, p.Value))
+                    Next
+                End Using
+            Else
+                For Each p As SqlParam in parameters
+                    a.Parameters.Add(p)
+                Next
+            End If
+        End Sub
+        
+        ''' <summary>
+        ''' Registers the access control rule that will be active only while processing the current request.
+        ''' </summary>
+        ''' <param name="fieldName">The name of the data field that must be present in the data view for the rule to be activated.</param>
+        ''' <param name="permission">The permission to allow or deny access to data. Access control rules are combined according to this formula: (List of  “Allow” restrictions) and Not (List of “Deny” restrictions).</param>
+        ''' <param name="values">The list of values that will be matched to the SQL expression corresponding to the name of the field triggering the activation of the access control rule.</param>
+        Protected Overloads Sub RegisterAccessControlRule(ByVal fieldName As String, ByVal permission As AccessPermission, ByVal ParamArray values() as System.[Object])
+            If Not (m_Page.ContainsField(fieldName)) Then
+                Return
+            End If
+            Dim a As AccessControlAttribute = CreateDynamicAccessControlAttribute(fieldName)
+            a.Permission = permission
+            If (values Is Nothing) Then
+                values = New Object() {Nothing}
+            End If
+            a.Restrictions = New List(Of Object)(values)
+        End Sub
+        
+        ''' <summary>
+        ''' Enumerates the list of all access control rules that must be activated when processing the current request.
+        ''' </summary>
+        ''' <param name="controllerName">The name of the data controller that is requiring processing via the business rules.</param>
+        Protected Overridable Sub EnumerateDynamicAccessControlRules(ByVal controllerName As String)
+        End Sub
+        
+        Protected Overridable Function CreateAppDacl(ByVal controllerName As String) As DynamicAccessControlList
+            Dim dacl As DynamicAccessControlList = CType(Context.Cache("DynamicAccessControlList"),DynamicAccessControlList)
+            If (dacl Is Nothing) Then
+                Dim rulesPath As String = Context.Server.MapPath("~/dacl")
+                dacl = New DynamicAccessControlList()
+                Dim files() As String = Nothing
+                If Directory.Exists(rulesPath) Then
+                    files = Directory.GetFiles(rulesPath, "*.txt")
+                    For Each fileName As String in files
+                        dacl.Parse(Path.GetFileName(fileName), File.ReadAllText(fileName))
+                    Next
+                Else
+                    files = New String() {rulesPath}
+                End If
+                Context.Cache.Add("DynamicAccessControlList", dacl, New CacheDependency(files), Cache.NoAbsoluteExpiration, Cache.NoSlidingExpiration, CacheItemPriority.Normal, Nothing)
+            End If
+            Return dacl
+        End Function
+        
+        Protected Overridable Function CreateDbDacl(ByVal controllerName As String) As DynamicAccessControlList
+            Dim dacl As DynamicAccessControlList = CType(Context.Items("DbDacl"),DynamicAccessControlList)
+            If (dacl Is Nothing) Then
+                dacl = New DynamicAccessControlList()
+                Context.Items("DbDacl") = dacl
+                If ApplicationServices.IsSiteContentEnabled Then
+                    Dim files As SiteContentFileList = ApplicationServices.Current.ReadSiteContent("sys/dacl%", "%")
+                    For Each f As SiteContentFile in files
+                        If (Not (f.Data) Is Nothing) Then
+                            dacl.Parse(f.PhysicalName, f.Text)
+                        End If
+                    Next
+                End If
+            End If
+            Return dacl
+        End Function
+        
+        Protected Overridable Sub EnumerateRulesFromDACL(ByVal controllerName As String)
+            If ApplicationServices.IsSafeMode Then
+                Return
+            End If
+            Dim fields As SortedDictionary(Of String, DataField) = New SortedDictionary(Of String, DataField)()
+            For Each field As DataField in m_Page.Fields
+                fields(field.Name) = field
+            Next
+            'create DACL
+            Dim dacl As DynamicAccessControlList = New DynamicAccessControlList()
+            dacl.AddRange(CreateAppDacl(controllerName))
+            dacl.AddRange(CreateDbDacl(controllerName))
+            'evaluate rules for this user
+            Dim userName As String = String.Empty
+            If (Not (Context.User) Is Nothing) Then
+                userName = Context.User.Identity.Name.ToLower()
+            End If
+            For Each r As DynamicAccessControlRule in dacl
+                If fields.ContainsKey(r.Field) Then
+                    If (String.IsNullOrEmpty(r.Controller) OrElse r.Controller.Equals(controllerName, StringComparison.OrdinalIgnoreCase)) Then
+                        If ((r.Tags Is Nothing) OrElse IsTagged(r.Tags)) Then
+                            If ((r.Users Is Nothing) OrElse Not ((Array.IndexOf(r.Users, userName) = -1))) Then
+                                If ((r.Roles Is Nothing) OrElse UserIsInRole(r.Roles)) Then
+                                    If ((r.RoleExceptions Is Nothing) OrElse Not (UserIsInRole(r.RoleExceptions))) Then
+                                        If ((r.UserExceptions Is Nothing) OrElse (Array.IndexOf(r.UserExceptions, userName) = -1)) Then
+                                            If Not (String.IsNullOrEmpty(r.AllowSql)) Then
+                                                RegisterAccessControlRule(r.Field, r.AllowSql, AccessPermission.Allow)
+                                            End If
+                                            If Not (String.IsNullOrEmpty(r.DenySql)) Then
+                                                RegisterAccessControlRule(r.Field, r.DenySql, AccessPermission.Deny)
+                                            End If
+                                        End If
+                                    End If
+                                End If
+                            End If
+                        End If
+                    End If
+                End If
+            Next
+        End Sub
+        
+        Public Function EnumerateAccessControlRules(ByVal command As DbCommand, ByVal controllerName As String, ByVal parameterMarker As String, ByVal page As ViewPage, ByVal expressions As SelectClauseDictionary) As String
+            Dim rules As AccessControlRuleDictionary = Nothing
+            For Each m As MethodInfo in [GetType]().GetMethods((BindingFlags.Public Or (BindingFlags.NonPublic Or BindingFlags.Instance)))
+                For Each accessControl As AccessControlAttribute in m.GetCustomAttributes(GetType(AccessControlAttribute), true)
+                    If (((controllerName = accessControl.Controller) OrElse Regex.IsMatch(controllerName, accessControl.Controller)) OrElse String.IsNullOrEmpty(accessControl.Controller)) Then
+                        If page.ContainsField(accessControl.FieldName) Then
+                            If (rules Is Nothing) Then
+                                rules = New AccessControlRuleDictionary()
+                            End If
+                            Dim attributes As List(Of AccessControlRule) = Nothing
+                            If Not (rules.TryGetValue(accessControl.FieldName, attributes)) Then
+                                attributes = New List(Of AccessControlRule)()
+                                rules.Add(accessControl.FieldName, attributes)
+                            End If
+                            attributes.Add(New AccessControlRule(accessControl, m))
+                        End If
+                    End If
+                Next
+            Next
+            Me.m_Page = page
+            EnumerateRulesFromDACL(controllerName)
+            EnumerateDynamicAccessControlRules(controllerName)
+            If (Not (m_DynamicAccessControlRules) Is Nothing) Then
+                If (rules Is Nothing) Then
+                    rules = m_DynamicAccessControlRules
+                Else
+                    For Each fieldName As String in m_DynamicAccessControlRules.Keys
+                        If page.ContainsField(fieldName) Then
+                            Dim attributes As List(Of AccessControlRule) = Nothing
+                            If Not (rules.TryGetValue(fieldName, attributes)) Then
+                                attributes = New List(Of AccessControlRule)()
+                                rules.Add(fieldName, attributes)
+                            End If
+                            attributes.AddRange(m_DynamicAccessControlRules(fieldName))
+                        End If
+                    Next
+                End If
+                m_DynamicAccessControlRules = Nothing
+            End If
+            If (rules Is Nothing) Then
+                Return Nothing
+            End If
+            Dim allowRules As StringBuilder = New StringBuilder()
+            ProcessAccessControlList(rules, AccessPermission.Allow, allowRules, command, parameterMarker, page, expressions)
+            Dim denyRules As StringBuilder = New StringBuilder()
+            ProcessAccessControlList(rules, AccessPermission.Deny, denyRules, command, parameterMarker, page, expressions)
+            rules.Clear()
+            If (allowRules.Length = 0) Then
+                If (denyRules.Length = 0) Then
+                    Return String.Empty
+                Else
+                    Return String.Format("not({0})", denyRules.ToString())
+                End If
+            Else
+                If (denyRules.Length = 0) Then
+                    Return allowRules.ToString()
+                Else
+                    Return String.Format("({0})and not({1})", allowRules.ToString(), denyRules.ToString())
+                End If
+            End If
+        End Function
+        
+        Protected Function ValidateSql(ByVal sql As String, ByVal expressions As SelectClauseDictionary) As String
+            If String.IsNullOrEmpty(sql) Then
+                Return Nothing
+            End If
+            m_Expressions = expressions
+            m_SqlIsValid = true
+            sql = FieldNameRegex.Replace(sql, AddressOf DoReplaceFieldNames)
+            If Not (m_SqlIsValid) Then
+                Return Nothing
+            End If
+            Return sql
+        End Function
+        
+        Private Function DoReplaceFieldNames(ByVal m As Match) As String
+            Dim s As String = Nothing
+            If m_Expressions.TryGetValue(m.Groups(1).Value, s) Then
+                Return s
+            Else
+                m_SqlIsValid = false
+            End If
+            Return m.Value
+        End Function
+        
+        Private Sub ProcessAccessControlList(ByVal rules As AccessControlRuleDictionary, ByVal permission As AccessPermission, ByVal sb As StringBuilder, ByVal command As DbCommand, ByVal parameterMarker As String, ByVal page As ViewPage, ByVal expressions As SelectClauseDictionary)
+            Dim firstField As Boolean = true
+            For Each fieldName As String in rules.Keys
+                Dim fieldExpression As String = expressions(page.FindField(fieldName).ExpressionName())
+                Dim accessControlList As List(Of AccessControlRule) = rules(fieldName)
+                Dim firstRule As Boolean = true
+                For Each info As AccessControlRule in accessControlList
+                    If (info.AccessControl.Permission = permission) Then
+                        Me.m_ApplyAccessControlRule = false
+                        Me.m_AccessControlRestrictions = New List(Of Object)()
+                        Me.m_AccessControlCommand = command
+                        If (info.Method Is Nothing) Then
+                            If (Not (info.AccessControl.Restrictions) Is Nothing) Then
+                                m_AccessControlRestrictions.AddRange(info.AccessControl.Restrictions)
+                            Else
+                                If (Not (info.AccessControl.Parameters) Is Nothing) Then
+                                    For Each p As SqlParam in info.AccessControl.Parameters
+                                        RestrictAccess(p.Name, p.Value)
+                                    Next
+                                End If
+                            End If
+                            m_ApplyAccessControlRule = true
+                        Else
+                            info.Method.Invoke(Me, New Object(-1) {})
+                        End If
+                        Dim sql As String = ValidateSql(info.AccessControl.Sql, expressions)
+                        If (Me.m_ApplyAccessControlRule AndAlso ((m_AccessControlRestrictions.Count > 0) OrElse Not (String.IsNullOrEmpty(sql)))) Then
+                            If firstField Then
+                                firstField = false
+                                sb.Append("(")
+                            Else
+                                If firstRule Then
+                                    sb.Append("and")
+                                End If
+                            End If
+                            If firstRule Then
+                                firstRule = false
+                                sb.Append("(")
+                            Else
+                                sb.Append("or")
+                            End If
+                            sb.Append("(")
+                            If Not (String.IsNullOrEmpty(sql)) Then
+                                If SelectDetectionRegex.IsMatch(sql) Then
+                                    sb.AppendFormat("{0} in({1})", fieldExpression, sql)
+                                Else
+                                    sb.Append(sql)
+                                End If
+                            Else
+                                If (m_AccessControlRestrictions.Count > 1) Then
+                                    Dim hasNull As Boolean = false
+                                    Dim firstRestriction As Boolean = true
+                                    For Each item As Object in m_AccessControlRestrictions
+                                        If ((item Is Nothing) OrElse DBNull.Value.Equals(item)) Then
+                                            hasNull = true
+                                        Else
+                                            If firstRestriction Then
+                                                firstRestriction = false
+                                                sb.AppendFormat("{0} in(", fieldExpression)
+                                            Else
+                                                sb.Append(",")
+                                            End If
+                                            Dim p As DbParameter = command.CreateParameter()
+                                            p.ParameterName = String.Format("{0}p{1}", parameterMarker, command.Parameters.Count)
+                                            p.Value = item
+                                            command.Parameters.Add(p)
+                                            sb.Append(p.ParameterName)
+                                        End If
+                                    Next
+                                    If Not (firstRestriction) Then
+                                        sb.Append(")")
+                                    End If
+                                    If hasNull Then
+                                        If Not (firstRestriction) Then
+                                            sb.AppendFormat("or {0}", fieldExpression)
+                                        Else
+                                            sb.Append(fieldExpression)
+                                        End If
+                                        sb.Append(" is null")
+                                    End If
+                                Else
+                                    Dim item As Object = m_AccessControlRestrictions(0)
+                                    If ((item Is Nothing) OrElse DBNull.Value.Equals(item)) Then
+                                        sb.AppendFormat("{0} is null", fieldExpression)
+                                    Else
+                                        Dim p As DbParameter = command.CreateParameter()
+                                        p.ParameterName = String.Format("{0}p{1}", parameterMarker, command.Parameters.Count)
+                                        p.Value = item
+                                        command.Parameters.Add(p)
+                                        sb.AppendFormat("{0}={1}", fieldExpression, p.ParameterName)
+                                    End If
+                                End If
+                            End If
+                            sb.Append(")")
+                        End If
+                        m_AccessControlCommand = Nothing
+                        m_AccessControlRestrictions.Clear()
+                    End If
+                Next
+                If Not (firstRule) Then
+                    sb.Append(")")
+                End If
+            Next
+            If Not (firstField) Then
+                sb.Append(")")
+            End If
+        End Sub
+        
+        Public Overridable Function SupportsVirtualization(ByVal controllerName As String) As Boolean
+            Return ApplicationServices.IsSiteContentEnabled
+        End Function
+        
+        Protected Overloads Overridable Sub VirtualizeController(ByVal controllerName As String)
+        End Sub
+        
+        Public Overridable Function VirtualizeControllerConditionally(ByVal controllerName As String) As Boolean
+            Return false
+        End Function
+        
+        Public Overloads Overridable Sub VirtualizeController(ByVal controllerName As String, ByVal navigator As XPathNavigator, ByVal resolver As XmlNamespaceManager)
+            Me.Navigator = navigator
+            Me.Resolver = resolver
+            AlterController(controllerName)
+            VirtualizeController(controllerName)
+        End Sub
+        
         Public Overridable Function CompleteConfiguration() As Boolean
             Dim result As Boolean = false
+            Dim saveRow() As Object = m_Row
+            If (Not (Page.NewRow) Is Nothing) Then
+                m_Row = Page.NewRow
+            Else
+                If ((Not (Page.Rows) Is Nothing) AndAlso (Page.Rows.Count > 0)) Then
+                    m_Row = Page.Rows(0)
+                End If
+            End If
+            If VirtualizeControllerConditionally(Page.Controller) Then
+                result = true
+            End If
+            If (Not (Config.PendingAlterations) Is Nothing) Then
+                result = AlterController(Config.PendingAlterations, true)
+            End If
+            m_Row = saveRow
             Return result
         End Function
         
         Public Overloads Overridable Sub AlterController(ByVal controllerName As String)
+            If (ApplicationServices.IsSiteContentEnabled AndAlso Not ((controllerName = ApplicationServices.SiteContentControllerName))) Then
+                Dim alterations As SiteContentFileList = ApplicationServices.Current.ReadSiteContent("sys/controllers%", (controllerName + ".Alter%"))
+                AlterController(alterations, false)
+            End If
         End Sub
         
         Public Overloads Overridable Function AlterController(ByVal alterations As SiteContentFileList, ByVal immediately As Boolean) As Boolean
             Dim changed As Boolean = false
+            For Each f As SiteContentFile in alterations
+                Dim nodeSet As ControllerNodeSet = Me.NodeSet()
+                Dim alter As String = f.Text
+                If Not (String.IsNullOrEmpty(alter)) Then
+                    If (Not (immediately) AndAlso TestPendingAlterRegex.IsMatch(alter)) Then
+                        If (PendingAlterations Is Nothing) Then
+                            PendingAlterations = New SiteContentFileList()
+                        End If
+                        PendingAlterations.Add(f)
+                    Else
+                        Dim m As Match = AlterMethodRegex.Match(alter)
+                        Dim skipInvoke As Boolean = false
+                        Do While m.Success
+                            Dim method As String = m.Groups("Method").Value
+                            Dim parameters As String = m.Groups("Parameters").Value
+                            Dim terminator As String = m.Groups("Terminator").Value
+                            Dim sb As StringBuilder = New StringBuilder()
+                            For Each s As String in method.Split(New Char() {Global.Microsoft.VisualBasic.ChrW(45)}, StringSplitOptions.RemoveEmptyEntries)
+                                sb.Append(([Char].ToUpper(s(0)) + s.Substring(1)))
+                            Next
+                            method = sb.ToString()
+                            Dim args As List(Of String) = New List(Of String)()
+                            Dim p As Match = AlterParametersRegex.Match(parameters)
+                            Do While p.Success
+                                args.Add(p.Groups("Argument").Value)
+                                p = p.NextMatch()
+                            Loop
+                            Try 
+                                Dim tested As Boolean = false
+                                If (args.Count > 0) Then
+                                    If (method = "WhenTagged") Then
+                                        If Not (IsTagged(args.ToArray())) Then
+                                            skipInvoke = true
+                                            If (terminator = ";") Then
+                                                Exit Do
+                                            End If
+                                        End If
+                                        tested = true
+                                    End If
+                                    If (method = "WhenUrl") Then
+                                        Dim urlRegex As Regex = New Regex(args(0), RegexOptions.IgnoreCase)
+                                        If ((Not (Context.Request.UrlReferrer) Is Nothing) AndAlso Not (urlRegex.IsMatch(Context.Request.UrlReferrer.ToString()))) Then
+                                            skipInvoke = true
+                                            If (terminator = ";") Then
+                                                Exit Do
+                                            End If
+                                        End If
+                                        tested = true
+                                    End If
+                                    If (method = "WhenUserInterface") Then
+                                        Dim userInterface As String = args(0).ToLower()
+                                        If (((userInterface = "touch") AndAlso Not (ApplicationServices.IsTouchClient)) OrElse ((userInterface = "desktop") AndAlso ApplicationServices.IsTouchClient)) Then
+                                            skipInvoke = true
+                                            If (terminator = ";") Then
+                                                Exit Do
+                                            End If
+                                        End If
+                                        tested = true
+                                    End If
+                                    If (method = "WhenView") Then
+                                        If Not (skipInvoke) Then
+                                            Dim viewRegex As Regex = New Regex(args(0), RegexOptions.IgnoreCase)
+                                            If ((Me.View Is Nothing) OrElse Not (viewRegex.IsMatch(Me.View))) Then
+                                                skipInvoke = true
+                                                If (terminator = ";") Then
+                                                    Exit Do
+                                                End If
+                                            End If
+                                        End If
+                                        tested = true
+                                    End If
+                                    If (method = "WhenTest") Then
+                                        If Not (skipInvoke) Then
+                                            Dim dt As DataTable = Page.ToDataTable()
+                                            dt.DefaultView.RowFilter = args(0).Trim()
+                                            If (dt.DefaultView.Count = 0) Then
+                                                skipInvoke = true
+                                                If (terminator = ";") Then
+                                                    Exit Do
+                                                End If
+                                            End If
+                                        End If
+                                        tested = true
+                                    End If
+                                    If (method = "WhenSql") Then
+                                        If Not (skipInvoke) Then
+                                            Dim q As String = args(0).Trim()
+                                            Dim sqlText As String = "select 1"
+                                            Dim css As ConnectionStringSettings = ConnectionStringSettingsFactory.Create(Nothing)
+                                            If css.ProviderName.Contains("Oracle") Then
+                                                sqlText = (sqlText + " from dual")
+                                            End If
+                                            sqlText = (sqlText  _
+                                                        + (" where " + q))
+                                            EnableDccTest = true
+                                            skipInvoke = (Sql(sqlText) = 0)
+                                            EnableDccTest = false
+                                            If skipInvoke Then
+                                                If (terminator = ";") Then
+                                                    Exit Do
+                                                End If
+                                            End If
+                                        End If
+                                        tested = true
+                                    End If
+                                End If
+                                If (Not (skipInvoke) AndAlso Not (tested)) Then
+                                    nodeSet = CType(nodeSet.GetType().InvokeMember(method, BindingFlags.InvokeMethod, Nothing, nodeSet, args.ToArray()),ControllerNodeSet)
+                                    changed = true
+                                End If
+                            Catch ex As Exception
+                                Throw New Exception(String.Format("{0}){1}: {2}", method, parameters, ex.Message))
+                            End Try
+                            m = m.NextMatch()
+                            If (terminator = ";") Then
+                                nodeSet = Me.NodeSet()
+                                skipInvoke = false
+                            End If
+                        Loop
+                    End If
+                End If
+            Next
             Return changed
         End Function
         
@@ -1750,6 +2602,9 @@ Namespace RedStag.Data
                     If (args.CommandName = "SQL") Then
                         Sql(ActionData)
                     End If
+                    If (args.CommandName = "Email") Then
+                        Email(ActionData)
+                    End If
                 End If
                 ExecuteServerRules(args, Result, ActionPhase.After)
             End If
@@ -1911,6 +2766,7 @@ Namespace RedStag.Data
                         If EnableEmailMessages Then
                             Dim messages As DataTable = New DataTable()
                             messages.Load(query.ExecuteReader())
+                            EmailMessages = messages
                             Return 0
                         Else
                             Dim rowsAffected As Integer = query.ExecuteNonQuery()
@@ -2278,6 +3134,9 @@ Namespace RedStag.Data
                     If (ruleType = "Code") Then
                         ExecuteRule(iterator.Current)
                     End If
+                    If (ruleType = "Email") Then
+                        Email(iterator.Current.Value)
+                    End If
                     BlockRule(ruleName)
                     If Result.Canceled Then
                         Exit Do
@@ -2353,6 +3212,222 @@ Namespace RedStag.Data
             End If
             Return v
         End Function
+        
+        Protected Overloads Overridable Sub Email(ByVal message As DataRow)
+            m_ActionParameters = New SortedDictionary(Of String, String)()
+            For Each c As DataColumn in message.Table.Columns
+                Dim v As Object = message(c.ColumnName)
+                If Not (DBNull.Value.Equals(v)) Then
+                    Dim loweredName As String = c.ColumnName.ToLower()
+                    If (loweredName = "body") Then
+                        loweredName = String.Empty
+                    End If
+                    m_ActionParameters(loweredName) = Convert.ToString(v)
+                End If
+            Next
+            'require "To" and "Subject" to be present
+            If (m_ActionParameters.ContainsKey("to") AndAlso m_ActionParameters.ContainsKey("subject")) Then
+                Email(String.Empty)
+            End If
+        End Sub
+        
+        Protected Overloads Overridable Sub Email(ByVal data As String)
+            Email(data, Nothing)
+        End Sub
+        
+        Protected Overloads Overridable Sub Email(ByVal data As String, ByVal message As MailMessage)
+            AssignActionParameters(data)
+            Dim smtp As SmtpClient = New SmtpClient()
+            'configure SMTP properties
+            Dim host As String = GetActionParameterByName("Host")
+            If Not (String.IsNullOrEmpty(host)) Then
+                smtp.Host = host
+            End If
+            Dim port As String = GetActionParameterByName("Port")
+            If Not (String.IsNullOrEmpty(port)) Then
+                smtp.Port = Convert.ToInt32(port)
+            End If
+            Dim enableSsl As String = GetActionParameterByName("EnableSSL")
+            If Not (String.IsNullOrEmpty(enableSsl)) Then
+                smtp.EnableSsl = (enableSsl.ToLower() = "true")
+            End If
+            Dim userName As String = GetActionParameterByName("UserName")
+            Dim password As String = GetActionParameterByName("Password")
+            If Not (String.IsNullOrEmpty(userName)) Then
+                smtp.Credentials = New NetworkCredential(userName, password, GetActionParameterByName("Domain"))
+            End If
+            'configure message properties
+            If (message Is Nothing) Then
+                message = New MailMessage()
+            End If
+            ConfigureMailMessage(smtp, message)
+            Dim recepient As String = GetActionParameterByName("To")
+            AddMailAddresses(message.To, recepient)
+            Dim sender As String = GetActionParameterByName("From")
+            If Not (String.IsNullOrEmpty(sender)) Then
+                message.From = New MailAddress(sender)
+            End If
+            Dim cc As String = GetActionParameterByName("Cc")
+            If Not (String.IsNullOrEmpty(cc)) Then
+                AddMailAddresses(message.CC, cc)
+            End If
+            Dim bcc As String = GetActionParameterByName("Bcc")
+            If Not (String.IsNullOrEmpty(cc)) Then
+                AddMailAddresses(message.Bcc, bcc)
+            End If
+            If String.IsNullOrEmpty(message.Subject) Then
+                message.Subject = GetActionParameterByName("Subject")
+            End If
+            If String.IsNullOrEmpty(message.Body) Then
+                message.Body = GetActionParameterByName(String.Empty)
+            End If
+            m_ActionParameters.Clear()
+            If Not (String.IsNullOrEmpty(message.Body)) Then
+                message.Body = Regex.Replace(message.Body, "<attachment\s+type\s*=s*""(report|file)""\s*>([\s\S]+?)</attachment>", AddressOf DoExtractAttachment)
+            End If
+            message.IsBodyHtml = Regex.IsMatch(message.Body, "(</\w+>)|(<\w+>)")
+            'produce attachments
+            For Each key As String in m_ActionParameters.Keys
+                Try 
+                    Dim nav As XPathNavigator = New XPathDocument(New StringReader(m_ActionParameters(key))).CreateNavigator()
+                    Dim attachmentType As String = CType(nav.Evaluate("string(/attachment/@type)"),String)
+                    Dim attachmentName As String = CType(nav.Evaluate("string(/attachment/name)"),String)
+                    Dim mediaType As String = Nothing
+                    Dim attachmentData() As Byte = Nothing
+                    If (attachmentType = "report") Then
+                        Dim argValue As String
+                        Dim args As ReportArgs = New ReportArgs()
+                        'controller
+                        argValue = CType(nav.Evaluate("string(/attachment/controller)"),String)
+                        If Not (String.IsNullOrEmpty(argValue)) Then
+                            args.Controller = argValue
+                        End If
+                        'view
+                        argValue = CType(nav.Evaluate("string(/attachment/view)"),String)
+                        If Not (String.IsNullOrEmpty(argValue)) Then
+                            args.View = argValue
+                        End If
+                        'template name
+                        argValue = CType(nav.Evaluate("string(/attachment/templateName)"),String)
+                        If Not (String.IsNullOrEmpty(argValue)) Then
+                            args.TemplateName = argValue
+                        End If
+                        'format
+                        argValue = CType(nav.Evaluate("string(/attachment/format)"),String)
+                        If Not (String.IsNullOrEmpty(argValue)) Then
+                            args.Format = argValue
+                        End If
+                        'sort expression
+                        argValue = CType(nav.Evaluate("string(/attachment/sortExpression)"),String)
+                        If Not (String.IsNullOrEmpty(argValue)) Then
+                            args.SortExpression = argValue
+                        End If
+                        'filter details
+                        argValue = CType(nav.Evaluate("string(/attachment/filterDetails)"),String)
+                        If Not (String.IsNullOrEmpty(argValue)) Then
+                            args.FilterDetails = argValue
+                        End If
+                        'filter
+                        Dim filter As List(Of FieldFilter) = New List(Of FieldFilter)()
+                        Dim filterIterator As XPathNodeIterator = nav.Select("/attachment/filter/item")
+                        Do While filterIterator.MoveNext()
+                            Dim ff As FieldFilter = New FieldFilter()
+                            ff.FieldName = CType(filterIterator.Current.Evaluate("string(field)"),String)
+                            Dim operatorName As String = CType(filterIterator.Current.Evaluate("string(operator)"),String)
+                            If Regex.IsMatch(operatorName, "\w+") Then
+                                operatorName = String.Format("${0}$", operatorName)
+                            End If
+                            Dim operatorIndex As Integer = Array.IndexOf(RowFilterAttribute.ComparisonOperations, operatorName)
+                            If Not ((operatorIndex = -1)) Then
+                                ff.Operation = CType(operatorIndex,RowFilterOperation)
+                                Dim values As List(Of Object) = New List(Of Object)()
+                                Dim valueIterator As XPathNodeIterator = filterIterator.Current.Select("value")
+                                Do While valueIterator.MoveNext()
+                                    Dim v As Object = valueIterator.Current.Value
+                                    Dim t As String = valueIterator.Current.GetAttribute("type", String.Empty)
+                                    If Not (String.IsNullOrEmpty(t)) Then
+                                        v = Convert.ChangeType(v, Type.GetType(("System." + t)))
+                                    End If
+                                    values.Add(v)
+                                Loop
+                                If (values.Count = 1) Then
+                                    ff.Value = values(0)
+                                Else
+                                    ff.Value = values.ToArray()
+                                End If
+                                filter.Add(ff)
+                            End If
+                        Loop
+                        args.Filter = filter.ToArray()
+                        attachmentData = Report.Execute(args)
+                        mediaType = args.MimeType
+                        If String.IsNullOrEmpty(attachmentName) Then
+                            attachmentName = (args.Controller + key)
+                        End If
+                        attachmentName = String.Format("{0}.{1}", attachmentName, args.FileNameExtension)
+                    End If
+                    If (Not (attachmentData) Is Nothing) Then
+                        message.Attachments.Add(New Attachment(New MemoryStream(attachmentData), attachmentName, mediaType))
+                    End If
+                Catch [error] As Exception
+                    Dim errorContent As Stream = New MemoryStream()
+                    Dim esw As StreamWriter = New StreamWriter(errorContent)
+                    esw.Write([error].Message)
+                    esw.Flush()
+                    errorContent.Position = 0
+                    message.Attachments.Add(New Attachment(errorContent, (key + ".txt"), "text/plain"))
+                End Try
+            Next
+            'send message
+            Dim workItem As WaitCallback = AddressOf DoSendEmail
+            ThreadPool.QueueUserWorkItem(workItem, New Object() {smtp, message, m_Config.CreateBusinessRules()})
+        End Sub
+        
+        Shared Sub DoSendEmail(ByVal state As Object)
+            Dim args() As Object = CType(state,Object())
+            Dim smtp As SmtpClient = CType(args(0),SmtpClient)
+            Dim message As MailMessage = CType(args(1),MailMessage)
+            Try 
+                smtp.Send(message)
+            Catch [error] As Exception
+                CType(args(2),BusinessRules).HandleEmailException(smtp, message, [error])
+            End Try
+        End Sub
+        
+        Protected Overridable Sub HandleEmailException(ByVal smtp As SmtpClient, ByVal message As MailMessage, ByVal [error] As Exception)
+        End Sub
+        
+        Private Function DoExtractAttachment(ByVal m As Match) As String
+            m_ActionParameters.Add((m_ActionParameters.Count + 1).ToString("D3"), m.Value)
+            Return String.Empty
+        End Function
+        
+        ''' <summary>
+        ''' Adds email addresses with optional display names from the string list to the mail address collection.
+        ''' </summary>
+        ''' <param name="list">The collection of mail addresses.</param>
+        ''' <param name="addresses">The string of addresses separated with comma and semicolon with optional display names.</param>
+        Protected Overridable Sub AddMailAddresses(ByVal list As MailAddressCollection, ByVal addresses As String)
+            addresses = Regex.Replace(addresses, "(\s*(,|;)\s*(,|;)\s*)+", ",")
+            addresses = Regex.Replace(addresses, "(('|"")\s*('|""))", String.Empty)
+            Dim address As Match = Regex.Match(addresses, "\s*(?'Email'(("".+"")|('.+'))?(.+?))\s*(,|;|$)")
+            Do While address.Success
+                Dim m As Match = Regex.Match(address.Groups("Email").Value.Trim(Global.Microsoft.VisualBasic.ChrW(44), Global.Microsoft.VisualBasic.ChrW(59)), "^\s*(((?'DisplayName'.+?)?\s*<\s*(?'Address'.+?@.+?)\s*>)|(?'Address'.+?@.+?))\s*"& _ 
+                        "$")
+                If m.Success Then
+                    list.Add(New MailAddress(m.Groups("Address").Value, m.Groups("DisplayName").Value.Trim(Global.Microsoft.VisualBasic.ChrW(39), Global.Microsoft.VisualBasic.ChrW(34)), Encoding.UTF8))
+                End If
+                address = address.NextMatch()
+            Loop
+        End Sub
+        
+        ''' <summary>
+        ''' Configures a new email message with default parameters.
+        ''' </summary>
+        ''' <param name="smtp">The SMTP client that will send the message.</param>
+        ''' <param name="message">The new message with the default configuration</param>
+        Protected Overridable Sub ConfigureMailMessage(ByVal smtp As SmtpClient, ByVal message As MailMessage)
+        End Sub
         
         Public Overloads Shared Function JavaScriptString(ByVal value As Object) As String
             Return JavaScriptString(value, false)

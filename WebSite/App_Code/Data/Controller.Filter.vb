@@ -681,6 +681,72 @@ Namespace RedStag.Data
         End Sub
         
         Protected Overridable Sub AppendSystemFilter(ByVal command As DbCommand, ByVal page As ViewPage, ByVal expressions As SelectClauseDictionary)
+            Dim systemFilter() As String = page.SystemFilter
+            If (Not (RequiresHierarchy(page)) OrElse ((systemFilter Is Nothing) OrElse (systemFilter.Length < 2))) Then
+                Return
+            End If
+            If Not (String.IsNullOrEmpty(m_ViewFilter)) Then
+                m_ViewFilter = String.Format("({0})and", m_ViewFilter)
+            End If
+            Dim sb As StringBuilder = New StringBuilder(m_ViewFilter)
+            sb.Append("(")
+            Dim collapse As Boolean = (systemFilter(0) = "collapse-nodes")
+            Dim parentField As DataField = Nothing
+            For Each field As DataField in page.Fields
+                If field.IsTagged("hierarchy-parent") Then
+                    parentField = field
+                    Exit For
+                End If
+            Next
+            Dim parentFieldExpression As String = expressions(parentField.Name)
+            sb.AppendFormat("{0} is null or ", parentFieldExpression)
+            If collapse Then
+                sb.Append("not(")
+            End If
+            sb.AppendFormat("{0} in (", parentFieldExpression)
+            Dim first As Boolean = true
+            Dim i As Integer = 1
+            Do While (i < systemFilter.Length)
+                Dim v As Object = StringToValue(systemFilter(i))
+                Dim p As DbParameter = command.CreateParameter()
+                p.ParameterName = String.Format("{0}p{1}", m_ParameterMarker, command.Parameters.Count)
+                p.Value = v
+                command.Parameters.Add(p)
+                If first Then
+                    first = false
+                Else
+                    sb.Append(",")
+                End If
+                sb.Append(p.ParameterName)
+                i = (i + 1)
+            Loop
+            If collapse Then
+                sb.Append(")")
+            End If
+            sb.Append("))")
+            m_ViewFilter = sb.ToString()
+        End Sub
+        
+        Private Sub AppendAccessControlRules(ByVal command As DbCommand, ByVal page As ViewPage, ByVal expressions As SelectClauseDictionary)
+            Dim handler As Object = m_Config.CreateActionHandler()
+            If Not (TypeOf handler Is BusinessRules) Then
+                Return
+            End If
+            Dim rules As BusinessRules = m_ServerRules
+            If ((rules Is Nothing) AndAlso (Not (handler) Is Nothing)) Then
+                rules = CType(handler,BusinessRules)
+            End If
+            If (rules Is Nothing) Then
+                rules = CreateBusinessRules()
+            End If
+            Dim accessControlFilter As String = rules.EnumerateAccessControlRules(command, m_Config.ControllerName, m_ParameterMarker, page, expressions)
+            If String.IsNullOrEmpty(accessControlFilter) Then
+                Return
+            End If
+            If Not (String.IsNullOrEmpty(m_ViewFilter)) Then
+                m_ViewFilter = (m_ViewFilter + " and ")
+            End If
+            m_ViewFilter = String.Format("{0}/*Sql*/{1}/*Sql*/", m_ViewFilter, accessControlFilter)
         End Sub
     End Class
 End Namespace

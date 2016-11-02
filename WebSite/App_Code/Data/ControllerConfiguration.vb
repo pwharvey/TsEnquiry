@@ -50,6 +50,9 @@ Namespace RedStag.Data
         
         Private m_RequiresLocalization As Boolean
         
+        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
+        Private m_PendingAlterations As SiteContentFileList
+        
         Public Sub New(ByVal path As String)
             Me.New(File.OpenRead(path))
         End Sub
@@ -136,6 +139,15 @@ Namespace RedStag.Data
             End Get
         End Property
         
+        Public Property PendingAlterations() As SiteContentFileList
+            Get
+                Return Me.m_PendingAlterations
+            End Get
+            Set
+                Me.m_PendingAlterations = value
+            End Set
+        End Property
+        
         Public ReadOnly Property TrimmedNavigator() As XPathNavigator
             Get
                 Dim hiddenFields As List(Of String) = New List(Of String)()
@@ -166,6 +178,26 @@ Namespace RedStag.Data
                 Return nav
             End Get
         End Property
+        
+        Public Function RequiresVirtualization(ByVal controllerName As String) As Boolean
+            Dim rules As BusinessRules = CreateBusinessRules()
+            Return ((Not (rules) Is Nothing) AndAlso rules.SupportsVirtualization(controllerName))
+        End Function
+        
+        Public Function Virtualize(ByVal controllerName As String) As ControllerConfiguration
+            Dim config As ControllerConfiguration = Me
+            If Not (m_Navigator.CanEdit) Then
+                Dim doc As XmlDocument = New XmlDocument()
+                doc.LoadXml(m_Navigator.OuterXml)
+                config = New ControllerConfiguration(doc.CreateNavigator())
+            End If
+            Dim rules As BusinessRules = CreateBusinessRules()
+            If (Not (rules) Is Nothing) Then
+                rules.VirtualizeController(controllerName, config.m_Navigator, config.m_NamespaceManager)
+                config.PendingAlterations = rules.PendingAlterations
+            End If
+            Return config
+        End Function
         
         Protected Overridable Sub Initialize(ByVal navigator As XPathNavigator)
             m_Navigator = navigator
