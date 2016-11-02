@@ -1,0 +1,424 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel nameMaxLength="128" parameterMarker="@" quote="&quot;">
+  <table name="dtproperties" schema="dbo">
+    <columns>
+      <column name="id" type="int" allowNulls="false" identity="true" readOnly="true" dataType="Int32" />
+      <column name="objectid" type="int" dataType="Int32" />
+      <column name="property" type="varchar" length="64" allowNulls="false" dataType="String" />
+      <column name="value" type="varchar" length="255" dataType="String" />
+      <column name="uvalue" type="nvarchar" length="255" dataType="String" />
+      <column name="lvalue" type="image" length="2147483647" onDemand="true" allowQBE="false" dataType="Byte[]" />
+      <column name="version" type="int" allowNulls="false" dataType="Int32" />
+    </columns>
+    <primaryKey>
+      <primaryKeyColumn columnName="id" />
+      <primaryKeyColumn columnName="property" />
+    </primaryKey>
+    <foreignKeys />
+  </table>
+  <table name="qEnquiryDespatchDocket" schema="wa">
+    <columns>
+      <column name="DespatchID" type="int" allowNulls="false" dataType="Int32" />
+      <column name="DespatchDocketNo" type="int" allowNulls="false" dataType="Int32" />
+      <column name="DespatchDate" type="datetime" allowNulls="false" dataType="DateTime" />
+      <column name="PickingOrderNo" type="int" dataType="Int32" />
+      <column name="DespatchTypeName" type="nvarchar" length="50" dataType="String" />
+      <column name="TruckID" type="nvarchar" length="50" dataType="String" />
+      <column name="CarrierName" type="nvarchar" length="50" dataType="String" />
+      <column name="DeliverToName" type="nvarchar" length="100" dataType="String" />
+      <column name="LoadSize" type="nvarchar" length="1" dataType="String" />
+      <column name="Time" type="nvarchar" length="4" dataType="String" />
+      <column name="LocationCode" type="nvarchar" length="10" allowNulls="false" dataType="String" />
+      <column name="Return" type="bit" dataType="Boolean" />
+      <column name="TotalNetCube" type="money" allowNulls="false" dataType="Decimal" />
+      <column name="FreightRate" type="money" allowNulls="false" dataType="Decimal" />
+      <column name="ArriveTime" type="datetime" dataType="DateTime" />
+      <column name="DespatchTime" type="datetime" dataType="DateTime" />
+      <column name="InvoiceNo" type="int" dataType="Int32" />
+      <column name="InvoiceDate" type="datetime" dataType="DateTime" />
+    </columns>
+  </table>
+  <table name="qEnquiryDespatches" schema="wa">
+    <columns>
+      <column name="DespatchID" type="int" allowNulls="false" dataType="Int32" />
+      <column name="DespatchDocketNo" type="nvarchar" length="10" dataType="String" />
+      <column name="DespatchDate" type="datetime" allowNulls="false" dataType="DateTime" />
+      <column name="PickingOrderNo" type="int" dataType="Int32" />
+      <column name="DespatchTypeName" type="nvarchar" length="50" dataType="String" />
+      <column name="TruckID" type="nvarchar" length="50" dataType="String" />
+      <column name="CarrierName" type="nvarchar" length="50" dataType="String" />
+      <column name="DeliverToName" type="nvarchar" length="100" dataType="String" />
+      <column name="LoadSize" type="nvarchar" length="1" dataType="String" />
+      <column name="Time" type="nvarchar" length="4" dataType="String" />
+      <column name="LocationCode" type="nvarchar" length="10" allowNulls="false" dataType="String" />
+      <column name="Return" type="bit" dataType="Boolean" />
+      <column name="TotalNetCube" type="money" allowNulls="false" dataType="Decimal" />
+      <column name="FreightRate" type="money" allowNulls="false" dataType="Decimal" />
+      <column name="ProcessCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="ProcessName" type="nvarchar" length="30" dataType="String" />
+      <column name="CustomerCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="OrderNo" type="int" allowNulls="false" dataType="Int32" />
+      <column name="OrderItemNo" type="int" allowNulls="false" dataType="Int32" />
+      <column name="PacketNo" type="nvarchar" length="15" allowNulls="false" dataType="String" />
+      <column name="Date" type="datetime" allowNulls="false" dataType="DateTime" />
+      <column name="Week" type="int" readOnly="true" computed="true" dataType="Int32" />
+      <column name="Day" type="nvarchar" length="30" readOnly="true" computed="true" dataType="String" />
+      <column name="GradeCode" type="nvarchar" length="8" allowNulls="false" dataType="String" />
+      <column name="TreatmentCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="DrynessCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="FinishCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="Width" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Thickness" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Length" type="decimal" allowNulls="false" dataType="Decimal" />
+      <column name="DisplayLength" type="nvarchar" length="30" readOnly="true" computed="true" dataType="String" />
+      <column name="Cube" type="decimal" dataType="Decimal" />
+      <column name="Packets" type="int" allowNulls="false" readOnly="true" computed="true" dataType="Int32" />
+      <column name="NetCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="Size" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="SizeAndLength" type="nvarchar" length="97" readOnly="true" computed="true" dataType="String" />
+      <column name="FinishSize" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="FinishSizeAndLength" type="nvarchar" length="97" readOnly="true" computed="true" dataType="String" />
+      <column name="GCS" type="nvarchar" length="86" readOnly="true" computed="true" dataType="String" />
+      <column name="GSC" type="nvarchar" length="86" readOnly="true" computed="true" dataType="String" />
+      <column name="GCSL" type="nvarchar" length="120" readOnly="true" computed="true" dataType="String" />
+      <column name="GSLC" type="nvarchar" length="120" readOnly="true" computed="true" dataType="String" />
+      <column name="GC" type="nvarchar" length="22" allowNulls="false" readOnly="true" computed="true" dataType="String" />
+      <column name="SOPGradeCode" type="nvarchar" length="5" dataType="String" />
+      <column name="SOPGradeName" type="nvarchar" length="50" dataType="String" />
+      <column name="SOPFamilyCode" type="nvarchar" length="10" dataType="String" />
+      <column name="SOPFamilyName" type="nvarchar" length="50" dataType="String" />
+      <column name="PacketHistoryID" type="int" allowNulls="false" dataType="Int32" />
+      <column name="VesselCode" type="nvarchar" length="3" dataType="String" />
+      <column name="VisitID" type="int" dataType="Int32" />
+      <column name="DeliverZone" type="nvarchar" length="30" dataType="String" />
+      <column name="FSC" type="bit" dataType="Boolean" />
+      <column name="Species" type="nvarchar" length="8" allowNulls="false" dataType="String" />
+    </columns>
+  </table>
+  <table name="qEnquiryDespatchPacket" schema="wa">
+    <columns>
+      <column name="DespatchID" type="int" dataType="Int32" />
+      <column name="PacketHistoryID" type="int" allowNulls="false" dataType="Int32" />
+      <column name="CustomerCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="CustomerName" type="nvarchar" length="255" allowNulls="false" dataType="String" />
+      <column name="OrderNo" type="int" allowNulls="false" dataType="Int32" />
+      <column name="OrderItemNo" type="int" allowNulls="false" dataType="Int32" />
+      <column name="PacketNo" type="nvarchar" length="15" allowNulls="false" dataType="String" />
+      <column name="Date" type="datetime" allowNulls="false" dataType="DateTime" />
+      <column name="Species" type="nvarchar" length="8" allowNulls="false" dataType="String" />
+      <column name="GradeCode" type="nvarchar" length="8" allowNulls="false" dataType="String" />
+      <column name="TreatmentCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="DrynessCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="FinishCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="Width" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Thickness" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Length" type="decimal" allowNulls="false" dataType="Decimal" />
+      <column name="Cube" type="decimal" dataType="Decimal" />
+      <column name="Lineal" type="decimal" dataType="Decimal" />
+      <column name="Pieces" type="int" allowNulls="false" dataType="Int32" />
+      <column name="NetCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="VesselCode" type="nvarchar" length="3" dataType="String" />
+      <column name="VisitID" type="int" dataType="Int32" />
+      <column name="VoyageNumber" type="nvarchar" length="6" dataType="String" />
+      <column name="LoadPortCode" type="nvarchar" length="3" dataType="String" />
+      <column name="ShippingMark" type="nvarchar" length="50" dataType="String" />
+      <column name="FSC" type="bit" dataType="Boolean" />
+    </columns>
+  </table>
+  <table name="qStockCurrent" schema="wa">
+    <columns>
+      <column name="PacketNo" type="nvarchar" length="15" allowNulls="false" dataType="String" />
+      <column name="LocationCode" type="nvarchar" length="10" allowNulls="false" dataType="String" />
+      <column name="BranchID" type="int" allowNulls="false" dataType="Int32" />
+      <column name="BranchName" type="nvarchar" length="50" allowNulls="false" dataType="String" />
+      <column name="LastProcessCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="LastMovementDate" type="datetime" allowNulls="false" dataType="DateTime" />
+      <column name="Run" type="nvarchar" length="10" dataType="String" />
+      <column name="KilnDriedDate" type="datetime" dataType="DateTime" />
+      <column name="Cube" type="decimal" dataType="Decimal" />
+      <column name="Lineal" type="decimal" dataType="Decimal" />
+      <column name="Pieces" type="int" allowNulls="false" dataType="Int32" />
+      <column name="Packets" type="int" allowNulls="false" readOnly="true" computed="true" dataType="Int32" />
+      <column name="PieceTally" type="nvarchar" length="255" readOnly="true" computed="true" dataType="String" />
+      <column name="StockOwnedByCode" type="nvarchar" length="50" dataType="String" />
+      <column name="AvailableStatus" type="varchar" length="11" allowNulls="false" readOnly="true" computed="true" dataType="String" />
+      <column name="GradeCode" type="nvarchar" length="8" allowNulls="false" dataType="String" />
+      <column name="TreatmentCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="DrynessCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="FinishCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="Width" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Thickness" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Length" type="decimal" allowNulls="false" dataType="Decimal" />
+      <column name="FinishWidth" type="smallint" readOnly="true" computed="true" dataType="Int16" />
+      <column name="FinishThickness" type="smallint" readOnly="true" computed="true" dataType="Int16" />
+      <column name="SOPFamilyCode" type="nvarchar" length="10" dataType="String" />
+      <column name="SOPFamilyName" type="nvarchar" length="50" dataType="String" />
+      <column name="SOPFamilyCodeAndName" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="SOPGradeCode" type="nvarchar" length="5" dataType="String" />
+      <column name="SOPGradeName" type="nvarchar" length="50" dataType="String" />
+      <column name="SOPGradeCodeAndName" type="nvarchar" length="58" readOnly="true" computed="true" dataType="String" />
+      <column name="GC" type="nvarchar" length="22" allowNulls="false" readOnly="true" computed="true" dataType="String" />
+      <column name="Size" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="SizeAndLength" type="nvarchar" length="97" readOnly="true" computed="true" dataType="String" />
+      <column name="FinishSize" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="FinishSizeAndLength" type="nvarchar" length="97" readOnly="true" computed="true" dataType="String" />
+      <column name="GCS" type="nvarchar" length="86" readOnly="true" computed="true" dataType="String" />
+      <column name="GSC" type="nvarchar" length="86" readOnly="true" computed="true" dataType="String" />
+      <column name="GCSL" type="nvarchar" length="120" readOnly="true" computed="true" dataType="String" />
+      <column name="GSLC" type="nvarchar" length="120" readOnly="true" computed="true" dataType="String" />
+      <column name="SafetyStockCube" type="decimal" dataType="Decimal" />
+      <column name="StockClassificationCode" type="nvarchar" length="2" dataType="String" />
+      <column name="Active" type="bit" allowNulls="false" dataType="Boolean" />
+      <column name="HoldReasonName" type="nvarchar" length="50" dataType="String" />
+      <column name="HoldReasonID" type="int" dataType="Int32" />
+      <column name="ProductCode" type="nvarchar" length="50" allowNulls="false" dataType="String" />
+    </columns>
+  </table>
+  <table name="qStockDisposed" schema="wa">
+    <columns>
+      <column name="PacketNo" type="nvarchar" length="15" allowNulls="false" dataType="String" />
+      <column name="LocationCode" type="nvarchar" length="10" allowNulls="false" dataType="String" />
+      <column name="LastProcessCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="LastMovementDate" type="datetime" allowNulls="false" dataType="DateTime" />
+      <column name="Run" type="nvarchar" length="10" dataType="String" />
+      <column name="KilnDriedDate" type="datetime" dataType="DateTime" />
+      <column name="Cube" type="decimal" dataType="Decimal" />
+      <column name="Lineal" type="decimal" dataType="Decimal" />
+      <column name="Pieces" type="int" allowNulls="false" dataType="Int32" />
+      <column name="Packets" type="int" allowNulls="false" readOnly="true" computed="true" dataType="Int32" />
+      <column name="PieceTally" type="nvarchar" length="255" readOnly="true" computed="true" dataType="String" />
+      <column name="StockOwnedByCode" type="nvarchar" length="50" dataType="String" />
+      <column name="AvailableStatus" type="varchar" length="11" allowNulls="false" readOnly="true" computed="true" dataType="String" />
+      <column name="GradeCode" type="nvarchar" length="8" allowNulls="false" dataType="String" />
+      <column name="TreatmentCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="DrynessCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="FinishCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="Width" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Thickness" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Length" type="decimal" allowNulls="false" dataType="Decimal" />
+      <column name="FinishWidth" type="smallint" readOnly="true" computed="true" dataType="Int16" />
+      <column name="FinishThickness" type="smallint" readOnly="true" computed="true" dataType="Int16" />
+      <column name="SOPFamilyCode" type="nvarchar" length="10" dataType="String" />
+      <column name="SOPFamilyName" type="nvarchar" length="50" dataType="String" />
+      <column name="SOPFamilyCodeAndName" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="SOPGradeCode" type="nvarchar" length="5" dataType="String" />
+      <column name="SOPGradeName" type="nvarchar" length="50" dataType="String" />
+      <column name="SOPGradeCodeAndName" type="nvarchar" length="58" readOnly="true" computed="true" dataType="String" />
+      <column name="GC" type="nvarchar" length="22" allowNulls="false" readOnly="true" computed="true" dataType="String" />
+      <column name="Size" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="SizeAndLength" type="nvarchar" length="97" readOnly="true" computed="true" dataType="String" />
+      <column name="FinishSize" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="FinishSizeAndLength" type="nvarchar" length="97" readOnly="true" computed="true" dataType="String" />
+      <column name="GCS" type="nvarchar" length="86" readOnly="true" computed="true" dataType="String" />
+      <column name="GSC" type="nvarchar" length="86" readOnly="true" computed="true" dataType="String" />
+      <column name="GCSL" type="nvarchar" length="120" readOnly="true" computed="true" dataType="String" />
+      <column name="GSLC" type="nvarchar" length="120" readOnly="true" computed="true" dataType="String" />
+      <column name="SafetyStockCube" type="decimal" dataType="Decimal" />
+      <column name="StockClassificationCode" type="nvarchar" length="2" dataType="String" />
+      <column name="Active" type="bit" allowNulls="false" dataType="Boolean" />
+      <column name="HoldReasonName" type="nvarchar" length="50" dataType="String" />
+      <column name="HoldReasonID" type="int" dataType="Int32" />
+      <column name="ProductCode" type="nvarchar" length="50" allowNulls="false" dataType="String" />
+    </columns>
+  </table>
+  <table name="qStockMove" schema="wa">
+    <columns>
+      <column name="PacketHistoryID" type="int" allowNulls="false" dataType="Int32" />
+      <column name="PacketNo" type="nvarchar" length="15" allowNulls="false" dataType="String" />
+      <column name="LocationCode" type="nvarchar" length="10" allowNulls="false" dataType="String" />
+      <column name="ProcessCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="Run" type="nvarchar" length="10" dataType="String" />
+      <column name="MovementDate" type="datetime" allowNulls="false" dataType="DateTime" />
+      <column name="TimeStamp" type="datetime" allowNulls="false" dataType="DateTime" />
+      <column name="KilnDriedDate" type="datetime" dataType="DateTime" />
+      <column name="Cube" type="decimal" dataType="Decimal" />
+      <column name="Lineal" type="decimal" dataType="Decimal" />
+      <column name="Pieces" type="int" allowNulls="false" dataType="Int32" />
+      <column name="Packets" type="int" allowNulls="false" readOnly="true" computed="true" dataType="Int32" />
+      <column name="OrderNo" type="int" allowNulls="false" dataType="Int32" />
+      <column name="OrderItem" type="int" allowNulls="false" dataType="Int32" />
+      <column name="StockOwnedByCode" type="nvarchar" length="50" dataType="String" />
+      <column name="GradeCode" type="nvarchar" length="8" allowNulls="false" dataType="String" />
+      <column name="TreatmentCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="DrynessCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="FinishCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="Width" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Thickness" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Length" type="nvarchar" length="30" readOnly="true" computed="true" dataType="String" />
+      <column name="FinishWidth" type="smallint" readOnly="true" computed="true" dataType="Int16" />
+      <column name="FinishThickness" type="smallint" readOnly="true" computed="true" dataType="Int16" />
+      <column name="SOPFamilyCode" type="nvarchar" length="10" dataType="String" />
+      <column name="SOPFamilyName" type="nvarchar" length="50" dataType="String" />
+      <column name="SOPFamilyCodeAndName" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="SOPGradeCode" type="nvarchar" length="5" dataType="String" />
+      <column name="SOPGradeName" type="nvarchar" length="50" dataType="String" />
+      <column name="SOPGradeCodeAndName" type="nvarchar" length="58" readOnly="true" computed="true" dataType="String" />
+      <column name="GC" type="nvarchar" length="22" allowNulls="false" readOnly="true" computed="true" dataType="String" />
+      <column name="Size" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="SizeAndLength" type="nvarchar" length="97" readOnly="true" computed="true" dataType="String" />
+      <column name="FinishSize" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="FinishSizeAndLength" type="nvarchar" length="97" readOnly="true" computed="true" dataType="String" />
+      <column name="GCS" type="nvarchar" length="86" readOnly="true" computed="true" dataType="String" />
+      <column name="GSC" type="nvarchar" length="86" readOnly="true" computed="true" dataType="String" />
+      <column name="GCSL" type="nvarchar" length="120" readOnly="true" computed="true" dataType="String" />
+      <column name="GSLC" type="nvarchar" length="120" readOnly="true" computed="true" dataType="String" />
+      <column name="ProductCode" type="nvarchar" length="50" allowNulls="false" dataType="String" />
+    </columns>
+  </table>
+  <table name="qStockPosition" schema="wa">
+    <columns>
+      <column name="ProductCode" type="nvarchar" length="50" allowNulls="false" dataType="String" />
+      <column name="BranchName" type="nvarchar" length="50" dataType="String" />
+      <column name="BranchID" type="int" allowNulls="false" dataType="Int32" />
+      <column name="ProductCategory" type="nvarchar" length="5" dataType="String" />
+      <column name="GradeCode" type="nvarchar" length="8" allowNulls="false" dataType="String" />
+      <column name="TreatmentCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="DrynessCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="FinishCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="Width" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Thickness" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Length" type="decimal" allowNulls="false" dataType="Decimal" />
+      <column name="FinishWidth" type="smallint" dataType="Int16" />
+      <column name="FinishThickness" type="smallint" dataType="Int16" />
+      <column name="StockCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="StockPackets" type="int" dataType="Int32" />
+      <column name="AllocatedCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="AllocatedPackets" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="InTransitCube" type="int" dataType="Int32" />
+      <column name="InTransitPackets" type="int" dataType="Int32" />
+      <column name="POCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="POPackets" type="int" dataType="Int32" />
+      <column name="SOCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="SOPackets" type="int" readOnly="true" computed="true" dataType="Int32" />
+      <column name="COCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="COPackets" type="int" readOnly="true" computed="true" dataType="Int32" />
+      <column name="BTCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="BTPackets" type="int" readOnly="true" computed="true" dataType="Int32" />
+      <column name="CubePosition" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="PacketPosition" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="CubePositionExcludingPO" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="PacketPositionExcludingPO" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="WIPCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="WIPPackets" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="PickCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="PickPackets" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="DTWCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="DTWPackets" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="ConsignmentCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="ConsignmentPackets" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="AvailablePackets" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="AvailableCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="WOCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="WOPackets" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="EnquiryCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="EnquiryPackets" type="int" readOnly="true" computed="true" dataType="Int32" />
+      <column name="StockClass" type="nvarchar" length="2" dataType="String" />
+      <column name="HeldCube" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="HeldPackets" type="decimal" readOnly="true" computed="true" dataType="Decimal" />
+      <column name="Size" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="SizeAndLength" type="nvarchar" length="97" readOnly="true" computed="true" dataType="String" />
+      <column name="FinishSize" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="FinishSizeAndLength" type="nvarchar" length="97" readOnly="true" computed="true" dataType="String" />
+      <column name="GCSCode" type="nvarchar" length="86" readOnly="true" computed="true" dataType="String" />
+      <column name="GSC" type="nvarchar" length="86" readOnly="true" computed="true" dataType="String" />
+      <column name="GCSL" type="nvarchar" length="120" readOnly="true" computed="true" dataType="String" />
+      <column name="GSLC" type="nvarchar" length="120" readOnly="true" computed="true" dataType="String" />
+      <column name="GC" type="nvarchar" length="22" readOnly="true" computed="true" dataType="String" />
+      <column name="StockClassificationCode" type="nvarchar" length="2" dataType="String" />
+      <column name="SOPGradeCode" type="nvarchar" length="5" dataType="String" />
+      <column name="SOPGradeName" type="nvarchar" length="50" dataType="String" />
+      <column name="SOPGradeCodeAndName" type="nvarchar" length="58" readOnly="true" computed="true" dataType="String" />
+      <column name="SOPFamilyCode" type="nvarchar" length="10" dataType="String" />
+      <column name="SOPFamilyName" type="nvarchar" length="50" dataType="String" />
+      <column name="SOPFamilyCodeAndName" type="nvarchar" length="63" readOnly="true" computed="true" dataType="String" />
+      <column name="Active" type="bit" dataType="Boolean" />
+    </columns>
+  </table>
+  <table name="qStockPositionSalesOrder" schema="wa">
+    <columns>
+      <column name="BranchID" type="int" allowNulls="false" dataType="Int32" />
+      <column name="ProductCode" type="nvarchar" length="50" allowNulls="false" dataType="String" />
+      <column name="OrderNo" type="int" allowNulls="false" dataType="Int32" />
+      <column name="OrderItem" type="int" allowNulls="false" dataType="Int32" />
+      <column name="LocationCode" type="nvarchar" length="10" allowNulls="false" dataType="String" />
+      <column name="GradeCode" type="nvarchar" length="8" allowNulls="false" dataType="String" />
+      <column name="TreatmentCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="DrynessCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="FinishCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="Width" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Thickness" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Length" type="decimal" allowNulls="false" dataType="Decimal" />
+      <column name="CustomerName" type="nvarchar" length="255" allowNulls="false" dataType="String" />
+      <column name="CustomerRef" type="nvarchar" length="20" dataType="String" />
+      <column name="CubeOrdered" type="decimal" allowNulls="false" dataType="Decimal" />
+      <column name="CubeDespatched" type="money" allowNulls="false" dataType="Decimal" />
+      <column name="PacketsOrdered" type="int" allowNulls="false" dataType="Int32" />
+      <column name="PacketsDespatched" type="int" allowNulls="false" dataType="Int32" />
+      <column name="Required" type="datetime" allowNulls="false" dataType="DateTime" />
+      <column name="PlannedDespatch" type="datetime" dataType="DateTime" />
+      <column name="Approved" type="bit" dataType="Boolean" />
+    </columns>
+  </table>
+  <table name="qStockPositionStock" schema="wa">
+    <columns>
+      <column name="BranchID" type="int" allowNulls="false" dataType="Int32" />
+      <column name="ProductCode" type="nvarchar" length="50" allowNulls="false" dataType="String" />
+      <column name="LocationCode" type="nvarchar" length="10" allowNulls="false" dataType="String" />
+      <column name="PacketNo" type="nvarchar" length="15" allowNulls="false" dataType="String" />
+      <column name="GradeCode" type="nvarchar" length="8" allowNulls="false" dataType="String" />
+      <column name="TreatmentCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="DrynessCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="FinishCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="Width" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Thickness" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Length" type="decimal" allowNulls="false" dataType="Decimal" />
+      <column name="Cube" type="decimal" dataType="Decimal" />
+      <column name="Lineal" type="decimal" dataType="Decimal" />
+      <column name="Pieces" type="int" allowNulls="false" dataType="Int32" />
+      <column name="LastMovementDate" type="datetime" allowNulls="false" dataType="DateTime" />
+      <column name="LastProcessCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="LastRunNo" type="nvarchar" length="10" dataType="String" />
+      <column name="KilnDriedDate" type="datetime" dataType="DateTime" />
+      <column name="CreatedDate" type="datetime" dataType="DateTime" />
+      <column name="CreatedProcessCode" type="nvarchar" length="5" dataType="String" />
+      <column name="CreatedRunNo" type="nvarchar" length="10" dataType="String" />
+      <column name="SupplierName" type="nvarchar" length="255" dataType="String" />
+      <column name="HoldReasonName" type="nvarchar" length="50" dataType="String" />
+      <column name="AvailableStatus" type="varchar" length="11" allowNulls="false" readOnly="true" computed="true" dataType="String" />
+      <column name="PieceTally" type="nvarchar" length="255" readOnly="true" computed="true" dataType="String" />
+    </columns>
+  </table>
+  <table name="qStockPositionWorksOrder" schema="wa">
+    <columns>
+      <column name="BranchID" type="int" allowNulls="false" dataType="Int32" />
+      <column name="ProductCode" type="nvarchar" length="50" allowNulls="false" dataType="String" />
+      <column name="OrderNo" type="int" allowNulls="false" dataType="Int32" />
+      <column name="OrderItem" type="int" allowNulls="false" dataType="Int32" />
+      <column name="ProcessCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="ProcessName" type="nvarchar" length="30" dataType="String" />
+      <column name="OperationCode" type="nvarchar" length="10" allowNulls="false" dataType="String" />
+      <column name="LocationCode" type="nvarchar" length="10" allowNulls="false" dataType="String" />
+      <column name="GradeCode" type="nvarchar" length="8" allowNulls="false" dataType="String" />
+      <column name="TreatmentCode" type="nvarchar" length="5" allowNulls="false" dataType="String" />
+      <column name="DrynessCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="FinishCode" type="nvarchar" length="3" allowNulls="false" dataType="String" />
+      <column name="Width" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Thickness" type="smallint" allowNulls="false" dataType="Int16" />
+      <column name="Length" type="decimal" allowNulls="false" dataType="Decimal" />
+      <column name="CustomerName" type="nvarchar" length="255" dataType="String" />
+      <column name="CustomerRef" type="nvarchar" length="20" dataType="String" />
+      <column name="CubeOrdered" type="decimal" allowNulls="false" dataType="Decimal" />
+      <column name="CubeMoved" type="money" allowNulls="false" dataType="Decimal" />
+      <column name="PacketsOrdered" type="int" allowNulls="false" dataType="Int32" />
+      <column name="PacketsMoved" type="int" allowNulls="false" dataType="Int32" />
+      <column name="Required" type="datetime" allowNulls="false" dataType="DateTime" />
+    </columns>
+  </table>
+  <table name="qStockTally" schema="wa">
+    <columns>
+      <column name="PacketNo" type="nvarchar" length="15" allowNulls="false" dataType="String" />
+      <column name="Length" type="decimal" allowNulls="false" dataType="Decimal" />
+      <column name="Pieces" type="smallint" allowNulls="false" dataType="Int16" />
+    </columns>
+  </table>
+</dataModel>
