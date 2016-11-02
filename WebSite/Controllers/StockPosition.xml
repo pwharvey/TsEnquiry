@@ -297,9 +297,6 @@ from "wa"."qStockPosition" "qStockPosition"
       <action id="a2" />
       <action id="a3" commandName="ExportRowset" />
       <action id="a4" commandName="ExportRss" />
-      <action id="a5" />
-      <action id="a7" commandName="DataSheet" />
-      <action id="a8" commandName="Grid" />
     </actionGroup>
     <actionGroup id="ag7" scope="ActionBar" headerText="Report">
       <action id="a1" commandName="ReportAsPdf" />
