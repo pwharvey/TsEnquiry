@@ -558,7 +558,7 @@ Namespace RedStag.Services
     End Class
     
     Partial Public Class ApplicationServices
-        Inherits EnterpriseApplicationServices
+        Inherits ApplicationServicesBase
         
         Public Shared ReadOnly Property HomePageUrl() As [String]
             Get
@@ -738,12 +738,7 @@ Namespace RedStag.Services
         
         Public Shared ReadOnly Property IsTouchClient() As Boolean
             Get
-                Dim isMobile As Object = HttpContext.Current.Items("ApplicationServices_IsTouchClient")
-                If (isMobile Is Nothing) Then
-                    isMobile = ClientIsUsingTouchUI()
-                    HttpContext.Current.Items("ApplicationServices_IsTouchClient") = isMobile
-                End If
-                Return CType(isMobile,Boolean)
+                Return true
             End Get
         End Property
         
@@ -1189,43 +1184,6 @@ Namespace RedStag.Services
                     If Not (String.IsNullOrEmpty(scheduleExceptionsField)) Then
                         scheduleExceptions = Convert.ToString(reader(scheduleExceptionsField))
                     End If
-                    If (Not (String.IsNullOrEmpty(schedule)) OrElse Not (String.IsNullOrEmpty(scheduleExceptions))) Then
-                        Dim scheduleStatusKey As String = String.Format("ScheduleStatus|{0}|{1}", schedule, scheduleExceptions)
-                        Dim status As ScheduleStatus = CType(context.Items(scheduleStatusKey),ScheduleStatus)
-                        If (status Is Nothing) Then
-                            status = CType(context.Cache(scheduleStatusKey),ScheduleStatus)
-                        End If
-                        Dim scheduleStatusChanged As Boolean = false
-                        If (status Is Nothing) Then
-                            If (Not (String.IsNullOrEmpty(schedule)) AndAlso Not (schedule.Contains("+"))) Then
-                                schedule = ReadSiteContentString(("sys/schedules%/" + schedule))
-                            End If
-                            If (Not (String.IsNullOrEmpty(scheduleExceptions)) AndAlso Not (scheduleExceptions.Contains("+"))) Then
-                                scheduleExceptions = ReadSiteContentString(("sys/schedules%/" + scheduleExceptions))
-                            End If
-                            If (Not (String.IsNullOrEmpty(schedule)) OrElse Not (String.IsNullOrEmpty(scheduleExceptions))) Then
-                                status = Scheduler.Test(schedule, scheduleExceptions)
-                            Else
-                                status = New ScheduleStatus()
-                                status.Success = true
-                                status.NextTestDate = DateTime.MaxValue
-                            End If
-                            context.Items(scheduleStatusKey) = status
-                            scheduleStatusChanged = true
-                        Else
-                            If (DateTime.Now > status.NextTestDate) Then
-                                status = Scheduler.Test(status.Schedule, status.Exceptions)
-                                context.Items(scheduleStatusKey) = status
-                                scheduleStatusChanged = true
-                            End If
-                        End If
-                        If scheduleStatusChanged Then
-                            context.Cache.Add(scheduleStatusKey, status, Nothing, DateTime.Now.AddSeconds(ScheduleCacheDuration), Cache.NoSlidingExpiration, CacheItemPriority.Normal, Nothing)
-                        End If
-                        If Not (status.Success) Then
-                            include = false
-                        End If
-                    End If
                 End If
                 'create a file instance
                 If include Then
@@ -1507,74 +1465,44 @@ Namespace RedStag.Services
             End If
         End Sub
         
-        Public Shared Function ClientIsUsingTouchUI() As Boolean
-            If Not (EnableMobileClient) Then
-                Return false
-            End If
-            Dim request As HttpRequest = HttpContext.Current.Request
-            Dim mobileCookie As HttpCookie = request.Cookies("appfactorytouchui")
-            If (Not (mobileCookie) Is Nothing) Then
-                Return (mobileCookie.Value = "true")
-            End If
-            Return true
-        End Function
-        
         Public Shared Sub RegisterCssLinks(ByVal p As Page)
-            For Each c As Control in p.Header.Controls
-                If TypeOf c Is HtmlLink Then
-                    Dim l As HtmlLink = CType(c,HtmlLink)
-                    If (l.ID = "RedStagTheme") Then
-                        Return
-                    End If
-                    If l.Href.Contains("_Theme_Aquarium.css") Then
-                        l.ID = "RedStagTheme"
-                        If ApplicationServices.IsTouchClient Then
-                            Dim jqmCss As String = String.Format("jquery.mobile-{0}.min.css", ApplicationServices.JqmVersion)
-                            l.Href = ("~/touch/" + jqmCss)
-                            Dim meta As HtmlMeta = New HtmlMeta()
-                            meta.Attributes("name") = "viewport"
-                            meta.Attributes("content") = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
-                            p.Header.Controls.AddAt(0, meta)
-                            Dim allowCompression As Boolean = true
-                            If (ApplicationServices.EnableMinifiedCss AndAlso allowCompression) Then
-                                l.Href = (p.ResolveUrl(String.Format("~/appservices/stylesheet-{0}.min.css", ApplicationServices.Version)) + String.Format("?_t={0}&_cf=", ApplicationServices.Create().UserTheme))
-                                l.Attributes("class") = "app-theme"
-                            Else
-                                For Each stylesheet As String in ApplicationServices.TouchUIStylesheets()
-                                    If (Not (stylesheet.StartsWith("jquery.mobile")) AndAlso Not (stylesheet.StartsWith("bootstrap"))) Then
-                                        Dim cssLink As HtmlLink = New HtmlLink()
-                                        cssLink.Href = String.Format("~/touch/{0}?{1}", stylesheet, ApplicationServices.Version)
-                                        cssLink.Attributes("type") = "text/css"
-                                        cssLink.Attributes("rel") = "stylesheet"
-                                        If stylesheet.Contains("app-themes.") Then
-                                            cssLink.Attributes("class") = "app-theme"
-                                        End If
-                                        p.Header.Controls.Add(cssLink)
-                                    End If
-                                Next
-                            End If
-                            Dim removeList As List(Of Control) = New List(Of Control)()
-                            For Each c2 As Control in p.Header.Controls
-                                If TypeOf c2 Is HtmlLink Then
-                                    l = CType(c2,HtmlLink)
-                                    If l.Href.Contains("App_Themes/") Then
-                                        removeList.Add(l)
-                                    End If
-                                End If
-                            Next
-                            For Each c2 As Control in removeList
-                                p.Header.Controls.Remove(c2)
-                            Next
-                            Return
-                        Else
-                            If Not (l.Href.Contains("?")) Then
-                                l.Href = (l.Href + String.Format("?{0}", ApplicationServices.Version))
-                            End If
+            If ApplicationServices.IsTouchClient Then
+                Dim l As HtmlLink = New HtmlLink()
+                l.ID = "RedStagTheme"
+                l.Attributes.Add("type", "text/css")
+                l.Attributes.Add("rel", "stylesheet")
+                Dim jqmCss As String = String.Format("jquery.mobile-{0}.min.css", ApplicationServices.JqmVersion)
+                l.Href = ("~/touch/" + jqmCss)
+                Dim meta As HtmlMeta = New HtmlMeta()
+                meta.Attributes("name") = "viewport"
+                meta.Attributes("content") = "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+                p.Header.Controls.AddAt(0, meta)
+                p.Header.Controls.Add(CType(l,Control))
+                For Each fileName As String in TouchUIStylesheets()
+                    If Not (fileName.StartsWith("bootstrap")) Then
+                        Dim cssLink As HtmlLink = New HtmlLink()
+                        cssLink.Href = String.Format("~/touch/{0}?{1}", fileName, ApplicationServices.Version)
+                        cssLink.Attributes("type") = "text/css"
+                        cssLink.Attributes("rel") = "stylesheet"
+                        If fileName.Contains("app-themes.") Then
+                            cssLink.Attributes("class") = "app-theme"
                         End If
-                        Return
+                        p.Header.Controls.Add(cssLink)
                     End If
-                End If
-            Next
+                Next
+                Dim removeList As List(Of Control) = New List(Of Control)()
+                For Each c2 As Control in p.Header.Controls
+                    If TypeOf c2 Is HtmlLink Then
+                        l = CType(c2,HtmlLink)
+                        If l.Href.Contains("App_Themes/") Then
+                            removeList.Add(l)
+                        End If
+                    End If
+                Next
+                For Each c2 As Control in removeList
+                    p.Header.Controls.Remove(c2)
+                Next
+            End If
         End Sub
         
         Protected Overridable Function AllowTouchUIStylesheet(ByVal name As String) As Boolean
@@ -1730,18 +1658,6 @@ Namespace RedStag.Services
                                         Else
                                             If (methodName = "Roles") Then
                                                 result = service.Roles()
-                                            Else
-                                                If (methodName = "SavePermalink") Then
-                                                    service.SavePermalink(CType(args("link"),String), CType(args("html"),String))
-                                                Else
-                                                    If (methodName = "EncodePermalink") Then
-                                                        result = service.EncodePermalink(CType(args("link"),String), CType(args("rooted"),Boolean))
-                                                    Else
-                                                        If (methodName = "ListAllPermalinks") Then
-                                                            result = service.ListAllPermalinks()
-                                                        End If
-                                                    End If
-                                                End If
                                             End If
                                         End If
                                     End If

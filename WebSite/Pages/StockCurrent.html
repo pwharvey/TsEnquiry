@@ -2,16 +2,16 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Current Stock Patrick</title>
+    <title>Current Stock</title>
   </head>
   <body data-authorize-roles="Enquiry">
     <div data-flow="row">
-      <div id="view1" data-controller="StockCurrent" data-view="grid1" data-show-in-summary="true" data-show-modal-forms="true"> </div>
+      <div id="view1" data-controller="StockCurrent" data-view="grid1" data-show-in-summary="true"> </div>
       <div data-activator="Tab|Movement">
-        <div id="view2" data-controller="StockMove" data-view="grid1" data-filter-source="view1" data-filter-fields="PacketNo" data-page-size="5" data-auto-hide="self" data-show-modal-forms="true"> </div>
+        <div id="view2" data-controller="StockMove" data-view="grid1" data-filter-source="view1" data-filter-fields="PacketNo" data-page-size="5" data-auto-hide="self"> </div>
       </div>
       <div data-activator="Tab|Tally">
-        <div id="view3" data-controller="StockTally" data-view="grid1" data-filter-source="view1" data-filter-fields="PacketNo" data-page-size="5" data-auto-hide="self" data-show-modal-forms="true"> </div>
+        <div id="view3" data-controller="StockTally" data-view="grid1" data-filter-source="view1" data-filter-fields="PacketNo" data-page-size="5" data-auto-hide="self"> </div>
       </div>
     </div>
   </body>

@@ -222,15 +222,15 @@ from "wa"."qStockCurrent" "qStockCurrent"
       <action id="a2" />
       <action id="a3" commandName="ExportRowset" />
       <action id="a4" commandName="ExportRss" />
-      <action id="a5" />
-      <action id="a7" commandName="DataSheet" />
-      <action id="a8" commandName="Grid" />
     </actionGroup>
     <actionGroup id="ag7" scope="ActionBar" headerText="Report">
       <action id="a1" commandName="ReportAsPdf" headerText="Packet Detail By Owner Location and Product" commandArgument="StockCurrent_PacketDetailByOwnerLocationProduct.rdlc,StockCurrent,grid1">
         <data />
       </action>
       <action id="a100" commandName="ReportAsPdf" headerText="Packet Summary By Owner Location And Product" commandArgument="StockCurrent_PacketSummaryByOwnerLocationProduct.rdlc,StockCurrent,grid1">
+        <data />
+      </action>
+      <action id="a102" commandName="ReportAsPdf" headerText="Packet Summary Hermione Test" commandArgument="StockCurrent_HermioneTest.rdlc,StockCurrent,grid1">
         <data />
       </action>
       <action id="a101" commandName="ReportAsPdf" headerText="Packet Summary By Owner Location Product And Tally" commandArgument="StockCurrent_PacketSummaryByOwnerLocationProductTally.rdlc,StockCurrent,grid1">
