@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="StockTally" conflictDetection="overwriteChanges" label="Stock Tally" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qStockTally"."PacketNo" "PacketNo"
+	,"qStockTally"."Length" "Length"
+	,"qStockTally"."Pieces" "Pieces"
+from "wa"."qStockTally" "qStockTally"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="PacketNo" type="String" allowNulls="false" isPrimaryKey="true" label="Packet No" length="15" showInSummary="true" />
+    <field name="Length" type="Decimal" allowNulls="false" isPrimaryKey="true" label="Length" />
+    <field name="Pieces" type="Int16" allowNulls="false" label="Pieces" showInSummary="true" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Tallies">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="PacketNo" columns="15" />
+        <dataField fieldName="Length" columns="15" />
+        <dataField fieldName="Pieces" columns="15" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Tally">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Tally" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="Length" columns="15" />
+            <dataField fieldName="Pieces" columns="15" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a3" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

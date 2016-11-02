@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qStockTally" alias="qStockTally" created="2016-04-06T14:10:41" modified="2016-04-06T14:11:07" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="PacketNo" name="PacketNo" label="Packet No" primaryKey="true" />
+    <column fieldName="Length" name="Length" label="Length" primaryKey="true" />
+    <column fieldName="Pieces" name="Pieces" label="Pieces" />
+  </columns>
+</dataModel>

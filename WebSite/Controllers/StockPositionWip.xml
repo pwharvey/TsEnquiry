@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="StockPositionWip" conflictDetection="overwriteChanges" label="Stock Position Wip" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qStockPositionWIP"."BranchID" "BranchID"
+	,"qStockPositionWIP"."ProductCode" "ProductCode"
+	,"qStockPositionWIP"."LocationCode" "LocationCode"
+	,"qStockPositionWIP"."PacketNo" "PacketNo"
+	,"qStockPositionWIP"."GradeCode" "GradeCode"
+	,"qStockPositionWIP"."TreatmentCode" "TreatmentCode"
+	,"qStockPositionWIP"."DrynessCode" "DrynessCode"
+	,"qStockPositionWIP"."FinishCode" "FinishCode"
+	,"qStockPositionWIP"."Width" "Width"
+	,"qStockPositionWIP"."Thickness" "Thickness"
+	,"qStockPositionWIP"."Length" "Length"
+	,"qStockPositionWIP"."Cube" "Cube"
+	,"qStockPositionWIP"."Lineal" "Lineal"
+	,"qStockPositionWIP"."Pieces" "Pieces"
+	,"qStockPositionWIP"."LastMovementDate" "LastMovementDate"
+	,"qStockPositionWIP"."LastProcessCode" "LastProcessCode"
+	,"qStockPositionWIP"."LastRunNo" "LastRunNo"
+	,"qStockPositionWIP"."KilnDriedDate" "KilnDriedDate"
+	,"qStockPositionWIP"."CreatedDate" "CreatedDate"
+	,"qStockPositionWIP"."CreatedProcessCode" "CreatedProcessCode"
+	,"qStockPositionWIP"."CreatedRunNo" "CreatedRunNo"
+	,"qStockPositionWIP"."SupplierName" "SupplierName"
+	,"qStockPositionWIP"."AvailableStatus" "AvailableStatus"
+	,"qStockPositionWIP"."PieceTally" "PieceTally"
+from "wa"."qStockPositionWIP" "qStockPositionWIP"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="BranchID" type="Int32" allowNulls="false" label="Branch ID" showInSummary="true" />
+    <field name="ProductCode" type="String" allowNulls="false" label="Product Code" length="50" showInSummary="true" />
+    <field name="LocationCode" type="String" allowNulls="false" label="Location Code" length="10" showInSummary="true" />
+    <field name="PacketNo" type="String" allowNulls="false" isPrimaryKey="true" label="Packet No" length="15" showInSummary="true" />
+    <field name="GradeCode" type="String" allowNulls="false" label="Grade Code" length="8" showInSummary="true" />
+    <field name="TreatmentCode" type="String" allowNulls="false" label="Treatment Code" length="5" />
+    <field name="DrynessCode" type="String" allowNulls="false" label="Dryness Code" length="3" />
+    <field name="FinishCode" type="String" allowNulls="false" label="Finish Code" length="3" />
+    <field name="Width" type="Int16" allowNulls="false" label="Width" />
+    <field name="Thickness" type="Int16" allowNulls="false" label="Thickness" />
+    <field name="Length" type="Decimal" allowNulls="false" label="Length" />
+    <field name="Cube" type="Decimal" label="Cube" />
+    <field name="Lineal" type="Decimal" label="Lineal" />
+    <field name="Pieces" type="Int32" allowNulls="false" label="Pieces" />
+    <field name="LastMovementDate" type="DateTime" allowNulls="false" dataFormatString="g" label="Last Movement Date" />
+    <field name="LastProcessCode" type="String" allowNulls="false" label="Last Process Code" length="5" />
+    <field name="LastRunNo" type="String" label="Last Run No" length="10" />
+    <field name="KilnDriedDate" type="DateTime" dataFormatString="g" label="Kiln Dried Date" />
+    <field name="CreatedDate" type="DateTime" dataFormatString="g" label="Created Date" />
+    <field name="CreatedProcessCode" type="String" label="Created Process Code" length="5" />
+    <field name="CreatedRunNo" type="String" label="Created Run No" length="10" />
+    <field name="SupplierName" type="String" label="Supplier Name" length="255" />
+    <field name="AvailableStatus" type="String" allowNulls="false" label="Available Status" readOnly="true" length="3" />
+    <field name="PieceTally" type="String" label="Piece Tally" readOnly="true" length="255" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Stock Position Wip">
+      <headerText>$DefaultGridViewDescription</headerText>
+      <dataFields>
+        <dataField fieldName="BranchID" columns="15" />
+        <dataField fieldName="ProductCode" columns="50" />
+        <dataField fieldName="LocationCode" columns="10" />
+        <dataField fieldName="PacketNo" columns="15" />
+        <dataField fieldName="GradeCode" columns="8" />
+        <dataField fieldName="TreatmentCode" columns="5" />
+        <dataField fieldName="DrynessCode" columns="3" />
+        <dataField fieldName="FinishCode" columns="3" />
+        <dataField fieldName="Width" columns="15" />
+        <dataField fieldName="Thickness" columns="15" />
+        <dataField fieldName="Length" columns="15" />
+        <dataField fieldName="Cube" columns="15" />
+        <dataField fieldName="Lineal" columns="15" />
+        <dataField fieldName="Pieces" columns="15" />
+        <dataField fieldName="LastMovementDate" columns="10" />
+        <dataField fieldName="LastProcessCode" columns="5" />
+        <dataField fieldName="LastRunNo" columns="10" />
+        <dataField fieldName="KilnDriedDate" columns="10" />
+        <dataField fieldName="CreatedDate" columns="10" />
+        <dataField fieldName="CreatedProcessCode" columns="5" />
+        <dataField fieldName="CreatedRunNo" columns="10" />
+        <dataField fieldName="SupplierName" />
+        <dataField fieldName="AvailableStatus" columns="3" />
+        <dataField fieldName="PieceTally" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review wa Stock Position Wip">
+      <headerText>$DefaultEditViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="wa Stock Position Wip" newColumn="true">
+          <description><![CDATA[$DefaultEditDescription]]></description>
+          <dataFields>
+            <dataField fieldName="BranchID" columns="15" />
+            <dataField fieldName="ProductCode" columns="50" />
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="GradeCode" columns="8" />
+            <dataField fieldName="TreatmentCode" columns="5" />
+            <dataField fieldName="DrynessCode" columns="3" />
+            <dataField fieldName="FinishCode" columns="3" />
+            <dataField fieldName="Width" columns="15" />
+            <dataField fieldName="Thickness" columns="15" />
+            <dataField fieldName="Length" columns="15" />
+            <dataField fieldName="Cube" columns="15" />
+            <dataField fieldName="Lineal" columns="15" />
+            <dataField fieldName="Pieces" columns="15" />
+            <dataField fieldName="LastMovementDate" columns="10" />
+            <dataField fieldName="LastProcessCode" columns="5" />
+            <dataField fieldName="LastRunNo" columns="10" />
+            <dataField fieldName="KilnDriedDate" columns="10" />
+            <dataField fieldName="CreatedDate" columns="10" />
+            <dataField fieldName="CreatedProcessCode" columns="5" />
+            <dataField fieldName="CreatedRunNo" columns="10" />
+            <dataField fieldName="SupplierName" />
+            <dataField fieldName="AvailableStatus" columns="3" />
+            <dataField fieldName="PieceTally" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+    <view id="createForm1" type="Form" commandId="command1" label="New wa Stock Position Wip">
+      <headerText>$DefaultCreateViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="New wa Stock Position Wip" newColumn="true">
+          <description><![CDATA[$DefaultNewDescription]]></description>
+          <dataFields>
+            <dataField fieldName="BranchID" columns="15" />
+            <dataField fieldName="ProductCode" columns="50" />
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="GradeCode" columns="8" />
+            <dataField fieldName="TreatmentCode" columns="5" />
+            <dataField fieldName="DrynessCode" columns="3" />
+            <dataField fieldName="FinishCode" columns="3" />
+            <dataField fieldName="Width" columns="15" />
+            <dataField fieldName="Thickness" columns="15" />
+            <dataField fieldName="Length" columns="15" />
+            <dataField fieldName="Cube" columns="15" />
+            <dataField fieldName="Lineal" columns="15" />
+            <dataField fieldName="Pieces" columns="15" />
+            <dataField fieldName="LastMovementDate" columns="10" />
+            <dataField fieldName="LastProcessCode" columns="5" />
+            <dataField fieldName="LastRunNo" columns="10" />
+            <dataField fieldName="KilnDriedDate" columns="10" />
+            <dataField fieldName="CreatedDate" columns="10" />
+            <dataField fieldName="CreatedProcessCode" columns="5" />
+            <dataField fieldName="CreatedRunNo" columns="10" />
+            <dataField fieldName="SupplierName" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+      <action id="a2" commandName="Edit" />
+      <action id="a3" commandName="Delete" />
+      <action id="a6" />
+      <action id="a7" commandName="New" commandArgument="grid1" />
+      <action id="a8" commandName="Duplicate" commandArgument="createForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a1" commandName="Edit" />
+      <action id="a2" commandName="Delete" />
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+    </actionGroup>
+    <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+      <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+      <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+      <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a6" commandName="Import" commandArgument="createForm1" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

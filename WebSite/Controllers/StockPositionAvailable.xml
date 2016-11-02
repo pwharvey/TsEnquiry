@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="StockPositionAvailable" conflictDetection="overwriteChanges" label="Stock Position Available" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qStockPositionAvailable"."BranchID" "BranchID"
+	,"qStockPositionAvailable"."ProductCode" "ProductCode"
+	,"qStockPositionAvailable"."LocationCode" "LocationCode"
+	,"qStockPositionAvailable"."PacketNo" "PacketNo"
+	,"qStockPositionAvailable"."GradeCode" "GradeCode"
+	,"qStockPositionAvailable"."TreatmentCode" "TreatmentCode"
+	,"qStockPositionAvailable"."DrynessCode" "DrynessCode"
+	,"qStockPositionAvailable"."FinishCode" "FinishCode"
+	,"qStockPositionAvailable"."Width" "Width"
+	,"qStockPositionAvailable"."Thickness" "Thickness"
+	,"qStockPositionAvailable"."Length" "Length"
+	,"qStockPositionAvailable"."Cube" "Cube"
+	,"qStockPositionAvailable"."Lineal" "Lineal"
+	,"qStockPositionAvailable"."Pieces" "Pieces"
+	,"qStockPositionAvailable"."LastMovementDate" "LastMovementDate"
+	,"qStockPositionAvailable"."LastProcessCode" "LastProcessCode"
+	,"qStockPositionAvailable"."CreatedDate" "CreatedDate"
+	,"qStockPositionAvailable"."CreatedProcessCode" "CreatedProcessCode"
+	,"qStockPositionAvailable"."SupplierName" "SupplierName"
+	,"qStockPositionAvailable"."PieceTally" "PieceTally"
+	,"qStockPositionAvailable"."CreatedRunNo" "CreatedRunNo"
+	,"qStockPositionAvailable"."AvailableStatus" "AvailableStatus"
+	,"qStockPositionAvailable"."LastRunNo" "LastRunNo"
+	,"qStockPositionAvailable"."KilnDriedDate" "KilnDriedDate"
+from "wa"."qStockPositionAvailable" "qStockPositionAvailable"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="BranchID" type="Int32" allowNulls="false" label="Branch ID" showInSummary="true" />
+    <field name="ProductCode" type="String" allowNulls="false" label="Product Code" length="50" showInSummary="true" />
+    <field name="LocationCode" type="String" allowNulls="false" label="Location Code" length="10" showInSummary="true" />
+    <field name="PacketNo" type="String" allowNulls="false" isPrimaryKey="true" label="Packet No" length="15" showInSummary="true" />
+    <field name="GradeCode" type="String" allowNulls="false" label="Grade Code" length="8" showInSummary="true" />
+    <field name="TreatmentCode" type="String" allowNulls="false" label="Treatment Code" length="5" />
+    <field name="DrynessCode" type="String" allowNulls="false" label="Dryness Code" length="3" />
+    <field name="FinishCode" type="String" allowNulls="false" label="Finish Code" length="3" />
+    <field name="Width" type="Int16" allowNulls="false" label="Width" />
+    <field name="Thickness" type="Int16" allowNulls="false" label="Thickness" />
+    <field name="Length" type="Decimal" allowNulls="false" label="Length" />
+    <field name="Cube" type="Decimal" label="Cube" />
+    <field name="Lineal" type="Decimal" label="Lineal" />
+    <field name="Pieces" type="Int32" allowNulls="false" label="Pieces" />
+    <field name="LastMovementDate" type="DateTime" allowNulls="false" dataFormatString="g" label="Last Movement Date" />
+    <field name="LastProcessCode" type="String" allowNulls="false" label="Last Process Code" length="5" />
+    <field name="CreatedDate" type="DateTime" dataFormatString="g" label="Created Date" />
+    <field name="CreatedProcessCode" type="String" label="Created Process Code" length="5" />
+    <field name="SupplierName" type="String" label="Supplier Name" length="255" />
+    <field name="PieceTally" type="String" label="Piece Tally" readOnly="true" length="255" />
+    <field name="CreatedRunNo" type="String" label="Created Run No" length="10" />
+    <field name="AvailableStatus" type="String" allowNulls="false" label="Available Status" readOnly="true" length="9" />
+    <field name="LastRunNo" type="String" label="Last Run No" length="10" />
+    <field name="KilnDriedDate" type="DateTime" dataFormatString="g" label="Kiln Dried Date" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Available">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="BranchID" columns="15" />
+        <dataField fieldName="ProductCode" columns="50" />
+        <dataField fieldName="LocationCode" columns="10" />
+        <dataField fieldName="PacketNo" columns="15" />
+        <dataField fieldName="GradeCode" columns="8" />
+        <dataField fieldName="TreatmentCode" columns="5" />
+        <dataField fieldName="DrynessCode" columns="3" />
+        <dataField fieldName="FinishCode" columns="3" />
+        <dataField fieldName="Width" columns="15" />
+        <dataField fieldName="Thickness" columns="15" />
+        <dataField fieldName="Length" columns="15" />
+        <dataField fieldName="Cube" columns="15" />
+        <dataField fieldName="Lineal" columns="15" />
+        <dataField fieldName="Pieces" columns="15" />
+        <dataField fieldName="LastMovementDate" columns="10" />
+        <dataField fieldName="LastProcessCode" columns="5" />
+        <dataField fieldName="CreatedDate" columns="10" />
+        <dataField fieldName="CreatedProcessCode" columns="5" />
+        <dataField fieldName="SupplierName" />
+        <dataField fieldName="PieceTally" />
+        <dataField fieldName="CreatedRunNo" columns="10" />
+        <dataField fieldName="AvailableStatus" columns="9" />
+        <dataField fieldName="LastRunNo" columns="10" />
+        <dataField fieldName="KilnDriedDate" columns="10" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Packet">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Packet" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="Cube" columns="15" />
+            <dataField fieldName="Lineal" columns="15" />
+            <dataField fieldName="Pieces" columns="15" />
+            <dataField fieldName="PieceTally" />
+            <dataField fieldName="CreatedRunNo" columns="10" />
+            <dataField fieldName="AvailableStatus" columns="9" />
+            <dataField fieldName="LastRunNo" columns="10" />
+            <dataField fieldName="KilnDriedDate" columns="10" />
+          </dataFields>
+        </category>
+        <category headerText="Product" id="c2">
+          <dataFields>
+            <dataField fieldName="GradeCode" columns="8" />
+            <dataField fieldName="TreatmentCode" columns="5" />
+            <dataField fieldName="DrynessCode" columns="3" />
+            <dataField fieldName="FinishCode" columns="3" />
+            <dataField fieldName="Width" columns="15" />
+            <dataField fieldName="Thickness" columns="15" />
+            <dataField fieldName="Length" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Current Movement" id="c3">
+          <dataFields>
+            <dataField fieldName="LastMovementDate" columns="10" />
+            <dataField fieldName="LastProcessCode" columns="5" />
+          </dataFields>
+        </category>
+        <category headerText="Created Movement" id="c4">
+          <dataFields>
+            <dataField fieldName="CreatedDate" columns="10" />
+            <dataField fieldName="CreatedProcessCode" columns="5" />
+            <dataField fieldName="SupplierName" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a3" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+  </actions>
+</dataController>

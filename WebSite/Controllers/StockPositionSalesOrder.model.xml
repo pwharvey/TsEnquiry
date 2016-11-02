@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qStockPositionSalesOrder" alias="qStockPositionSalesOrder" created="2016-04-13T11:59:20" modified="2016-04-13T13:30:52" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="BranchID" name="BranchID" label="Branch ID" primaryKey="true" />
+    <column fieldName="ProductCode" name="ProductCode" label="Product Code" primaryKey="true" />
+    <column fieldName="OrderNo" name="OrderNo" label="Order No" primaryKey="true" />
+    <column fieldName="OrderItem" name="OrderItem" label="Order Item" primaryKey="true" />
+    <column fieldName="CustomerName" name="CustomerName" label="Customer Name" />
+    <column fieldName="CustomerRef" name="CustomerRef" label="Customer Ref" />
+    <column fieldName="CubeOrdered" name="CubeOrdered" label="Cube Ordered" />
+    <column fieldName="CubeDespatched" name="CubeDespatched" label="Cube Despatched" format="c" />
+    <column fieldName="PacketsOrdered" name="PacketsOrdered" label="Packets Ordered" />
+    <column fieldName="PacketsDespatched" name="PacketsDespatched" label="Packets Despatched" />
+    <column fieldName="Required" name="Required" label="Required" format="g" />
+    <column fieldName="PlannedDespatch" name="PlannedDespatch" label="Planned Despatch" format="g" />
+    <column fieldName="Approved" name="Approved" label="Approved" />
+    <column name="LocationCode" fieldName="LocationCode" label="Location Code" />
+    <column name="GradeCode" fieldName="GradeCode" label="Grade Code" />
+    <column name="TreatmentCode" fieldName="TreatmentCode" label="Treatment Code" />
+    <column name="DrynessCode" fieldName="DrynessCode" label="Dryness Code" />
+    <column name="FinishCode" fieldName="FinishCode" label="Finish Code" />
+    <column name="Width" fieldName="Width" label="Width" />
+    <column name="Thickness" fieldName="Thickness" label="Thickness" />
+    <column name="Length" fieldName="Length" label="Length" />
+  </columns>
+</dataModel>

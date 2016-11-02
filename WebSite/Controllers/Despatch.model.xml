@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qEnquiryDespatches" alias="qEnquiryDespatches" created="2016-08-14T08:45:26" modified="2016-08-14T08:46:25" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="DespatchID" name="DespatchID" label="Despatch ID" />
+    <column fieldName="DespatchDocketNo" name="DespatchDocketNo" label="Despatch Docket No" />
+    <column fieldName="DespatchDate" name="DespatchDate" label="Despatch Date" format="g" />
+    <column fieldName="PickingOrderNo" name="PickingOrderNo" label="Picking Order No" />
+    <column fieldName="DespatchTypeName" name="DespatchTypeName" label="Despatch Type Name" />
+    <column fieldName="TruckID" name="TruckID" label="Truck ID" />
+    <column fieldName="CarrierName" name="CarrierName" label="Carrier Name" />
+    <column fieldName="DeliverToName" name="DeliverToName" label="Deliver To Name" />
+    <column fieldName="LoadSize" name="LoadSize" label="Load Size" />
+    <column fieldName="Time" name="Time" label="Time" />
+    <column fieldName="LocationCode" name="LocationCode" label="Location Code" />
+    <column fieldName="Return" name="Return" label="Return" />
+    <column fieldName="TotalNetCube" name="TotalNetCube" label="Total Net Cube" format="c" />
+    <column fieldName="FreightRate" name="FreightRate" label="Freight Rate" format="c" />
+    <column fieldName="ProcessCode" name="ProcessCode" label="Process Code" />
+    <column fieldName="ProcessName" name="ProcessName" label="Process Name" />
+    <column fieldName="CustomerCode" name="CustomerCode" label="Customer Code" />
+    <column fieldName="OrderNo" name="OrderNo" label="Order No" />
+    <column fieldName="OrderItemNo" name="OrderItemNo" label="Order Item No" />
+    <column fieldName="PacketNo" name="PacketNo" label="Packet No" />
+    <column fieldName="Date" name="Date" label="Date" format="g" />
+    <column fieldName="Week" name="Week" label="Week" />
+    <column fieldName="Day" name="Day" label="Day" />
+    <column fieldName="GradeCode" name="GradeCode" label="Grade Code" />
+    <column fieldName="TreatmentCode" name="TreatmentCode" label="Treatment Code" />
+    <column fieldName="DrynessCode" name="DrynessCode" label="Dryness Code" />
+    <column fieldName="FinishCode" name="FinishCode" label="Finish Code" />
+    <column fieldName="Width" name="Width" label="Width" />
+    <column fieldName="Thickness" name="Thickness" label="Thickness" />
+    <column fieldName="Length" name="Length" label="Length" />
+    <column fieldName="DisplayLength" name="DisplayLength" label="Display Length" />
+    <column fieldName="Cube" name="Cube" label="Cube" />
+    <column fieldName="Packets" name="Packets" label="Packets" />
+    <column fieldName="NetCube" name="NetCube" label="Net Cube" />
+    <column fieldName="Size" name="Size" label="Size" />
+    <column fieldName="SizeAndLength" name="SizeAndLength" label="Size And Length" />
+    <column fieldName="FinishSize" name="FinishSize" label="Finish Size" />
+    <column fieldName="FinishSizeAndLength" name="FinishSizeAndLength" label="Finish Size And Length" />
+    <column fieldName="Gcs" name="GCS" label="Gcs" />
+    <column fieldName="Gsc" name="GSC" label="Gsc" />
+    <column fieldName="Gcsl" name="GCSL" label="Gcsl" />
+    <column fieldName="Gslc" name="GSLC" label="Gslc" />
+    <column fieldName="Gc" name="GC" label="Gc" />
+    <column fieldName="SopgradeCode" name="SOPGradeCode" label="SOP Grade Code" />
+    <column fieldName="SopgradeName" name="SOPGradeName" label="SOP Grade Name" />
+    <column fieldName="SopfamilyCode" name="SOPFamilyCode" label="SOP Family Code" />
+    <column fieldName="SopfamilyName" name="SOPFamilyName" label="SOP Family Name" />
+    <column fieldName="PacketHistoryID" name="PacketHistoryID" label="Packet History ID" primaryKey="true" />
+    <column fieldName="VesselCode" name="VesselCode" label="Vessel Code" />
+    <column fieldName="VisitID" name="VisitID" label="Visit ID" />
+    <column fieldName="DeliverZone" name="DeliverZone" label="Deliver Zone" />
+    <column fieldName="Fsc" name="FSC" label="Fsc" />
+    <column fieldName="Species" name="Species" label="Species" />
+  </columns>
+</dataModel>

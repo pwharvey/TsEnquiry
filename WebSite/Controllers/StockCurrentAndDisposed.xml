@@ -1,0 +1,280 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="StockCurrentAndDisposed" conflictDetection="overwriteChanges" label="Stock Current And Disposed" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qStockCurrentAndDisposed"."SOPFamilyCode" "SopfamilyCode"
+	,"qStockCurrentAndDisposed"."SOPFamilyName" "SopfamilyName"
+	,"qStockCurrentAndDisposed"."SOPFamilyCodeAndName" "SopfamilyCodeAndName"
+	,"qStockCurrentAndDisposed"."SOPGradeCode" "SopgradeCode"
+	,"qStockCurrentAndDisposed"."SOPGradeName" "SopgradeName"
+	,"qStockCurrentAndDisposed"."SOPGradeCodeAndName" "SopgradeCodeAndName"
+	,"qStockCurrentAndDisposed"."GC" "Gc"
+	,"qStockCurrentAndDisposed"."Size" "Size"
+	,"qStockCurrentAndDisposed"."SizeAndLength" "SizeAndLength"
+	,"qStockCurrentAndDisposed"."FinishSize" "FinishSize"
+	,"qStockCurrentAndDisposed"."FinishSizeAndLength" "FinishSizeAndLength"
+	,"qStockCurrentAndDisposed"."GCS" "Gcs"
+	,"qStockCurrentAndDisposed"."GSC" "Gsc"
+	,"qStockCurrentAndDisposed"."GCSL" "Gcsl"
+	,"qStockCurrentAndDisposed"."GSLC" "Gslc"
+	,"qStockCurrentAndDisposed"."GradeCode" "GradeCode"
+	,"qStockCurrentAndDisposed"."TreatmentCode" "TreatmentCode"
+	,"qStockCurrentAndDisposed"."DrynessCode" "DrynessCode"
+	,"qStockCurrentAndDisposed"."FinishCode" "FinishCode"
+	,"qStockCurrentAndDisposed"."Width" "Width"
+	,"qStockCurrentAndDisposed"."Thickness" "Thickness"
+	,"qStockCurrentAndDisposed"."Length" "Length"
+	,"qStockCurrentAndDisposed"."FinishWidth" "FinishWidth"
+	,"qStockCurrentAndDisposed"."FinishThickness" "FinishThickness"
+	,"qStockCurrentAndDisposed"."PacketNo" "PacketNo"
+	,"qStockCurrentAndDisposed"."LocationCode" "LocationCode"
+	,"qStockCurrentAndDisposed"."LastProcessCode" "LastProcessCode"
+	,"qStockCurrentAndDisposed"."LastMovementDate" "LastMovementDate"
+	,"qStockCurrentAndDisposed"."Cube" "Cube"
+	,"qStockCurrentAndDisposed"."Lineal" "Lineal"
+	,"qStockCurrentAndDisposed"."Pieces" "Pieces"
+	,"qStockCurrentAndDisposed"."Packets" "Packets"
+	,"qStockCurrentAndDisposed"."StockOwnedByCode" "StockOwnedByCode"
+	,"qStockCurrentAndDisposed"."AvailableStatus" "AvailableStatus"
+	,"qStockCurrentAndDisposed"."SafetyStockCube" "SafetyStockCube"
+	,"qStockCurrentAndDisposed"."StockClassificationCode" "StockClassificationCode"
+	,"qStockCurrentAndDisposed"."Active" "Active"
+	,"qStockCurrentAndDisposed"."HoldReasonName" "HoldReasonName"
+	,"qStockCurrentAndDisposed"."HoldReasonID" "HoldReasonID"
+	,"qStockCurrentAndDisposed"."ProductCode" "ProductCode"
+from "wa"."qStockCurrentAndDisposed" "qStockCurrentAndDisposed"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="SopfamilyCode" type="String" label="SOP Family Code" length="10" showInSummary="true" />
+    <field name="SopfamilyName" type="String" label="SOP Family Name" length="50" showInSummary="true" />
+    <field name="SopfamilyCodeAndName" type="String" label="SOP Family Code And Name" readOnly="true" length="63" showInSummary="true" />
+    <field name="SopgradeCode" type="String" label="SOP Grade Code" length="5" showInSummary="true" />
+    <field name="SopgradeName" type="String" label="SOP Grade Name" length="50" showInSummary="true" />
+    <field name="SopgradeCodeAndName" type="String" label="SOP Grade Code And Name" readOnly="true" length="58" />
+    <field name="Gc" type="String" allowNulls="false" label="Gc" readOnly="true" length="22" />
+    <field name="Size" type="String" label="Size" readOnly="true" length="63" />
+    <field name="SizeAndLength" type="String" label="Size And Length" readOnly="true" length="97" />
+    <field name="FinishSize" type="String" label="Finish Size" readOnly="true" length="63" />
+    <field name="FinishSizeAndLength" type="String" label="Finish Size And Length" readOnly="true" length="97" />
+    <field name="Gcs" type="String" label="Gcs" readOnly="true" length="86" />
+    <field name="Gsc" type="String" label="Gsc" readOnly="true" length="86" />
+    <field name="Gcsl" type="String" label="Gcsl" readOnly="true" length="120" />
+    <field name="Gslc" type="String" label="Gslc" readOnly="true" length="120" />
+    <field name="GradeCode" type="String" allowNulls="false" label="Grade Code" length="8" />
+    <field name="TreatmentCode" type="String" allowNulls="false" label="Treatment Code" length="5" />
+    <field name="DrynessCode" type="String" allowNulls="false" label="Dryness Code" length="3" />
+    <field name="FinishCode" type="String" allowNulls="false" label="Finish Code" length="3" />
+    <field name="Width" type="Int16" allowNulls="false" label="Width" />
+    <field name="Thickness" type="Int16" allowNulls="false" label="Thickness" />
+    <field name="Length" type="String" label="Length" readOnly="true" length="30" />
+    <field name="FinishWidth" type="Int16" label="Finish Width" readOnly="true" />
+    <field name="FinishThickness" type="Int16" label="Finish Thickness" readOnly="true" />
+    <field name="PacketNo" type="String" allowNulls="false" label="Packet No" length="15" />
+    <field name="LocationCode" type="String" allowNulls="false" label="Location Code" length="10" />
+    <field name="LastProcessCode" type="String" allowNulls="false" label="Last Process Code" length="5" />
+    <field name="LastMovementDate" type="DateTime" allowNulls="false" dataFormatString="g" label="Last Movement Date" />
+    <field name="Cube" type="Decimal" label="Cube" />
+    <field name="Lineal" type="Decimal" label="Lineal" />
+    <field name="Pieces" type="Int32" allowNulls="false" label="Pieces" />
+    <field name="Packets" type="Int32" allowNulls="false" label="Packets" readOnly="true" />
+    <field name="StockOwnedByCode" type="String" label="Stock Owned By Code" length="50" />
+    <field name="AvailableStatus" type="String" allowNulls="false" label="Available Status" readOnly="true" length="11" />
+    <field name="SafetyStockCube" type="Decimal" label="Safety Stock Cube" />
+    <field name="StockClassificationCode" type="String" label="Stock Classification Code" length="2" />
+    <field name="Active" type="Boolean" allowNulls="false" label="Active" />
+    <field name="HoldReasonName" type="String" label="Hold Reason Name" length="50" />
+    <field name="HoldReasonID" type="Int32" label="Hold Reason ID" />
+    <field name="ProductCode" type="String" allowNulls="false" label="Product Code" length="50" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Stock Current And Disposed">
+      <headerText>$DefaultGridViewDescription</headerText>
+      <dataFields>
+        <dataField fieldName="SopfamilyCode" columns="10" />
+        <dataField fieldName="SopfamilyName" columns="50" />
+        <dataField fieldName="SopfamilyCodeAndName" />
+        <dataField fieldName="SopgradeCode" columns="5" />
+        <dataField fieldName="SopgradeName" columns="50" />
+        <dataField fieldName="SopgradeCodeAndName" />
+        <dataField fieldName="Gc" columns="22" />
+        <dataField fieldName="Size" />
+        <dataField fieldName="SizeAndLength" />
+        <dataField fieldName="FinishSize" />
+        <dataField fieldName="FinishSizeAndLength" />
+        <dataField fieldName="Gcs" />
+        <dataField fieldName="Gsc" />
+        <dataField fieldName="Gcsl" />
+        <dataField fieldName="Gslc" />
+        <dataField fieldName="GradeCode" columns="8" />
+        <dataField fieldName="TreatmentCode" columns="5" />
+        <dataField fieldName="DrynessCode" columns="3" />
+        <dataField fieldName="FinishCode" columns="3" />
+        <dataField fieldName="Width" columns="15" />
+        <dataField fieldName="Thickness" columns="15" />
+        <dataField fieldName="Length" columns="30" />
+        <dataField fieldName="FinishWidth" columns="15" />
+        <dataField fieldName="FinishThickness" columns="15" />
+        <dataField fieldName="PacketNo" columns="15" />
+        <dataField fieldName="LocationCode" columns="10" />
+        <dataField fieldName="LastProcessCode" columns="5" />
+        <dataField fieldName="LastMovementDate" columns="10" />
+        <dataField fieldName="Cube" columns="15" />
+        <dataField fieldName="Lineal" columns="15" />
+        <dataField fieldName="Pieces" columns="15" />
+        <dataField fieldName="Packets" columns="15" />
+        <dataField fieldName="StockOwnedByCode" columns="50" />
+        <dataField fieldName="AvailableStatus" columns="11" />
+        <dataField fieldName="SafetyStockCube" columns="15" />
+        <dataField fieldName="StockClassificationCode" columns="2" />
+        <dataField fieldName="Active" />
+        <dataField fieldName="HoldReasonName" columns="50" />
+        <dataField fieldName="HoldReasonID" columns="15" />
+        <dataField fieldName="ProductCode" columns="50" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Review wa Stock Current And Disposed">
+      <headerText>$DefaultEditViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="wa Stock Current And Disposed" newColumn="true">
+          <description><![CDATA[$DefaultEditDescription]]></description>
+          <dataFields>
+            <dataField fieldName="SopfamilyCode" columns="10" />
+            <dataField fieldName="SopfamilyName" columns="50" />
+            <dataField fieldName="SopfamilyCodeAndName" />
+            <dataField fieldName="SopgradeCode" columns="5" />
+            <dataField fieldName="SopgradeName" columns="50" />
+            <dataField fieldName="SopgradeCodeAndName" />
+            <dataField fieldName="Gc" columns="22" />
+            <dataField fieldName="Size" />
+            <dataField fieldName="SizeAndLength" />
+            <dataField fieldName="FinishSize" />
+            <dataField fieldName="FinishSizeAndLength" />
+            <dataField fieldName="Gcs" />
+            <dataField fieldName="Gsc" />
+            <dataField fieldName="Gcsl" />
+            <dataField fieldName="Gslc" />
+            <dataField fieldName="GradeCode" columns="8" />
+            <dataField fieldName="TreatmentCode" columns="5" />
+            <dataField fieldName="DrynessCode" columns="3" />
+            <dataField fieldName="FinishCode" columns="3" />
+            <dataField fieldName="Width" columns="15" />
+            <dataField fieldName="Thickness" columns="15" />
+            <dataField fieldName="Length" columns="30" />
+            <dataField fieldName="FinishWidth" columns="15" />
+            <dataField fieldName="FinishThickness" columns="15" />
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="LastProcessCode" columns="5" />
+            <dataField fieldName="LastMovementDate" columns="10" />
+            <dataField fieldName="Cube" columns="15" />
+            <dataField fieldName="Lineal" columns="15" />
+            <dataField fieldName="Pieces" columns="15" />
+            <dataField fieldName="Packets" columns="15" />
+            <dataField fieldName="StockOwnedByCode" columns="50" />
+            <dataField fieldName="AvailableStatus" columns="11" />
+            <dataField fieldName="SafetyStockCube" columns="15" />
+            <dataField fieldName="StockClassificationCode" columns="2" />
+            <dataField fieldName="Active" />
+            <dataField fieldName="HoldReasonName" columns="50" />
+            <dataField fieldName="HoldReasonID" columns="15" />
+            <dataField fieldName="ProductCode" columns="50" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+    <view id="createForm1" type="Form" commandId="command1" label="New wa Stock Current And Disposed">
+      <headerText>$DefaultCreateViewDescription</headerText>
+      <categories>
+        <category id="c1" headerText="New wa Stock Current And Disposed" newColumn="true">
+          <description><![CDATA[$DefaultNewDescription]]></description>
+          <dataFields>
+            <dataField fieldName="SopfamilyCode" columns="10" />
+            <dataField fieldName="SopfamilyName" columns="50" />
+            <dataField fieldName="SopgradeCode" columns="5" />
+            <dataField fieldName="SopgradeName" columns="50" />
+            <dataField fieldName="GradeCode" columns="8" />
+            <dataField fieldName="TreatmentCode" columns="5" />
+            <dataField fieldName="DrynessCode" columns="3" />
+            <dataField fieldName="FinishCode" columns="3" />
+            <dataField fieldName="Width" columns="15" />
+            <dataField fieldName="Thickness" columns="15" />
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="LastProcessCode" columns="5" />
+            <dataField fieldName="LastMovementDate" columns="10" />
+            <dataField fieldName="Cube" columns="15" />
+            <dataField fieldName="Lineal" columns="15" />
+            <dataField fieldName="Pieces" columns="15" />
+            <dataField fieldName="StockOwnedByCode" columns="50" />
+            <dataField fieldName="SafetyStockCube" columns="15" />
+            <dataField fieldName="StockClassificationCode" columns="2" />
+            <dataField fieldName="Active" />
+            <dataField fieldName="HoldReasonName" columns="50" />
+            <dataField fieldName="HoldReasonID" columns="15" />
+            <dataField fieldName="ProductCode" columns="50" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+      <action id="a2" commandName="Edit" />
+      <action id="a3" commandName="Delete" />
+      <action id="a6" />
+      <action id="a7" commandName="New" commandArgument="grid1" />
+      <action id="a8" commandName="Duplicate" commandArgument="createForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a1" commandName="Edit" />
+      <action id="a2" commandName="Delete" />
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" whenView="createForm1" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+    </actionGroup>
+    <actionGroup id="ag3" scope="ActionBar" headerText="New" flat="true">
+      <action id="a1" commandName="New" commandArgument="createForm1" cssClass="NewIcon" />
+    </actionGroup>
+    <actionGroup id="ag4" scope="ActionBar" headerText="Edit/Delete" flat="true">
+      <action id="a1" whenKeySelected="true" commandName="Edit" commandArgument="editForm1" cssClass="EditIcon" whenView="grid1" />
+      <action id="a2" whenKeySelected="true" commandName="Delete" cssClass="DeleteIcon" whenView="grid1" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

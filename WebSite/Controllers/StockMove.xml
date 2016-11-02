@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="StockMove" conflictDetection="overwriteChanges" label="Stock Move" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qStockMove"."PacketHistoryID" "PacketHistoryID"
+	,"qStockMove"."PacketNo" "PacketNo"
+	,"qStockMove"."LocationCode" "LocationCode"
+	,"qStockMove"."ProcessCode" "ProcessCode"
+	,"qStockMove"."Run" "Run"
+	,"qStockMove"."MovementDate" "MovementDate"
+	,"qStockMove"."TimeStamp" "TimeStamp"
+	,"qStockMove"."KilnDriedDate" "KilnDriedDate"
+	,"qStockMove"."Cube" "Cube"
+	,"qStockMove"."Lineal" "Lineal"
+	,"qStockMove"."Pieces" "Pieces"
+	,"qStockMove"."Packets" "Packets"
+	,"qStockMove"."OrderNo" "OrderNo"
+	,"qStockMove"."OrderItem" "OrderItem"
+	,"qStockMove"."StockOwnedByCode" "StockOwnedByCode"
+	,"qStockMove"."GradeCode" "GradeCode"
+	,"qStockMove"."TreatmentCode" "TreatmentCode"
+	,"qStockMove"."DrynessCode" "DrynessCode"
+	,"qStockMove"."FinishCode" "FinishCode"
+	,"qStockMove"."Width" "Width"
+	,"qStockMove"."Thickness" "Thickness"
+	,"qStockMove"."Length" "Length"
+	,"qStockMove"."FinishWidth" "FinishWidth"
+	,"qStockMove"."FinishThickness" "FinishThickness"
+	,"qStockMove"."SOPFamilyCode" "SopfamilyCode"
+	,"qStockMove"."SOPFamilyName" "SopfamilyName"
+	,"qStockMove"."SOPFamilyCodeAndName" "SopfamilyCodeAndName"
+	,"qStockMove"."SOPGradeCode" "SopgradeCode"
+	,"qStockMove"."SOPGradeName" "SopgradeName"
+	,"qStockMove"."SOPGradeCodeAndName" "SopgradeCodeAndName"
+	,"qStockMove"."GC" "Gc"
+	,"qStockMove"."Size" "Size"
+	,"qStockMove"."SizeAndLength" "SizeAndLength"
+	,"qStockMove"."FinishSize" "FinishSize"
+	,"qStockMove"."FinishSizeAndLength" "FinishSizeAndLength"
+	,"qStockMove"."GCS" "Gcs"
+	,"qStockMove"."GSC" "Gsc"
+	,"qStockMove"."GCSL" "Gcsl"
+	,"qStockMove"."GSLC" "Gslc"
+	,"qStockMove"."ProductCode" "ProductCode"
+from "wa"."qStockMove" "qStockMove"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="PacketHistoryID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Packet History ID" />
+    <field name="PacketNo" type="String" allowNulls="false" label="Packet No" length="15" showInSummary="true" />
+    <field name="LocationCode" type="String" allowNulls="false" label="Location Code" length="10" showInSummary="true" />
+    <field name="ProcessCode" type="String" allowNulls="false" label="Process Code" length="5" showInSummary="true" />
+    <field name="Run" type="String" label="Run" length="10" showInSummary="true" />
+    <field name="MovementDate" type="DateTime" allowNulls="false" dataFormatString="D" label="Movement Date" showInSummary="true" />
+    <field name="TimeStamp" type="DateTime" allowNulls="false" dataFormatString="g" label="Time Stamp" />
+    <field name="KilnDriedDate" type="DateTime" dataFormatString="D" label="Kiln Dried Date" />
+    <field name="Cube" type="Decimal" label="Cube" />
+    <field name="Lineal" type="Decimal" label="Lineal" />
+    <field name="Pieces" type="Int32" allowNulls="false" label="Pieces" />
+    <field name="Packets" type="Int32" allowNulls="false" label="Packets" readOnly="true" />
+    <field name="OrderNo" type="Int32" allowNulls="false" label="Order No" />
+    <field name="OrderItem" type="Int32" allowNulls="false" label="Order Item" />
+    <field name="StockOwnedByCode" type="String" label="Stock Owned By Code" length="50" />
+    <field name="GradeCode" type="String" allowNulls="false" label="Grade Code" length="8" />
+    <field name="TreatmentCode" type="String" allowNulls="false" label="Treatment Code" length="5" />
+    <field name="DrynessCode" type="String" allowNulls="false" label="Dryness Code" length="3" />
+    <field name="FinishCode" type="String" allowNulls="false" label="Finish Code" length="3" />
+    <field name="Width" type="Int16" allowNulls="false" label="Width" />
+    <field name="Thickness" type="Int16" allowNulls="false" label="Thickness" />
+    <field name="Length" type="String" label="Length" readOnly="true" length="30" />
+    <field name="FinishWidth" type="Int16" label="Finish Width" readOnly="true" />
+    <field name="FinishThickness" type="Int16" label="Finish Thickness" readOnly="true" />
+    <field name="SopfamilyCode" type="String" label="SOP Family Code" length="10" />
+    <field name="SopfamilyName" type="String" label="SOP Family" length="50" />
+    <field name="SopfamilyCodeAndName" type="String" label="SOP Family Code And Name" readOnly="true" length="63" />
+    <field name="SopgradeCode" type="String" label="SOP Grade Code" length="5" />
+    <field name="SopgradeName" type="String" label="SOP Grade" length="50" />
+    <field name="SopgradeCodeAndName" type="String" label="SOP Grade Code And Name" readOnly="true" length="58" />
+    <field name="Gc" type="String" allowNulls="false" label="Gc" readOnly="true" length="22" />
+    <field name="Size" type="String" label="Size" readOnly="true" length="63" />
+    <field name="SizeAndLength" type="String" label="Size And Length" readOnly="true" length="97" />
+    <field name="FinishSize" type="String" label="Finish Size" readOnly="true" length="63" />
+    <field name="FinishSizeAndLength" type="String" label="Finish Size And Length" readOnly="true" length="97" />
+    <field name="Gcs" type="String" label="Gcs" readOnly="true" length="86" />
+    <field name="Gsc" type="String" label="Gsc" readOnly="true" length="86" />
+    <field name="Gcsl" type="String" label="Gcsl" readOnly="true" length="120" />
+    <field name="Gslc" type="String" label="Gslc" readOnly="true" length="120" />
+    <field name="ProductCode" type="String" allowNulls="false" label="Product Code" length="50" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Movements">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="PacketHistoryID" columns="15" />
+        <dataField fieldName="PacketNo" columns="15" />
+        <dataField fieldName="ProcessCode" columns="5" />
+        <dataField fieldName="LocationCode" columns="5" />
+        <dataField fieldName="Run" columns="5" />
+        <dataField fieldName="MovementDate" columns="20" />
+        <dataField fieldName="TimeStamp" columns="20" />
+        <dataField fieldName="KilnDriedDate" columns="20" />
+        <dataField fieldName="Cube" columns="5" />
+        <dataField fieldName="Lineal" columns="5" />
+        <dataField fieldName="Pieces" columns="5" />
+        <dataField fieldName="Packets" columns="5" />
+        <dataField fieldName="OrderNo" columns="5" />
+        <dataField fieldName="OrderItem" columns="5" />
+        <dataField fieldName="StockOwnedByCode" columns="5" />
+        <dataField fieldName="GradeCode" columns="8" />
+        <dataField fieldName="TreatmentCode" columns="5" />
+        <dataField fieldName="DrynessCode" columns="3" />
+        <dataField fieldName="FinishCode" columns="3" />
+        <dataField fieldName="Width" columns="5" />
+        <dataField fieldName="Thickness" columns="5" />
+        <dataField fieldName="Length" columns="5" />
+        <dataField fieldName="FinishWidth" columns="5" />
+        <dataField fieldName="FinishThickness" columns="5" />
+        <dataField fieldName="SopfamilyCode" columns="5" />
+        <dataField fieldName="SopfamilyName" columns="10" />
+        <dataField fieldName="SopfamilyCodeAndName" columns="15" />
+        <dataField fieldName="SopgradeCode" columns="5" />
+        <dataField fieldName="SopgradeName" columns="10" />
+        <dataField fieldName="SopgradeCodeAndName" columns="15" />
+        <dataField fieldName="Gc" columns="20" />
+        <dataField fieldName="Size" columns="20" />
+        <dataField fieldName="SizeAndLength" columns="20" />
+        <dataField fieldName="FinishSize" columns="20" />
+        <dataField fieldName="FinishSizeAndLength" columns="20" />
+        <dataField fieldName="Gcs" columns="20" />
+        <dataField fieldName="Gsc" columns="20" />
+        <dataField fieldName="Gcsl" columns="20" />
+        <dataField fieldName="Gslc" columns="20" />
+        <dataField fieldName="ProductCode" columns="20" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Movements">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Movement" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="PacketHistoryID" columns="15" />
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="ProcessCode" columns="5" />
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="Run" columns="10" />
+            <dataField fieldName="Gcsl" />
+            <dataField fieldName="MovementDate" columns="20" />
+            <dataField fieldName="TimeStamp" columns="20" />
+            <dataField fieldName="KilnDriedDate" columns="20" />
+            <dataField fieldName="StockOwnedByCode" columns="50" />
+          </dataFields>
+        </category>
+        <category headerText="Measures" id="c3">
+          <dataFields>
+            <dataField fieldName="Lineal" columns="15" />
+            <dataField fieldName="Pieces" columns="15" />
+            <dataField fieldName="Packets" columns="15" />
+            <dataField fieldName="Cube" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Order" id="c4">
+          <dataFields>
+            <dataField fieldName="OrderNo" columns="15" />
+            <dataField fieldName="OrderItem" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Product" id="c2" newColumn="true">
+          <dataFields>
+            <dataField fieldName="FinishCode" columns="3" />
+            <dataField fieldName="Width" columns="15" />
+            <dataField fieldName="Thickness" columns="15" />
+            <dataField fieldName="ProductCode" columns="50" />
+            <dataField fieldName="GradeCode" columns="8" />
+            <dataField fieldName="TreatmentCode" columns="5" />
+            <dataField fieldName="DrynessCode" columns="3" />
+            <dataField fieldName="Length" columns="30" />
+            <dataField fieldName="FinishWidth" columns="15" />
+            <dataField fieldName="FinishThickness" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="SOP Groupings" id="c5">
+          <dataFields>
+            <dataField fieldName="SopfamilyName" columns="50" />
+            <dataField fieldName="SopgradeName" columns="50" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a3" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+  </actions>
+</dataController>

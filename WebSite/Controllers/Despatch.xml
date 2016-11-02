@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="Despatch" conflictDetection="overwriteChanges" label="Despatch" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qEnquiryDespatches"."DespatchID" "DespatchID"
+	,"qEnquiryDespatches"."DespatchDocketNo" "DespatchDocketNo"
+	,"qEnquiryDespatches"."DespatchDate" "DespatchDate"
+	,"qEnquiryDespatches"."PickingOrderNo" "PickingOrderNo"
+	,"qEnquiryDespatches"."DespatchTypeName" "DespatchTypeName"
+	,"qEnquiryDespatches"."TruckID" "TruckID"
+	,"qEnquiryDespatches"."CarrierName" "CarrierName"
+	,"qEnquiryDespatches"."DeliverToName" "DeliverToName"
+	,"qEnquiryDespatches"."LoadSize" "LoadSize"
+	,"qEnquiryDespatches"."Time" "Time"
+	,"qEnquiryDespatches"."LocationCode" "LocationCode"
+	,"qEnquiryDespatches"."Return" "Return"
+	,"qEnquiryDespatches"."TotalNetCube" "TotalNetCube"
+	,"qEnquiryDespatches"."FreightRate" "FreightRate"
+	,"qEnquiryDespatches"."ProcessCode" "ProcessCode"
+	,"qEnquiryDespatches"."ProcessName" "ProcessName"
+	,"qEnquiryDespatches"."CustomerCode" "CustomerCode"
+	,"qEnquiryDespatches"."OrderNo" "OrderNo"
+	,"qEnquiryDespatches"."OrderItemNo" "OrderItemNo"
+	,"qEnquiryDespatches"."PacketNo" "PacketNo"
+	,"qEnquiryDespatches"."Date" "Date"
+	,"qEnquiryDespatches"."Week" "Week"
+	,"qEnquiryDespatches"."Day" "Day"
+	,"qEnquiryDespatches"."GradeCode" "GradeCode"
+	,"qEnquiryDespatches"."TreatmentCode" "TreatmentCode"
+	,"qEnquiryDespatches"."DrynessCode" "DrynessCode"
+	,"qEnquiryDespatches"."FinishCode" "FinishCode"
+	,"qEnquiryDespatches"."Width" "Width"
+	,"qEnquiryDespatches"."Thickness" "Thickness"
+	,"qEnquiryDespatches"."Length" "Length"
+	,"qEnquiryDespatches"."DisplayLength" "DisplayLength"
+	,"qEnquiryDespatches"."Cube" "Cube"
+	,"qEnquiryDespatches"."Packets" "Packets"
+	,"qEnquiryDespatches"."NetCube" "NetCube"
+	,"qEnquiryDespatches"."Size" "Size"
+	,"qEnquiryDespatches"."SizeAndLength" "SizeAndLength"
+	,"qEnquiryDespatches"."FinishSize" "FinishSize"
+	,"qEnquiryDespatches"."FinishSizeAndLength" "FinishSizeAndLength"
+	,"qEnquiryDespatches"."GCS" "Gcs"
+	,"qEnquiryDespatches"."GSC" "Gsc"
+	,"qEnquiryDespatches"."GCSL" "Gcsl"
+	,"qEnquiryDespatches"."GSLC" "Gslc"
+	,"qEnquiryDespatches"."GC" "Gc"
+	,"qEnquiryDespatches"."SOPGradeCode" "SopgradeCode"
+	,"qEnquiryDespatches"."SOPGradeName" "SopgradeName"
+	,"qEnquiryDespatches"."SOPFamilyCode" "SopfamilyCode"
+	,"qEnquiryDespatches"."SOPFamilyName" "SopfamilyName"
+	,"qEnquiryDespatches"."PacketHistoryID" "PacketHistoryID"
+	,"qEnquiryDespatches"."VesselCode" "VesselCode"
+	,"qEnquiryDespatches"."VisitID" "VisitID"
+	,"qEnquiryDespatches"."DeliverZone" "DeliverZone"
+	,"qEnquiryDespatches"."FSC" "Fsc"
+	,"qEnquiryDespatches"."Species" "Species"
+from "wa"."qEnquiryDespatches" "qEnquiryDespatches"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="DespatchID" type="Int32" allowNulls="false" label="Despatch ID" showInSummary="true" />
+    <field name="DespatchDocketNo" type="String" label="Despatch Docket No" length="10" showInSummary="true" />
+    <field name="DespatchDate" type="DateTime" allowNulls="false" dataFormatString="g" label="Despatch Date" showInSummary="true" />
+    <field name="PickingOrderNo" type="Int32" label="Picking Order No" showInSummary="true" />
+    <field name="DespatchTypeName" type="String" label="Despatch Type Name" length="50" showInSummary="true" />
+    <field name="TruckID" type="String" label="Truck Code" length="50" />
+    <field name="CarrierName" type="String" label="Carrier Name" length="50" />
+    <field name="DeliverToName" type="String" label="Deliver To Name" length="100" />
+    <field name="LoadSize" type="String" label="Load Size" length="1" />
+    <field name="Time" type="String" label="Time" length="4" />
+    <field name="LocationCode" type="String" allowNulls="false" label="Despatch From" length="10" />
+    <field name="Return" type="Boolean" label="Return" allowNulls="false">
+      <items style="CheckBox" />
+    </field>
+    <field name="TotalNetCube" type="Decimal" allowNulls="false" label="Total Net Cube" />
+    <field name="FreightRate" type="Decimal" allowNulls="false" label="Freight Rate" />
+    <field name="ProcessCode" type="String" allowNulls="false" label="Process Code" length="5" />
+    <field name="ProcessName" type="String" label="Process Name" length="30" />
+    <field name="CustomerCode" type="String" allowNulls="false" label="Customer Code" length="5" />
+    <field name="OrderNo" type="Int32" allowNulls="false" label="Order No" />
+    <field name="OrderItemNo" type="Int32" allowNulls="false" label="Order Item No" />
+    <field name="PacketNo" type="String" allowNulls="false" label="Packet No" length="15" />
+    <field name="Date" type="DateTime" allowNulls="false" dataFormatString="g" label="Date" />
+    <field name="Week" type="Int32" label="Week" readOnly="true" />
+    <field name="Day" type="String" label="Day" readOnly="true" length="30" />
+    <field name="GradeCode" type="String" allowNulls="false" label="Grade Code" length="8" />
+    <field name="TreatmentCode" type="String" allowNulls="false" label="Treatment Code" length="5" />
+    <field name="DrynessCode" type="String" allowNulls="false" label="Dryness Code" length="3" />
+    <field name="FinishCode" type="String" allowNulls="false" label="Finish Code" length="3" />
+    <field name="Width" type="Int16" allowNulls="false" label="Width" />
+    <field name="Thickness" type="Int16" allowNulls="false" label="Thickness" />
+    <field name="Length" type="Decimal" allowNulls="false" label="Length" />
+    <field name="DisplayLength" type="String" label="Display Length" readOnly="true" length="30" hidden="true" />
+    <field name="Cube" type="Decimal" label="Cube" />
+    <field name="Packets" type="Int32" allowNulls="false" label="Packets" readOnly="true" />
+    <field name="NetCube" type="Decimal" label="Net Cube" readOnly="true" />
+    <field name="Size" type="String" label="Size" readOnly="true" length="63" />
+    <field name="SizeAndLength" type="String" label="Size And Length" readOnly="true" length="97" />
+    <field name="FinishSize" type="String" label="Finish Size" readOnly="true" length="63" />
+    <field name="FinishSizeAndLength" type="String" label="Finish Size And Length" readOnly="true" length="97" />
+    <field name="Gcs" type="String" label="Gcs" readOnly="true" length="86" />
+    <field name="Gsc" type="String" label="Gsc" readOnly="true" length="86" />
+    <field name="Gcsl" type="String" label="Gcsl" readOnly="true" length="120" />
+    <field name="Gslc" type="String" label="Gslc" readOnly="true" length="120" />
+    <field name="Gc" type="String" allowNulls="false" label="Gc" readOnly="true" length="22" />
+    <field name="SopgradeCode" type="String" label="SOP Grade Code" length="5" />
+    <field name="SopgradeName" type="String" label="SOP Grade Name" length="50" />
+    <field name="SopfamilyCode" type="String" label="SOP Family Code" length="10" />
+    <field name="SopfamilyName" type="String" label="SOP Family Name" length="50" />
+    <field name="PacketHistoryID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Packet History ID" hidden="true" />
+    <field name="VesselCode" type="String" label="Vessel Code" length="3" />
+    <field name="VisitID" type="Int32" label="Visit ID" hidden="true" />
+    <field name="DeliverZone" type="String" label="Deliver Zone" length="30" />
+    <field name="Fsc" type="Boolean" label="Fsc" />
+    <field name="Species" type="String" allowNulls="false" label="Species" length="8" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Despatched Packets">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="DespatchID" columns="15" hidden="true" />
+        <dataField fieldName="DespatchDocketNo" columns="10" hyperlinkFormatString="Despatch-Docket.aspx?_controller=DespatchDocket&amp;DespatchID={DespatchID}" />
+        <dataField fieldName="DespatchDate" columns="20" search="Suggested" />
+        <dataField fieldName="PickingOrderNo" columns="15" />
+        <dataField fieldName="DespatchTypeName" columns="50" />
+        <dataField fieldName="TruckID" columns="50" />
+        <dataField fieldName="CarrierName" columns="50" />
+        <dataField fieldName="DeliverToName" />
+        <dataField fieldName="LoadSize" columns="1" />
+        <dataField fieldName="Time" columns="4" />
+        <dataField fieldName="LocationCode" columns="10" />
+        <dataField fieldName="Return" />
+        <dataField fieldName="TotalNetCube" columns="15" />
+        <dataField fieldName="FreightRate" columns="15" />
+        <dataField fieldName="ProcessCode" columns="5" />
+        <dataField fieldName="ProcessName" columns="30" />
+        <dataField fieldName="CustomerCode" columns="5" />
+        <dataField fieldName="OrderNo" columns="15" />
+        <dataField fieldName="OrderItemNo" columns="15" />
+        <dataField fieldName="PacketNo" columns="15" search="Suggested" />
+        <dataField fieldName="Date" columns="20" />
+        <dataField fieldName="Week" columns="15" />
+        <dataField fieldName="Day" columns="30" />
+        <dataField fieldName="GradeCode" columns="8" />
+        <dataField fieldName="TreatmentCode" columns="5" />
+        <dataField fieldName="DrynessCode" columns="3" />
+        <dataField fieldName="FinishCode" columns="3" />
+        <dataField fieldName="Width" columns="15" />
+        <dataField fieldName="Thickness" columns="15" />
+        <dataField fieldName="Length" columns="15" />
+        <dataField fieldName="DisplayLength" columns="30" />
+        <dataField fieldName="Cube" columns="15" />
+        <dataField fieldName="Packets" columns="15" />
+        <dataField fieldName="NetCube" columns="15" />
+        <dataField fieldName="Size" />
+        <dataField fieldName="SizeAndLength" />
+        <dataField fieldName="FinishSize" />
+        <dataField fieldName="FinishSizeAndLength" />
+        <dataField fieldName="Gcs" />
+        <dataField fieldName="Gsc" />
+        <dataField fieldName="Gcsl" />
+        <dataField fieldName="Gslc" />
+        <dataField fieldName="Gc" columns="22" />
+        <dataField fieldName="SopgradeCode" columns="5" />
+        <dataField fieldName="SopgradeName" columns="50" />
+        <dataField fieldName="SopfamilyCode" columns="10" />
+        <dataField fieldName="SopfamilyName" columns="50" />
+        <dataField fieldName="PacketHistoryID" columns="15" />
+        <dataField fieldName="VesselCode" columns="3" />
+        <dataField fieldName="VisitID" columns="15" />
+        <dataField fieldName="DeliverZone" columns="30" />
+        <dataField fieldName="Fsc" />
+        <dataField fieldName="Species" columns="8" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Despatched Packet">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Docket" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="DespatchID" columns="15" />
+            <dataField fieldName="DespatchDocketNo" columns="10" />
+            <dataField fieldName="DespatchDate" columns="20" />
+            <dataField fieldName="Time" columns="4" />
+            <dataField fieldName="DespatchTypeName" columns="50" />
+            <dataField fieldName="TruckID" columns="50" />
+            <dataField fieldName="CarrierName" columns="50" />
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="DeliverToName" />
+            <dataField fieldName="LoadSize" columns="1" />
+            <dataField fieldName="Return" />
+            <dataField fieldName="TotalNetCube" columns="15" />
+            <dataField fieldName="DeliverZone" columns="30" />
+            <dataField fieldName="PacketHistoryID" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Order" id="c2">
+          <dataFields>
+            <dataField fieldName="OrderItemNo" columns="15" />
+            <dataField fieldName="PickingOrderNo" columns="15" />
+            <dataField fieldName="FreightRate" columns="15" />
+            <dataField fieldName="CustomerCode" columns="5" />
+            <dataField fieldName="OrderNo" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Packet" id="c3" newColumn="true">
+          <dataFields>
+            <dataField fieldName="PacketNo" columns="15" />
+            <dataField fieldName="Cube" columns="15" />
+            <dataField fieldName="NetCube" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Product" id="c4">
+          <dataFields>
+            <dataField fieldName="Length" columns="15" />
+            <dataField fieldName="FinishSize" />
+            <dataField fieldName="Fsc" />
+            <dataField fieldName="TreatmentCode" columns="5" />
+            <dataField fieldName="GradeCode" columns="8" />
+            <dataField fieldName="FinishCode" columns="3" />
+            <dataField fieldName="Size" />
+            <dataField fieldName="DrynessCode" columns="3" />
+          </dataFields>
+        </category>
+        <category headerText="Export" id="c5">
+          <dataFields>
+            <dataField fieldName="VesselCode" columns="3" />
+          </dataFields>
+        </category>
+        <category headerText="SOP Groupings" id="c6">
+          <dataFields>
+            <dataField fieldName="SopgradeName" columns="50" />
+            <dataField fieldName="SopfamilyName" columns="50" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

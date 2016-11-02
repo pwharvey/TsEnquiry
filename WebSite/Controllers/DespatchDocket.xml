@@ -1,0 +1,149 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="DespatchDocket" conflictDetection="overwriteChanges" label="Despatch Docket" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qEnquiryDespatchDocket"."DespatchID" "DespatchID"
+	,"qEnquiryDespatchDocket"."DespatchDocketNo" "DespatchDocketNo"
+	,"qEnquiryDespatchDocket"."DespatchDate" "DespatchDate"
+	,"qEnquiryDespatchDocket"."PickingOrderNo" "PickingOrderNo"
+	,"qEnquiryDespatchDocket"."DespatchTypeName" "DespatchTypeName"
+	,"qEnquiryDespatchDocket"."TruckID" "TruckID"
+	,"qEnquiryDespatchDocket"."CarrierName" "CarrierName"
+	,"qEnquiryDespatchDocket"."DeliverToName" "DeliverToName"
+	,"qEnquiryDespatchDocket"."LoadSize" "LoadSize"
+	,"qEnquiryDespatchDocket"."Time" "Time"
+	,"qEnquiryDespatchDocket"."LocationCode" "LocationCode"
+	,"qEnquiryDespatchDocket"."Return" "Return"
+	,"qEnquiryDespatchDocket"."TotalNetCube" "TotalNetCube"
+	,"qEnquiryDespatchDocket"."FreightRate" "FreightRate"
+	,"qEnquiryDespatchDocket"."ArriveTime" "ArriveTime"
+	,"qEnquiryDespatchDocket"."DespatchTime" "DespatchTime"
+	,"qEnquiryDespatchDocket"."InvoiceNo" "InvoiceNo"
+	,"qEnquiryDespatchDocket"."InvoiceDate" "InvoiceDate"
+from "wa"."qEnquiryDespatchDocket" "qEnquiryDespatchDocket"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="DespatchID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Despatch ID" />
+    <field name="DespatchDocketNo" type="Int32" allowNulls="false" label="Despatch Docket No" showInSummary="true" />
+    <field name="DespatchDate" type="DateTime" allowNulls="false" dataFormatString="D" label="Despatch Date" showInSummary="true" />
+    <field name="PickingOrderNo" type="Int32" label="Picking Order No" showInSummary="true" />
+    <field name="DespatchTypeName" type="String" label="Despatch Type Name" length="50" showInSummary="true" />
+    <field name="TruckID" type="String" label="Truck ID" length="50" showInSummary="true" />
+    <field name="CarrierName" type="String" label="Carrier Name" length="50" />
+    <field name="DeliverToName" type="String" label="Deliver To Name" length="100" />
+    <field name="LoadSize" type="String" label="Load Size" length="1" />
+    <field name="Time" type="String" label="Time" length="4" />
+    <field name="LocationCode" type="String" allowNulls="false" label="Location Code" length="10" />
+    <field name="Return" type="Boolean" label="Return" />
+    <field name="TotalNetCube" type="Decimal" allowNulls="false" dataFormatString="c" label="Total Net Cube" />
+    <field name="FreightRate" type="Decimal" allowNulls="false" dataFormatString="c" label="Freight Rate" />
+    <field name="ArriveTime" type="DateTime" dataFormatString="g" label="Arrive Time" />
+    <field name="DespatchTime" type="DateTime" dataFormatString="g" label="Despatch Time" />
+    <field name="InvoiceNo" type="Int32" label="Invoice No" />
+    <field name="InvoiceDate" type="DateTime" dataFormatString="g" label="Invoice Date" />
+    <field name="Packets" type="DataView" label="Packets" allowQBE="false" allowSorting="false" htmlEncode="false" hidden="false">
+      <dataView controller="DespatchPacket" view="grid1" filterFields="DespatchID" />
+    </field>
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Despatch Dockets">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="DespatchID" columns="15" />
+        <dataField fieldName="DespatchDocketNo" columns="15" />
+        <dataField fieldName="DespatchDate" columns="20" />
+        <dataField fieldName="PickingOrderNo" columns="15" />
+        <dataField fieldName="DespatchTypeName" columns="50" />
+        <dataField fieldName="TruckID" columns="50" />
+        <dataField fieldName="CarrierName" columns="50" />
+        <dataField fieldName="DeliverToName" />
+        <dataField fieldName="LoadSize" columns="1" />
+        <dataField fieldName="Time" columns="4" />
+        <dataField fieldName="LocationCode" columns="10" />
+        <dataField fieldName="Return" />
+        <dataField fieldName="TotalNetCube" columns="15" />
+        <dataField fieldName="FreightRate" columns="15" />
+        <dataField fieldName="ArriveTime" columns="20" />
+        <dataField fieldName="DespatchTime" columns="20" />
+        <dataField fieldName="InvoiceNo" columns="15" />
+        <dataField fieldName="InvoiceDate" columns="20" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Despatch Docket">
+      <headerText />
+      <categories>
+        <category id="Docket" headerText="Docket" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="DespatchID" columns="15" />
+            <dataField fieldName="DespatchDocketNo" columns="15" />
+            <dataField fieldName="DespatchDate" columns="20" />
+            <dataField fieldName="PickingOrderNo" columns="15" />
+            <dataField fieldName="DespatchTypeName" columns="50" />
+            <dataField fieldName="DeliverToName" />
+            <dataField fieldName="LoadSize" columns="1" />
+            <dataField fieldName="Time" columns="4" />
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="Return" />
+            <dataField fieldName="TotalNetCube" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Load" id="c2" newColumn="true">
+          <dataFields>
+            <dataField fieldName="TruckID" columns="50" />
+            <dataField fieldName="CarrierName" columns="50" />
+            <dataField fieldName="ArriveTime" columns="20" />
+            <dataField fieldName="DespatchTime" columns="20" />
+          </dataFields>
+        </category>
+        <category headerText="Invoice" id="c1">
+          <dataFields>
+            <dataField fieldName="InvoiceNo" columns="15" />
+            <dataField fieldName="InvoiceDate" columns="20" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a3" commandName="Cancel" />
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Delete" />
+      <action id="a6" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a7" whenLastCommandName="New" commandName="Insert" />
+      <action id="a8" whenLastCommandName="New" commandName="Cancel" />
+      <action id="a9" whenLastCommandName="Duplicate" commandName="Insert" />
+      <action id="a10" whenLastCommandName="Duplicate" commandName="Cancel" />
+      <action id="a13" whenLastCommandName="Insert" commandName="Select" commandArgument="editForm1" whenKeySelected="true" whenClientScript="this.get_hasDetails()" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+    </actionGroup>
+    <actionGroup id="ag6" scope="ActionBar" headerText="Record">
+      <action id="a1" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a2" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a3" whenLastCommandName="New" commandName="Insert" />
+      <action id="a4" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag8" scope="Row">
+      <action id="a4" whenLastCommandName="Edit" commandName="Update" />
+      <action id="a5" whenLastCommandName="Edit" commandName="Cancel" />
+      <action id="a6" whenLastCommandName="New" commandName="Insert" />
+      <action id="a7" whenLastCommandName="New" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

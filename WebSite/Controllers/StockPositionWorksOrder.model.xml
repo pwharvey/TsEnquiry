@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qStockPositionWorksOrder" alias="qStockPositionWorksOrder" created="2016-04-13T13:29:53" modified="2016-04-13T13:50:40" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="BranchID" name="BranchID" label="Branch ID" primaryKey="true" />
+    <column fieldName="ProductCode" name="ProductCode" label="Product Code" primaryKey="true" />
+    <column fieldName="OrderNo" name="OrderNo" label="Order No" primaryKey="true" />
+    <column fieldName="OrderItem" name="OrderItem" label="Order Item" primaryKey="true" />
+    <column fieldName="LocationCode" name="LocationCode" label="Location Code" />
+    <column fieldName="GradeCode" name="GradeCode" label="Grade Code" />
+    <column fieldName="TreatmentCode" name="TreatmentCode" label="Treatment Code" />
+    <column fieldName="DrynessCode" name="DrynessCode" label="Dryness Code" />
+    <column fieldName="FinishCode" name="FinishCode" label="Finish Code" />
+    <column fieldName="Width" name="Width" label="Width" />
+    <column fieldName="Thickness" name="Thickness" label="Thickness" />
+    <column fieldName="Length" name="Length" label="Length" />
+    <column fieldName="CustomerName" name="CustomerName" label="Customer Name" />
+    <column fieldName="CustomerRef" name="CustomerRef" label="Customer Ref" />
+    <column fieldName="CubeOrdered" name="CubeOrdered" label="Cube Ordered" />
+    <column fieldName="CubeMoved" name="CubeMoved" label="Cube Moved" format="c" />
+    <column fieldName="PacketsOrdered" name="PacketsOrdered" label="Packets Ordered" />
+    <column fieldName="PacketsMoved" name="PacketsMoved" label="Packets Moved" />
+    <column fieldName="Required" name="Required" label="Required" format="g" />
+    <column name="ProcessCode" fieldName="ProcessCode" label="Process Code" />
+    <column name="ProcessName" fieldName="ProcessName" label="Process Name" />
+    <column name="OperationCode" fieldName="OperationCode" label="Operation Code" />
+  </columns>
+</dataModel>

@@ -1,0 +1,311 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="StockPosition" conflictDetection="overwriteChanges" label="Stock Position" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qStockPosition"."ProductCode" "ProductCode"
+	,"qStockPosition"."GradeCode" "GradeCode"
+	,"qStockPosition"."TreatmentCode" "TreatmentCode"
+	,"qStockPosition"."DrynessCode" "DrynessCode"
+	,"qStockPosition"."FinishCode" "FinishCode"
+	,"qStockPosition"."Width" "Width"
+	,"qStockPosition"."Thickness" "Thickness"
+	,"qStockPosition"."Length" "Length"
+	,"qStockPosition"."FinishWidth" "FinishWidth"
+	,"qStockPosition"."FinishThickness" "FinishThickness"
+	,"qStockPosition"."Size" "Size"
+	,"qStockPosition"."SizeAndLength" "SizeAndLength"
+	,"qStockPosition"."FinishSize" "FinishSize"
+	,"qStockPosition"."FinishSizeAndLength" "FinishSizeAndLength"
+	,"qStockPosition"."GCSCode" "Gcscode"
+	,"qStockPosition"."GSC" "Gsc"
+	,"qStockPosition"."GCSL" "Gcsl"
+	,"qStockPosition"."GSLC" "Gslc"
+	,"qStockPosition"."GC" "Gc"
+	,"qStockPosition"."StockClassificationCode" "StockClassificationCode"
+	,"qStockPosition"."SOPGradeCode" "SopgradeCode"
+	,"qStockPosition"."SOPGradeName" "SopgradeName"
+	,"qStockPosition"."SOPGradeCodeAndName" "SopgradeCodeAndName"
+	,"qStockPosition"."SOPFamilyCode" "SopfamilyCode"
+	,"qStockPosition"."SOPFamilyName" "SopfamilyName"
+	,"qStockPosition"."SOPFamilyCodeAndName" "SopfamilyCodeAndName"
+	,"qStockPosition"."Active" "Active"
+	,"qStockPosition"."StockCube" "StockCube"
+	,"qStockPosition"."StockPackets" "StockPackets"
+	,"qStockPosition"."WIPCube" "Wipcube"
+	,"qStockPosition"."WIPPackets" "Wippackets"
+	,"qStockPosition"."PickCube" "PickCube"
+	,"qStockPosition"."PickPackets" "PickPackets"
+	,"qStockPosition"."DTWCube" "Dtwcube"
+	,"qStockPosition"."DTWPackets" "Dtwpackets"
+	,"qStockPosition"."ConsignmentCube" "ConsignmentCube"
+	,"qStockPosition"."ConsignmentPackets" "ConsignmentPackets"
+	,"qStockPosition"."HeldCube" "HeldCube"
+	,"qStockPosition"."HeldPackets" "HeldPackets"
+	,"qStockPosition"."AvailablePackets" "AvailablePackets"
+	,"qStockPosition"."AvailableCube" "AvailableCube"
+	,"qStockPosition"."SOCube" "Socube"
+	,"qStockPosition"."SOPackets" "Sopackets"
+	,"qStockPosition"."COCube" "Cocube"
+	,"qStockPosition"."COPackets" "Copackets"
+	,"qStockPosition"."EnquiryCube" "EnquiryCube"
+	,"qStockPosition"."EnquiryPackets" "EnquiryPackets"
+	,"qStockPosition"."PacketPosition" "PacketPosition"
+	,"qStockPosition"."CubePosition" "CubePosition"
+	,"qStockPosition"."BranchName" "BranchName"
+	,"qStockPosition"."AllocatedCube" "AllocatedCube"
+	,"qStockPosition"."AllocatedPackets" "AllocatedPackets"
+	,"qStockPosition"."InTransitCube" "InTransitCube"
+	,"qStockPosition"."InTransitPackets" "InTransitPackets"
+	,"qStockPosition"."POCube" "Pocube"
+	,"qStockPosition"."POPackets" "Popackets"
+	,"qStockPosition"."BTCube" "Btcube"
+	,"qStockPosition"."BTPackets" "Btpackets"
+	,"qStockPosition"."CubePositionExcludingPO" "CubePositionExcludingPO"
+	,"qStockPosition"."PacketPositionExcludingPO" "PacketPositionExcludingPO"
+	,"qStockPosition"."WOCube" "Wocube"
+	,"qStockPosition"."WOPackets" "Wopackets"
+	,"qStockPosition"."StockClass" "StockClass"
+	,"qStockPosition"."BranchID" "BranchID"
+from "wa"."qStockPosition" "qStockPosition"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="ProductCode" type="String" allowNulls="false" isPrimaryKey="true" label="Product Code" length="50" showInSummary="true" />
+    <field name="GradeCode" type="String" allowNulls="false" label="Grade Code" length="8" />
+    <field name="TreatmentCode" type="String" allowNulls="false" label="Treatment Code" length="5" />
+    <field name="DrynessCode" type="String" allowNulls="false" label="Dryness Code" length="3" />
+    <field name="FinishCode" type="String" allowNulls="false" label="Finish Code" length="3" />
+    <field name="Width" type="Int16" allowNulls="false" label="Width" />
+    <field name="Thickness" type="Int16" allowNulls="false" label="Thickness" />
+    <field name="Length" type="Decimal" allowNulls="false" label="Length" />
+    <field name="FinishWidth" type="Int16" label="Finish Width" />
+    <field name="FinishThickness" type="Int16" label="Finish Thickness" />
+    <field name="Size" type="String" label="Size" readOnly="true" length="63" />
+    <field name="SizeAndLength" type="String" label="Size And Length" readOnly="true" length="97" />
+    <field name="FinishSize" type="String" label="Finish Size" readOnly="true" length="63" />
+    <field name="FinishSizeAndLength" type="String" label="Finish Size And Length" readOnly="true" length="97" />
+    <field name="Gcscode" type="String" label="GCS" readOnly="true" length="86" />
+    <field name="Gsc" type="String" label="Gsc" readOnly="true" length="86" />
+    <field name="Gcsl" type="String" label="Gcsl" readOnly="true" length="120" showInSummary="true" />
+    <field name="Gslc" type="String" label="Gslc" readOnly="true" length="120" />
+    <field name="Gc" type="String" label="Gc" readOnly="true" length="22" />
+    <field name="StockClassificationCode" type="String" label="Stock Classification Code" length="2" />
+    <field name="SopgradeCode" type="String" label="SOP Grade Code" length="5" />
+    <field name="SopgradeName" type="String" label="SOP Grade Name" length="50" />
+    <field name="SopgradeCodeAndName" type="String" label="SOP Grade Code And Name" readOnly="true" length="58" />
+    <field name="SopfamilyCode" type="String" label="SOP Family Code" length="10" />
+    <field name="SopfamilyName" type="String" label="SOP Family Name" length="50" />
+    <field name="SopfamilyCodeAndName" type="String" label="SOP Family Code And Name" readOnly="true" length="63" />
+    <field name="Active" type="Boolean" label="Active" />
+    <field name="StockCube" type="Decimal" label="Stock Cube" readOnly="true" />
+    <field name="StockPackets" type="Int32" label="Stock Packets" />
+    <field name="Wipcube" type="Decimal" label="WIP Cube" readOnly="true" />
+    <field name="Wippackets" type="Decimal" label="WIP Packets" readOnly="true" />
+    <field name="PickCube" type="Decimal" label="Pick Cube" readOnly="true" />
+    <field name="PickPackets" type="Decimal" label="Pick Packets" readOnly="true" />
+    <field name="Dtwcube" type="Decimal" label="DTW Cube" readOnly="true" />
+    <field name="Dtwpackets" type="Decimal" label="DTW Packets" readOnly="true" />
+    <field name="ConsignmentCube" type="Decimal" label="Consignment Cube" readOnly="true" />
+    <field name="ConsignmentPackets" type="Decimal" label="Consignment Packets" readOnly="true" />
+    <field name="HeldCube" type="Decimal" label="Held Cube" readOnly="true" />
+    <field name="HeldPackets" type="Decimal" label="Held Packets" readOnly="true" />
+    <field name="AvailablePackets" type="Decimal" label="Available Packets" readOnly="true" showInSummary="true" />
+    <field name="AvailableCube" type="Decimal" label="Available Cube" readOnly="true" />
+    <field name="Socube" type="Decimal" label="SO Cube" readOnly="true" />
+    <field name="Sopackets" type="Int32" label="SO Packets" readOnly="true" showInSummary="true" />
+    <field name="Cocube" type="Decimal" label="CO Cube" readOnly="true" />
+    <field name="Copackets" type="Int32" label="CO Packets" readOnly="true" />
+    <field name="EnquiryCube" type="Decimal" label="Enquiry Cube" readOnly="true" />
+    <field name="EnquiryPackets" type="Int32" label="Enquiry Packets" readOnly="true" />
+    <field name="PacketPosition" type="Decimal" label="Packet Position" readOnly="true" showInSummary="true" />
+    <field name="CubePosition" type="Decimal" label="Cube Position" readOnly="true" />
+    <field name="BranchName" type="String" label="Branch Name" length="50" showInSummary="true" />
+    <field name="AllocatedCube" type="Decimal" label="Allocated Cube" readOnly="true" />
+    <field name="AllocatedPackets" type="Decimal" label="Allocated Packets" readOnly="true" />
+    <field name="InTransitCube" type="Decimal" label="In Transit Cube" />
+    <field name="InTransitPackets" type="Int32" label="In Transit Packets" />
+    <field name="Pocube" type="Decimal" label="Pocube" readOnly="true" />
+    <field name="Popackets" type="Int32" label="Popackets" />
+    <field name="Btcube" type="Decimal" label="Btcube" readOnly="true" />
+    <field name="Btpackets" type="Int32" label="Btpackets" readOnly="true" />
+    <field name="CubePositionExcludingPO" type="Decimal" label="Cube Position Excluding PO" readOnly="true" />
+    <field name="PacketPositionExcludingPO" type="Decimal" label="Packet Position Excluding PO" readOnly="true" />
+    <field name="Wocube" type="Decimal" label="Wocube" readOnly="true" />
+    <field name="Wopackets" type="Decimal" label="Wopackets" readOnly="true" />
+    <field name="StockClass" type="String" label="Stock Class" length="2" />
+    <field name="BranchID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Branch ID" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Stock Position" filter="StockCube&lt;&gt;0 OR SOCube&lt;&gt;0 OR BTCube&lt;&gt;0 OR EnquiryCube&lt;&gt;0" sortExpression="[BranchName],[Length]">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="Gcsl" columns="50" />
+        <dataField fieldName="BranchName" columns="50" search="Required" />
+        <dataField fieldName="StockCube" columns="5" />
+        <dataField fieldName="Socube" columns="5" />
+        <dataField fieldName="Cocube" columns="5" />
+        <dataField fieldName="Btcube" columns="15" />
+        <dataField fieldName="CubePosition" columns="5" tag="pivot1-val2-sum" />
+        <dataField fieldName="EnquiryCube" columns="5" />
+        <dataField fieldName="Pocube" columns="15" />
+        <dataField fieldName="AvailableCube" columns="5" tag="pivot1-val1-sum" />
+        <dataField fieldName="HeldCube" columns="5" />
+        <dataField fieldName="Wipcube" columns="5" />
+        <dataField fieldName="PickCube" columns="5" />
+        <dataField fieldName="Dtwcube" columns="5" />
+        <dataField fieldName="ConsignmentCube" columns="5" />
+        <dataField fieldName="InTransitCube" columns="15" />
+        <dataField fieldName="Wocube" columns="15" />
+        <dataField fieldName="AllocatedCube" columns="15" />
+        <dataField fieldName="CubePositionExcludingPO" columns="15" />
+        <dataField fieldName="PickPackets" columns="5" />
+        <dataField fieldName="Dtwpackets" columns="5" />
+        <dataField fieldName="ConsignmentPackets" columns="5" />
+        <dataField fieldName="InTransitPackets" columns="15" />
+        <dataField fieldName="StockPackets" columns="5" />
+        <dataField fieldName="Sopackets" columns="5" />
+        <dataField fieldName="Copackets" columns="5" />
+        <dataField fieldName="Btpackets" columns="15" />
+        <dataField fieldName="PacketPosition" columns="5" dataFormatString="d0" />
+        <dataField fieldName="EnquiryPackets" columns="5" />
+        <dataField fieldName="Popackets" columns="15" />
+        <dataField fieldName="AvailablePackets" columns="5" dataFormatString="d0" />
+        <dataField fieldName="HeldPackets" columns="5" />
+        <dataField fieldName="Wippackets" columns="5" />
+        <dataField fieldName="Wopackets" columns="15" />
+        <dataField fieldName="PacketPositionExcludingPO" columns="15" />
+        <dataField fieldName="AllocatedPackets" columns="15" />
+        <dataField fieldName="Width" columns="15" search="Suggested" />
+        <dataField fieldName="Thickness" columns="15" search="Suggested" />
+        <dataField fieldName="Length" columns="15" search="Suggested" />
+        <dataField fieldName="FinishCode" columns="3" search="Suggested" />
+        <dataField fieldName="GradeCode" columns="8" search="Required" />
+        <dataField fieldName="TreatmentCode" columns="5" search="Suggested" />
+        <dataField fieldName="DrynessCode" columns="3" search="Suggested" />
+        <dataField fieldName="FinishWidth" columns="15" />
+        <dataField fieldName="FinishThickness" columns="15" />
+        <dataField fieldName="SopgradeName" columns="50" />
+        <dataField fieldName="SopfamilyName" columns="50" />
+        <dataField fieldName="SopfamilyCodeAndName" hidden="true" />
+        <dataField fieldName="SopfamilyCode" columns="10" hidden="true" />
+        <dataField fieldName="SopgradeCode" columns="5" hidden="true" />
+        <dataField fieldName="SopgradeCodeAndName" hidden="true" />
+        <dataField fieldName="Gcscode" />
+        <dataField fieldName="Gsc" />
+        <dataField fieldName="Gslc" />
+        <dataField fieldName="Gc" columns="22" />
+        <dataField fieldName="FinishSize" />
+        <dataField fieldName="FinishSizeAndLength" />
+        <dataField fieldName="Size" tag="pivot1-row1-column" />
+        <dataField fieldName="SizeAndLength" />
+        <dataField fieldName="StockClassificationCode" columns="2" />
+        <dataField fieldName="ProductCode" columns="50" hidden="true" />
+        <dataField fieldName="Active" />
+        <dataField fieldName="StockClass" columns="2" />
+        <dataField fieldName="BranchID" columns="15" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Stock Position">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Stock Position" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="Gcsl" />
+            <dataField fieldName="BranchName" columns="50" />
+            <dataField fieldName="CubePosition" columns="15" />
+            <dataField fieldName="PacketPosition" columns="15" />
+            <dataField fieldName="AvailablePackets" columns="15" />
+            <dataField fieldName="AvailableCube" columns="15" />
+            <dataField fieldName="CubePositionExcludingPO" columns="15" />
+            <dataField fieldName="PacketPositionExcludingPO" columns="15" />
+            <dataField fieldName="BranchID" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Stock" id="c4">
+          <dataFields>
+            <dataField fieldName="ConsignmentCube" columns="15" />
+            <dataField fieldName="Dtwpackets" columns="15" />
+            <dataField fieldName="ConsignmentPackets" columns="15" />
+            <dataField fieldName="InTransitPackets" columns="15" />
+            <dataField fieldName="InTransitCube" columns="15" />
+            <dataField fieldName="Wippackets" columns="15" />
+            <dataField fieldName="HeldPackets" columns="15" />
+            <dataField fieldName="HeldCube" columns="15" />
+            <dataField fieldName="StockPackets" columns="15" />
+            <dataField fieldName="Wipcube" columns="15" />
+            <dataField fieldName="StockCube" columns="15" />
+            <dataField fieldName="PickCube" columns="15" />
+            <dataField fieldName="Dtwcube" columns="15" />
+            <dataField fieldName="PickPackets" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Orders" id="c5" newColumn="true">
+          <dataFields>
+            <dataField fieldName="Sopackets" columns="15" />
+            <dataField fieldName="Socube" columns="15" />
+            <dataField fieldName="Copackets" columns="15" />
+            <dataField fieldName="Cocube" columns="15" />
+            <dataField fieldName="Btpackets" columns="15" />
+            <dataField fieldName="Btcube" columns="15" />
+            <dataField fieldName="Wopackets" columns="15" />
+            <dataField fieldName="Wocube" columns="15" />
+            <dataField fieldName="EnquiryPackets" columns="15" />
+            <dataField fieldName="EnquiryCube" columns="15" />
+            <dataField fieldName="Popackets" columns="15" />
+            <dataField fieldName="Pocube" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Product" id="c2">
+          <dataFields>
+            <dataField fieldName="StockClassificationCode" columns="2" />
+            <dataField fieldName="StockClass" columns="2" />
+            <dataField fieldName="Active" />
+            <dataField fieldName="FinishCode" columns="3" />
+            <dataField fieldName="Width" columns="15" />
+            <dataField fieldName="Thickness" columns="15" />
+            <dataField fieldName="DrynessCode" columns="3" />
+            <dataField fieldName="GradeCode" columns="8" />
+            <dataField fieldName="TreatmentCode" columns="5" />
+            <dataField fieldName="FinishThickness" columns="15" />
+            <dataField fieldName="Length" columns="15" />
+            <dataField fieldName="FinishWidth" columns="15" />
+            <dataField fieldName="ProductCode" columns="50" />
+          </dataFields>
+        </category>
+        <category headerText="SOP Groupings" id="c3">
+          <dataFields>
+            <dataField fieldName="SopfamilyName" columns="50" />
+            <dataField fieldName="SopgradeName" columns="50" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a3" commandName="Cancel" />
+    </actionGroup>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+  </actions>
+</dataController>

@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qStockCurrent" alias="qStockCurrent" created="2016-04-05T18:00:12" modified="2016-04-20T09:03:12" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="SopfamilyCode" name="SOPFamilyCode" label="SOP Family Code" />
+    <column fieldName="SopfamilyName" name="SOPFamilyName" label="SOP Family Name" />
+    <column fieldName="SopfamilyCodeAndName" name="SOPFamilyCodeAndName" label="SOP Family Code And Name" />
+    <column fieldName="SopgradeCode" name="SOPGradeCode" label="SOP Grade Code" />
+    <column fieldName="SopgradeName" name="SOPGradeName" label="SOP Grade Name" />
+    <column fieldName="SopgradeCodeAndName" name="SOPGradeCodeAndName" label="SOP Grade Code And Name" />
+    <column fieldName="Gc" name="GC" label="Gc" />
+    <column fieldName="Size" name="Size" label="Size" />
+    <column fieldName="SizeAndLength" name="SizeAndLength" label="Size And Length" />
+    <column fieldName="FinishSize" name="FinishSize" label="Finish Size" />
+    <column fieldName="FinishSizeAndLength" name="FinishSizeAndLength" label="Finish Size And Length" />
+    <column fieldName="Gcs" name="GCS" label="Gcs" />
+    <column fieldName="Gsc" name="GSC" label="Gsc" />
+    <column fieldName="Gcsl" name="GCSL" label="Gcsl" />
+    <column fieldName="Gslc" name="GSLC" label="Gslc" />
+    <column fieldName="GradeCode" name="GradeCode" label="Grade Code" />
+    <column fieldName="TreatmentCode" name="TreatmentCode" label="Treatment Code" />
+    <column fieldName="DrynessCode" name="DrynessCode" label="Dryness Code" />
+    <column fieldName="FinishCode" name="FinishCode" label="Finish Code" />
+    <column fieldName="Width" name="Width" label="Width" />
+    <column fieldName="Thickness" name="Thickness" label="Thickness" />
+    <column fieldName="Length" name="Length" label="Length" />
+    <column fieldName="FinishWidth" name="FinishWidth" label="Finish Width" />
+    <column fieldName="FinishThickness" name="FinishThickness" label="Finish Thickness" />
+    <column fieldName="LocationCode" name="LocationCode" label="Location Code" />
+    <column fieldName="LastProcessCode" name="LastProcessCode" label="Last Process Code" />
+    <column fieldName="LastMovementDate" name="LastMovementDate" label="Last Movement Date" format="g" />
+    <column fieldName="Cube" name="Cube" label="Cube" />
+    <column fieldName="Lineal" name="Lineal" label="Lineal" />
+    <column fieldName="Pieces" name="Pieces" label="Pieces" />
+    <column fieldName="Packets" name="Packets" label="Packets" />
+    <column fieldName="StockOwnedByCode" name="StockOwnedByCode" label="Stock Owned By Code" />
+    <column fieldName="AvailableStatus" name="AvailableStatus" label="Available Status" />
+    <column fieldName="SafetyStockCube" name="SafetyStockCube" label="Safety Stock Cube" />
+    <column fieldName="StockClassificationCode" name="StockClassificationCode" label="Stock Classification Code" />
+    <column fieldName="Active" name="Active" label="Active" />
+    <column fieldName="HoldReasonName" name="HoldReasonName" label="Hold Reason Name" />
+    <column fieldName="HoldReasonID" name="HoldReasonID" label="Hold Reason ID" />
+    <column fieldName="ProductCode" name="ProductCode" label="Product Code" />
+    <column name="PacketNo" fieldName="PacketNo" label="Packet No" primaryKey="true" />
+    <column name="BranchID" fieldName="BranchID" label="Branch ID" />
+    <column name="BranchName" fieldName="BranchName" label="Branch Name" />
+    <column name="PieceTally" fieldName="PieceTally" label="Piece Tally" />
+    <column name="Run" fieldName="Run" label="Run" />
+    <column name="KilnDriedDate" fieldName="KilnDriedDate" label="Kiln Dried Date" format="g" />
+  </columns>
+</dataModel>

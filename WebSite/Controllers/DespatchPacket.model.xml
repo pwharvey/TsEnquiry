@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qEnquiryDespatchPacket" alias="qEnquiryDespatchPacket" created="2016-08-14T15:36:51" modified="2016-08-14T15:38:15" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys>
+    <foreignKey id="qEnquiryDespatchDocket" parentTableSchema="wa" parentTableName="qEnquiryDespatchDocket" x="330" y="20">
+      <foreignKeyColumn columnName="DespatchID" parentColumnName="DespatchID" />
+    </foreignKey>
+  </foreignKeys>
+  <columns>
+    <column fieldName="DespatchID" name="DespatchID" label="Despatch ID" aliasColumnName="DespatchDocketNo" aliasForeignKey="qEnquiryDespatchDocket" />
+    <column name="DespatchDocketNo" fieldName="DespatchDocketNo" label="Despatch Docket No" foreignKey="qEnquiryDespatchDocket" />
+    <column fieldName="PacketHistoryID" name="PacketHistoryID" label="Packet History ID" primaryKey="true" />
+    <column fieldName="CustomerCode" name="CustomerCode" label="Customer Code" />
+    <column fieldName="CustomerName" name="CustomerName" label="Customer Name" />
+    <column fieldName="OrderNo" name="OrderNo" label="Order No" />
+    <column fieldName="OrderItemNo" name="OrderItemNo" label="Order Item No" />
+    <column fieldName="PacketNo" name="PacketNo" label="Packet No" />
+    <column fieldName="Date" name="Date" label="Date" format="g" />
+    <column fieldName="Species" name="Species" label="Species" />
+    <column fieldName="GradeCode" name="GradeCode" label="Grade Code" />
+    <column fieldName="TreatmentCode" name="TreatmentCode" label="Treatment Code" />
+    <column fieldName="DrynessCode" name="DrynessCode" label="Dryness Code" />
+    <column fieldName="FinishCode" name="FinishCode" label="Finish Code" />
+    <column fieldName="Width" name="Width" label="Width" />
+    <column fieldName="Thickness" name="Thickness" label="Thickness" />
+    <column fieldName="Length" name="Length" label="Length" />
+    <column fieldName="Cube" name="Cube" label="Cube" />
+    <column fieldName="Lineal" name="Lineal" label="Lineal" />
+    <column fieldName="Pieces" name="Pieces" label="Pieces" />
+    <column fieldName="NetCube" name="NetCube" label="Net Cube" />
+    <column fieldName="VesselCode" name="VesselCode" label="Vessel Code" />
+    <column fieldName="VisitID" name="VisitID" label="Visit ID" />
+    <column fieldName="VoyageNumber" name="VoyageNumber" label="Voyage Number" />
+    <column fieldName="LoadPortCode" name="LoadPortCode" label="Load Port Code" />
+    <column fieldName="ShippingMark" name="ShippingMark" label="Shipping Mark" />
+    <column fieldName="Fsc" name="FSC" label="Fsc" />
+  </columns>
+</dataModel>

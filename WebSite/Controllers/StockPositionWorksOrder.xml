@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataController name="StockPositionWorksOrder" conflictDetection="overwriteChanges" label="Stock Position Works Order" xmlns="urn:schemas-codeontime-com:data-aquarium">
+  <commands>
+    <command id="command1" type="Text">
+      <text><![CDATA[
+select
+	"qStockPositionWorksOrder"."BranchID" "BranchID"
+	,"qStockPositionWorksOrder"."ProductCode" "ProductCode"
+	,"qStockPositionWorksOrder"."OrderNo" "OrderNo"
+	,"qStockPositionWorksOrder"."OrderItem" "OrderItem"
+	,"qStockPositionWorksOrder"."LocationCode" "LocationCode"
+	,"qStockPositionWorksOrder"."GradeCode" "GradeCode"
+	,"qStockPositionWorksOrder"."TreatmentCode" "TreatmentCode"
+	,"qStockPositionWorksOrder"."DrynessCode" "DrynessCode"
+	,"qStockPositionWorksOrder"."FinishCode" "FinishCode"
+	,"qStockPositionWorksOrder"."Width" "Width"
+	,"qStockPositionWorksOrder"."Thickness" "Thickness"
+	,"qStockPositionWorksOrder"."Length" "Length"
+	,"qStockPositionWorksOrder"."CustomerName" "CustomerName"
+	,"qStockPositionWorksOrder"."CustomerRef" "CustomerRef"
+	,"qStockPositionWorksOrder"."CubeOrdered" "CubeOrdered"
+	,"qStockPositionWorksOrder"."CubeMoved" "CubeMoved"
+	,"qStockPositionWorksOrder"."PacketsOrdered" "PacketsOrdered"
+	,"qStockPositionWorksOrder"."PacketsMoved" "PacketsMoved"
+	,"qStockPositionWorksOrder"."Required" "Required"
+	,"qStockPositionWorksOrder"."ProcessCode" "ProcessCode"
+	,"qStockPositionWorksOrder"."ProcessName" "ProcessName"
+	,"qStockPositionWorksOrder"."OperationCode" "OperationCode"
+from "wa"."qStockPositionWorksOrder" "qStockPositionWorksOrder"
+]]></text>
+    </command>
+  </commands>
+  <fields>
+    <field name="BranchID" type="Int32" allowNulls="false" isPrimaryKey="true" label="Branch ID" />
+    <field name="ProductCode" type="String" allowNulls="false" isPrimaryKey="true" label="Product Code" length="50" showInSummary="true" />
+    <field name="OrderNo" type="Int32" allowNulls="false" isPrimaryKey="true" label="Order No" />
+    <field name="OrderItem" type="Int32" allowNulls="false" isPrimaryKey="true" label="Order Item" />
+    <field name="LocationCode" type="String" allowNulls="false" label="Location Code" length="10" showInSummary="true" />
+    <field name="GradeCode" type="String" allowNulls="false" label="Grade Code" length="8" showInSummary="true" />
+    <field name="TreatmentCode" type="String" allowNulls="false" label="Treatment Code" length="5" showInSummary="true" />
+    <field name="DrynessCode" type="String" allowNulls="false" label="Dryness Code" length="3" showInSummary="true" />
+    <field name="FinishCode" type="String" allowNulls="false" label="Finish Code" length="3" />
+    <field name="Width" type="Int16" allowNulls="false" label="Width" />
+    <field name="Thickness" type="Int16" allowNulls="false" label="Thickness" />
+    <field name="Length" type="Decimal" allowNulls="false" label="Length" />
+    <field name="CustomerName" type="String" label="Customer Name" length="255" />
+    <field name="CustomerRef" type="String" label="Customer Ref" length="20" />
+    <field name="CubeOrdered" type="Decimal" allowNulls="false" label="Cube Ordered" />
+    <field name="CubeMoved" type="Decimal" allowNulls="false" label="Cube Moved" />
+    <field name="PacketsOrdered" type="Int32" allowNulls="false" label="Packets Ordered" />
+    <field name="PacketsMoved" type="Int32" allowNulls="false" label="Packets Moved" />
+    <field name="Required" type="DateTime" allowNulls="false" dataFormatString="g" label="Required" />
+    <field name="ProcessCode" type="String" allowNulls="false" label="Process Code" length="5" />
+    <field name="ProcessName" type="String" label="Process Name" length="30" />
+    <field name="OperationCode" type="String" allowNulls="false" label="Operation Code" length="10" />
+  </fields>
+  <views>
+    <view id="grid1" type="Grid" commandId="command1" label="Works Orders">
+      <headerText />
+      <dataFields>
+        <dataField fieldName="ProductCode" columns="50" />
+        <dataField fieldName="OrderItem" columns="15" />
+        <dataField fieldName="ProcessName" columns="30" />
+        <dataField fieldName="OrderNo" columns="15" />
+        <dataField fieldName="BranchID" columns="15" />
+        <dataField fieldName="LocationCode" columns="10" />
+        <dataField fieldName="CustomerName" />
+        <dataField fieldName="CustomerRef" columns="20" />
+        <dataField fieldName="CubeOrdered" columns="15" />
+        <dataField fieldName="CubeMoved" columns="15" />
+        <dataField fieldName="PacketsOrdered" columns="15" />
+        <dataField fieldName="PacketsMoved" columns="15" />
+        <dataField fieldName="Required" columns="20" />
+        <dataField fieldName="OperationCode" columns="10" />
+      </dataFields>
+    </view>
+    <view id="editForm1" type="Form" commandId="command1" label="Works Order Line">
+      <headerText />
+      <categories>
+        <category id="c1" headerText="Works Order" newColumn="true">
+          <description />
+          <dataFields>
+            <dataField fieldName="BranchID" columns="15" />
+            <dataField fieldName="ProductCode" columns="50" />
+            <dataField fieldName="OrderItem" columns="15" />
+            <dataField fieldName="OrderNo" columns="15" />
+            <dataField fieldName="LocationCode" columns="10" />
+            <dataField fieldName="CustomerName" />
+            <dataField fieldName="CustomerRef" columns="20" />
+          </dataFields>
+        </category>
+        <category headerText="Process" id="c4">
+          <dataFields>
+            <dataField fieldName="OperationCode" columns="10" />
+            <dataField fieldName="ProcessCode" columns="5" />
+            <dataField fieldName="ProcessName" columns="30" />
+          </dataFields>
+        </category>
+        <category headerText="Ordered" id="c2" newColumn="true">
+          <dataFields>
+            <dataField fieldName="PacketsMoved" columns="15" />
+            <dataField fieldName="Required" columns="20" />
+            <dataField fieldName="PacketsOrdered" columns="15" />
+            <dataField fieldName="CubeOrdered" columns="15" />
+            <dataField fieldName="CubeMoved" columns="15" />
+          </dataFields>
+        </category>
+        <category headerText="Product" id="c3">
+          <dataFields>
+            <dataField fieldName="Width" columns="15" />
+            <dataField fieldName="Thickness" columns="15" />
+            <dataField fieldName="Length" columns="15" />
+            <dataField fieldName="FinishCode" columns="3" />
+            <dataField fieldName="GradeCode" columns="8" />
+            <dataField fieldName="TreatmentCode" columns="5" />
+            <dataField fieldName="DrynessCode" columns="3" />
+          </dataFields>
+        </category>
+      </categories>
+    </view>
+  </views>
+  <actions>
+    <actionGroup id="ag5" scope="ActionBar" headerText="Actions">
+      <action id="a1" commandName="ExportCsv" />
+      <action id="a2" />
+      <action id="a3" commandName="ExportRowset" />
+      <action id="a4" commandName="ExportRss" />
+      <action id="a5" />
+      <action id="a7" commandName="DataSheet" />
+      <action id="a8" commandName="Grid" />
+    </actionGroup>
+    <actionGroup id="ag7" scope="ActionBar" headerText="Report">
+      <action id="a1" commandName="ReportAsPdf" />
+      <action id="a2" commandName="ReportAsImage" />
+      <action id="a3" commandName="ReportAsExcel" />
+      <action id="a4" commandName="ReportAsWord" />
+    </actionGroup>
+    <actionGroup id="ag1" scope="Grid">
+      <action id="a1" commandName="Select" commandArgument="editForm1" />
+    </actionGroup>
+    <actionGroup id="ag2" scope="Form">
+      <action id="a3" commandName="Cancel" />
+    </actionGroup>
+  </actions>
+</dataController>

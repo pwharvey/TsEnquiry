@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qStockPosition" alias="qStockPosition" created="2016-04-05T18:15:41" modified="2016-04-11T15:22:43" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="ProductCode" name="ProductCode" label="Product Code" primaryKey="true" />
+    <column fieldName="GradeCode" name="GradeCode" label="Grade Code" />
+    <column fieldName="TreatmentCode" name="TreatmentCode" label="Treatment Code" />
+    <column fieldName="DrynessCode" name="DrynessCode" label="Dryness Code" />
+    <column fieldName="FinishCode" name="FinishCode" label="Finish Code" />
+    <column fieldName="Width" name="Width" label="Width" />
+    <column fieldName="Thickness" name="Thickness" label="Thickness" />
+    <column fieldName="Length" name="Length" label="Length" />
+    <column fieldName="FinishWidth" name="FinishWidth" label="Finish Width" />
+    <column fieldName="FinishThickness" name="FinishThickness" label="Finish Thickness" />
+    <column fieldName="Size" name="Size" label="Size" />
+    <column fieldName="SizeAndLength" name="SizeAndLength" label="Size And Length" />
+    <column fieldName="FinishSize" name="FinishSize" label="Finish Size" />
+    <column fieldName="FinishSizeAndLength" name="FinishSizeAndLength" label="Finish Size And Length" />
+    <column fieldName="Gcscode" name="GCSCode" label="GCS Code" />
+    <column fieldName="Gsc" name="GSC" label="Gsc" />
+    <column fieldName="Gcsl" name="GCSL" label="Gcsl" />
+    <column fieldName="Gslc" name="GSLC" label="Gslc" />
+    <column fieldName="Gc" name="GC" label="Gc" />
+    <column fieldName="StockClassificationCode" name="StockClassificationCode" label="Stock Classification Code" />
+    <column fieldName="SopgradeCode" name="SOPGradeCode" label="SOP Grade Code" />
+    <column fieldName="SopgradeName" name="SOPGradeName" label="SOP Grade Name" />
+    <column fieldName="SopgradeCodeAndName" name="SOPGradeCodeAndName" label="SOP Grade Code And Name" />
+    <column fieldName="SopfamilyCode" name="SOPFamilyCode" label="SOP Family Code" />
+    <column fieldName="SopfamilyName" name="SOPFamilyName" label="SOP Family Name" />
+    <column fieldName="SopfamilyCodeAndName" name="SOPFamilyCodeAndName" label="SOP Family Code And Name" />
+    <column fieldName="Active" name="Active" label="Active" />
+    <column fieldName="StockCube" name="StockCube" label="Stock Cube" />
+    <column fieldName="StockPackets" name="StockPackets" label="Stock Packets" />
+    <column fieldName="Wipcube" name="WIPCube" label="WIP Cube" />
+    <column fieldName="Wippackets" name="WIPPackets" label="WIP Packets" />
+    <column fieldName="PickCube" name="PickCube" label="Pick Cube" />
+    <column fieldName="PickPackets" name="PickPackets" label="Pick Packets" />
+    <column fieldName="Dtwcube" name="DTWCube" label="DTW Cube" />
+    <column fieldName="Dtwpackets" name="DTWPackets" label="DTW Packets" />
+    <column fieldName="ConsignmentCube" name="ConsignmentCube" label="Consignment Cube" />
+    <column fieldName="ConsignmentPackets" name="ConsignmentPackets" label="Consignment Packets" />
+    <column fieldName="HeldCube" name="HeldCube" label="Held Cube" />
+    <column fieldName="HeldPackets" name="HeldPackets" label="Held Packets" />
+    <column fieldName="AvailablePackets" name="AvailablePackets" label="Available Packets" />
+    <column fieldName="AvailableCube" name="AvailableCube" label="Available Cube" />
+    <column fieldName="Socube" name="SOCube" label="SO Cube" />
+    <column fieldName="Sopackets" name="SOPackets" label="SO Packets" />
+    <column fieldName="Cocube" name="COCube" label="CO Cube" />
+    <column fieldName="Copackets" name="COPackets" label="CO Packets" />
+    <column fieldName="EnquiryCube" name="EnquiryCube" label="Enquiry Cube" />
+    <column fieldName="EnquiryPackets" name="EnquiryPackets" label="Enquiry Packets" />
+    <column fieldName="PacketPosition" name="PacketPosition" label="Packet Position" />
+    <column fieldName="CubePosition" name="CubePosition" label="Cube Position" />
+    <column name="BranchName" fieldName="BranchName" label="Branch Name" />
+    <column name="AllocatedCube" fieldName="AllocatedCube" label="Allocated Cube" />
+    <column name="AllocatedPackets" fieldName="AllocatedPackets" label="Allocated Packets" />
+    <column name="InTransitCube" fieldName="InTransitCube" label="In Transit Cube" />
+    <column name="InTransitPackets" fieldName="InTransitPackets" label="In Transit Packets" />
+    <column name="POCube" fieldName="Pocube" label="Pocube" />
+    <column name="POPackets" fieldName="Popackets" label="Popackets" />
+    <column name="BTCube" fieldName="Btcube" label="Btcube" />
+    <column name="BTPackets" fieldName="Btpackets" label="Btpackets" />
+    <column name="CubePositionExcludingPO" fieldName="CubePositionExcludingPO" label="Cube Position Excluding PO" />
+    <column name="PacketPositionExcludingPO" fieldName="PacketPositionExcludingPO" label="Packet Position Excluding PO" />
+    <column name="WOCube" fieldName="Wocube" label="Wocube" />
+    <column name="WOPackets" fieldName="Wopackets" label="Wopackets" />
+    <column name="StockClass" fieldName="StockClass" label="Stock Class" />
+    <column name="BranchID" fieldName="BranchID" label="Branch ID" primaryKey="true" />
+  </columns>
+</dataModel>

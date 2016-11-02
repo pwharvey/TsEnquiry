@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<dataModel baseSchema="wa" baseTable="qEnquiryDespatchDocket" alias="qEnquiryDespatchDocket" created="2016-08-14T15:36:15" modified="2016-08-14T15:36:47" x="20" y="20" xmlns="urn:schemas-codeontime-com:data-model">
+  <foreignKeys />
+  <columns>
+    <column fieldName="DespatchID" name="DespatchID" label="Despatch ID" primaryKey="true" />
+    <column fieldName="DespatchDocketNo" name="DespatchDocketNo" label="Despatch Docket No" />
+    <column fieldName="DespatchDate" name="DespatchDate" label="Despatch Date" format="g" />
+    <column fieldName="PickingOrderNo" name="PickingOrderNo" label="Picking Order No" />
+    <column fieldName="DespatchTypeName" name="DespatchTypeName" label="Despatch Type Name" />
+    <column fieldName="TruckID" name="TruckID" label="Truck ID" />
+    <column fieldName="CarrierName" name="CarrierName" label="Carrier Name" />
+    <column fieldName="DeliverToName" name="DeliverToName" label="Deliver To Name" />
+    <column fieldName="LoadSize" name="LoadSize" label="Load Size" />
+    <column fieldName="Time" name="Time" label="Time" />
+    <column fieldName="LocationCode" name="LocationCode" label="Location Code" />
+    <column fieldName="Return" name="Return" label="Return" />
+    <column fieldName="TotalNetCube" name="TotalNetCube" label="Total Net Cube" format="c" />
+    <column fieldName="FreightRate" name="FreightRate" label="Freight Rate" format="c" />
+    <column fieldName="ArriveTime" name="ArriveTime" label="Arrive Time" format="g" />
+    <column fieldName="DespatchTime" name="DespatchTime" label="Despatch Time" format="g" />
+    <column fieldName="InvoiceNo" name="InvoiceNo" label="Invoice No" />
+    <column fieldName="InvoiceDate" name="InvoiceDate" label="Invoice Date" format="g" />
+  </columns>
+</dataModel>
