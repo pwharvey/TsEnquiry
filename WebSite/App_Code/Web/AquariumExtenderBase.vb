@@ -177,9 +177,6 @@ Namespace RedStag.Web
                 scripts.Add(CreateScriptReference("~/Scripts/daf-menu.js"))
             End If
             scripts.Add(CreateScriptReference("~/Scripts/daf.js"))
-            If (Not (isMobile) AndAlso New ControllerUtilities().SupportsScrollingInDataSheet) Then
-                scripts.Add(CreateScriptReference("~/Scripts/daf-extensions.js"))
-            End If
             If EnableCombinedScript Then
                 scripts.Add(CreateScriptReference("~/Scripts/daf-membership.js"))
             End If
@@ -218,13 +215,13 @@ Namespace RedStag.Web
                 If (Not (String.IsNullOrEmpty(designerPort)) AndAlso Not (Controller.UserIsInRole(ApplicationServices.SiteContentDevelopers))) Then
                     designerPort = String.Empty
                 End If
-                p.ClientScript.RegisterStartupScript(GetType(AquariumExtenderBase), "TargetFramework", String.Format("var __targetFramework=""4.6"",__tf=4.0,__servicePath=""{0}"",__baseUrl=""{1}"",__design"& _ 
-                            "erPort=""{2}"";", p.ResolveClientUrl(AquariumExtenderBase.DefaultServicePath), p.ResolveClientUrl("~"), designerPort), true)
+                p.ClientScript.RegisterStartupScript(GetType(AquariumExtenderBase), "TargetFramework", String.Format("var __targetFramework=""4.6"",__tf=4.01,__servicePath=""{0}"",__baseUrl=""{1}"",__desig"& _ 
+                            "nerPort=""{2}"";", p.ResolveClientUrl(AquariumExtenderBase.DefaultServicePath), p.ResolveClientUrl("~"), designerPort), true)
                 p.ClientScript.RegisterStartupScript(GetType(AquariumExtenderBase), "TouchUI", String.Format("var __settings={{appInfo:""TsEnquiry|{0}"",mobileDisplayDensity:""Auto"",desktopDispl"& _ 
                             "ayDensity:""Condensed"",mapApiIdentifier:""{1}"",labelsInList:""DisplayedBelow"",initi"& _ 
                             "alListMode:""SeeAll"",buttonShapes:true,smartDates:true,sidebar:""Landscape"",promot"& _ 
-                            "eActions:true,transitions:"""",theme:""Aquarium"",maxPivotRowCount: {2},help:true,ui"& _ 
-                            ":""TouchUI""{3}}};", BusinessRules.JavaScriptString(HttpContext.Current.User.Identity.Name), ApplicationServices.MapsApiIdentifier, ApplicationServices.Create().MaxPivotRowCount, siteContent), true)
+                            "eActions:true,transitions:"""",theme:""Light"",maxPivotRowCount: {2},help:true{3}}};"& _ 
+                            "", BusinessRules.JavaScriptString(HttpContext.Current.User.Identity.Name), ApplicationServices.MapsApiIdentifier, ApplicationServices.Create().MaxPivotRowCount, siteContent), true)
             End If
         End Sub
         

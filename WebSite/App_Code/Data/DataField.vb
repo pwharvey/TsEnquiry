@@ -127,9 +127,6 @@ Namespace RedStag.Data
         Private m_AllowSorting As Boolean
         
         <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
-        Private m_AllowLEV As Boolean
-        
-        <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
         Private m_DataFormatString As String
         
         <System.Diagnostics.DebuggerBrowsable(System.Diagnostics.DebuggerBrowsableState.Never)>  _
@@ -336,7 +333,6 @@ Namespace RedStag.Data
             Me.m_AllowNulls = Not ((field.GetAttribute("allowNulls", String.Empty) = "false"))
             Me.m_Hidden = (field.GetAttribute("hidden", String.Empty) = "true")
             Me.m_AllowQBE = Not ((field.GetAttribute("allowQBE", String.Empty) = "false"))
-            Me.m_AllowLEV = (field.GetAttribute("allowLEV", String.Empty) = "true")
             Me.m_AllowSorting = Not ((field.GetAttribute("allowSorting", String.Empty) = "false"))
             Me.m_SourceFields = field.GetAttribute("sourceFields", String.Empty)
             Dim onDemandStyle As String = field.GetAttribute("onDemandStyle", String.Empty)
@@ -403,7 +399,6 @@ Namespace RedStag.Data
             Me.m_AllowNulls = field.AllowNulls
             Me.m_AllowQBE = field.AllowQBE
             Me.m_AllowSorting = field.AllowSorting
-            Me.m_AllowLEV = field.AllowLEV
             Me.m_DataFormatString = field.DataFormatString
             Me.m_Aggregate = field.Aggregate
             If Not (Me.m_DataFormatString.Contains("{")) Then
@@ -563,15 +558,6 @@ Namespace RedStag.Data
             End Get
             Set
                 Me.m_AllowSorting = value
-            End Set
-        End Property
-        
-        Public Property AllowLEV() As Boolean
-            Get
-                Return Me.m_AllowLEV
-            End Get
-            Set
-                Me.m_AllowLEV = value
             End Set
         End Property
         

@@ -42,16 +42,7 @@ Namespace RedStag.Web
                 descriptor.AddProperty("user", Properties("User"))
             End If
             descriptor.AddProperty("displayHelp", Properties("DisplayHelp"))
-            descriptor.AddProperty("enableHistory", Properties("EnableHistory"))
-            descriptor.AddProperty("enablePermalinks", Properties("EnablePermalinks"))
             descriptor.AddProperty("displayLogin", Properties("DisplayLogin"))
-            If Properties.ContainsKey("IdleUserTimeout") Then
-                descriptor.AddProperty("idleTimeout", Properties("IdleUserTimeout"))
-            End If
-            Dim cultures As String = CType(Properties("Cultures"),String)
-            If (cultures.Split(New Char() {Global.Microsoft.VisualBasic.ChrW(59)}, StringSplitOptions.RemoveEmptyEntries).Length > 1) Then
-                descriptor.AddProperty("cultures", cultures)
-            End If
         End Sub
         
         Protected Overrides Sub ConfigureScripts(ByVal scripts As List(Of ScriptReference))
