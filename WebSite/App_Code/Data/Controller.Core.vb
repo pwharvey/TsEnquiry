@@ -8,7 +8,6 @@ Imports System.Data
 Imports System.Data.Common
 Imports System.IO
 Imports System.Linq
-Imports System.Security.Cryptography
 Imports System.Text
 Imports System.Text.RegularExpressions
 Imports System.Transactions
@@ -435,29 +434,6 @@ Namespace RedStag.Data
                         End If
                     Loop
                     reader.Close()
-                End If
-                If (request.RequiresFirstLetters AndAlso Not ((Me.m_ViewType = "Form"))) Then
-                    If Not (page.RequiresRowCount) Then
-                        page.FirstLetters = String.Empty
-                    Else
-                        Dim firstLettersCommand As DbCommand = CreateCommand(connection)
-                        Dim oldFilter() As String = page.Filter
-                        ConfigureCommand(firstLettersCommand, page, CommandConfigurationType.SelectFirstLetters, Nothing)
-                        page.Filter = oldFilter
-                        If Not (String.IsNullOrEmpty(page.FirstLetters)) Then
-                            Dim reader As DbDataReader = firstLettersCommand.ExecuteReader()
-                            Dim firstLetters As StringBuilder = New StringBuilder(page.FirstLetters)
-                            Do While reader.Read()
-                                firstLetters.Append(",")
-                                Dim letter As String = Convert.ToString(reader(0))
-                                If Not (String.IsNullOrEmpty(letter)) Then
-                                    firstLetters.Append(letter)
-                                End If
-                            Loop
-                            reader.Close()
-                            page.FirstLetters = firstLetters.ToString()
-                        End If
-                    End If
                 End If
             End Using
             If (Not (m_Config.PlugIn) Is Nothing) Then
@@ -1091,45 +1067,9 @@ Namespace RedStag.Data
         End Function
         
         Protected Overridable Sub EnsureSystemPageFields(ByVal request As PageRequest, ByVal page As ViewPage, ByVal command As DbCommand)
-            If Not (RequiresHierarchy(page)) Then
-                Return
-            End If
-            Dim requiresHierarchyOrganization As Boolean = false
-            For Each field As DataField in page.Fields
-                If field.IsTagged("hierarchy-parent") Then
-                    requiresHierarchyOrganization = true
-                Else
-                    If field.IsTagged("hierarchy-organization") Then
-                        requiresHierarchyOrganization = false
-                        Exit For
-                    End If
-                End If
-            Next
-            If requiresHierarchyOrganization Then
-                Dim field As DataField = New DataField()
-                field.Name = HierarchyOrganizationFieldName
-                field.Type = "String"
-                field.Tag = "hierarchy-organization"
-                field.Len = 255
-                field.Columns = 20
-                field.Hidden = true
-                field.ReadOnly = true
-                page.Fields.Add(field)
-            End If
         End Sub
         
         Protected Overridable Function RequiresHierarchy(ByVal page As ViewPage) As Boolean
-            If Not ((GetRequestedViewType(page) = "DataSheet")) Then
-                Return false
-            End If
-            For Each field As DataField in page.Fields
-                If field.IsTagged("hierarchy-parent") Then
-                    If ((Not (page.Filter) Is Nothing) AndAlso (page.Filter.Length > 0)) Then
-                        Return false
-                    End If
-                    Return true
-                End If
-            Next
             Return false
         End Function
         
@@ -1314,45 +1254,12 @@ Namespace RedStag.Data
     
     Public Class StringEncryptorBase
         
-        Public Overridable ReadOnly Property Key() As Byte()
-            Get
-                Return New Byte() {253, 124, 8, 201, 31, 27, 89, 189, 251, 47, 198, 241, 38, 78, 198, 193, 18, 179, 209, 220, 34, 84, 178, 99, 193, 84, 64, 15, 188, 98, 101, 153}
-            End Get
-        End Property
-        
-        Public Overridable ReadOnly Property IV() As Byte()
-            Get
-                Return New Byte() {87, 84, 163, 98, 205, 255, 139, 173, 16, 88, 88, 254, 133, 176, 55, 112}
-            End Get
-        End Property
-        
         Public Overridable Function Encrypt(ByVal s As String) As String
-            Dim plainText() As Byte = Encoding.Default.GetBytes(String.Format("{0}$${1}", s, s.GetHashCode()))
-            Dim cipherText() As Byte
-            Using output As MemoryStream = New MemoryStream()
-                Using cOutput As Stream = New CryptoStream(output, Aes.Create().CreateEncryptor(Key, IV), CryptoStreamMode.Write)
-                    cOutput.Write(plainText, 0, plainText.Length)
-                End Using
-                cipherText = output.ToArray()
-            End Using
-            Return Convert.ToBase64String(cipherText)
+            Return Convert.ToBase64String(Encoding.Default.GetBytes(s))
         End Function
         
         Public Overridable Function Decrypt(ByVal s As String) As String
-            Dim cipherText() As Byte = Convert.FromBase64String(s)
-            Dim plainText() As Byte
-            Using output As MemoryStream = New MemoryStream()
-                Using cOutput As Stream = New CryptoStream(output, Aes.Create().CreateDecryptor(Key, IV), CryptoStreamMode.Write)
-                    cOutput.Write(cipherText, 0, cipherText.Length)
-                End Using
-                plainText = output.ToArray()
-            End Using
-            Dim plain As String = Encoding.Default.GetString(plainText)
-            Dim parts() As String = plain.Split(New String() {"$$"}, StringSplitOptions.None)
-            If (Not ((parts.Length = 2)) OrElse Not ((parts(0).GetHashCode() = Convert.ToInt32(parts(1))))) Then
-                Throw New Exception("Attempt to alter the hashed URL.")
-            End If
-            Return parts(0)
+            Return Encoding.Default.GetString(Convert.FromBase64String(s))
         End Function
     End Class
 End Namespace
