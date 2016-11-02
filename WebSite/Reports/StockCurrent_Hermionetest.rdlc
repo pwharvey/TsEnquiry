@@ -891,13 +891,13 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>1.35in</Height>
+    <Height>3.429cm</Height>
     <Style />
   </Body>
-  <Width>10.63971in</Width>
+  <Width>25.4cm</Width>
   <Page>
     <PageHeader>
-      <Height>0.375in</Height>
+      <Height>0.9525cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -940,7 +940,7 @@
       </Style>
     </PageHeader>
     <PageFooter>
-      <Height>0.35in</Height>
+      <Height>0.889cm</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <PrintOnLastPage>true</PrintOnLastPage>
       <ReportItems>
@@ -962,6 +962,7 @@
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>textbox6</rd:DefaultName>
+          <Top>0cm</Top>
           <Left>6in</Left>
           <Height>0.25in</Height>
           <Width>4in</Width>
@@ -975,12 +976,13 @@
       </ReportItems>
       <Style />
     </PageFooter>
-    <PageHeight>8.5in</PageHeight>
-    <PageWidth>11in</PageWidth>
-    <LeftMargin>0.5in</LeftMargin>
-    <RightMargin>0.5in</RightMargin>
-    <TopMargin>0.5in</TopMargin>
-    <BottomMargin>0.5in</BottomMargin>
+    <PageHeight>21cm</PageHeight>
+    <PageWidth>29.7cm</PageWidth>
+    <LeftMargin>0.5cm</LeftMargin>
+    <RightMargin>0.5cm</RightMargin>
+    <TopMargin>0.5cm</TopMargin>
+    <BottomMargin>0.5cm</BottomMargin>
+    <ColumnSpacing>1.27cm</ColumnSpacing>
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>
@@ -1219,6 +1221,6 @@
     </ReportParameter>
   </ReportParameters>
   <Language>en-US</Language>
-  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportUnitType>Cm</rd:ReportUnitType>
   <rd:ReportID>e4adbe97-a69d-4bd2-8bc7-c877946945d9</rd:ReportID>
 </Report>
